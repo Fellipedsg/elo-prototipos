@@ -248,6 +248,22 @@ html.native .tabbar { height: auto; padding-bottom: max(8px, env(safe-area-inset
 .qa:active { transform: scale(.97); }
 .err { color: var(--verm-700); font-weight: 700; display: flex; align-items: center; gap: 6px; }
 .ttl.row h1 { line-height: 1.2; }
+
+/* Theo no centro */
+.tabbar { padding: 6px 4px 0; }
+.tabbar .tab { width: auto; flex: 1 1 0; min-width: 0; }
+.tabbar .tab span { width: 56px; }
+.token { font-family: var(--f-tit); font-weight: 800; font-size: 30px; letter-spacing: .08em; color: var(--azul-900); background: var(--azul-50); border-radius: 12px; padding: 10px 14px; text-align: center; font-variant-numeric: tabular-nums; }
+.pedido { width: 100%; background: var(--azul-50); color: var(--link); text-align: left; }
+.circ { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; flex: none; overflow: hidden; }
+.docthumb { background: var(--azul-50); color: var(--link); border-radius: 12px; }
+.docthumb img { width: 100%; height: 100%; object-fit: cover; }
+.docprev { min-height: 160px; max-height: 260px; border-radius: var(--r-card); background: var(--fundo); border: 1px solid var(--borda); display: grid; place-items: center; overflow: hidden; color: var(--texto2); }
+.docprev img { width: 100%; max-height: 260px; object-fit: contain; }
+.upl { position: relative; cursor: pointer; }
+.upl:focus-within { outline: 3px solid var(--azul-500); outline-offset: 2px; }
+.sr-file { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; }
+.opt.fmt { justify-content: space-between; padding: 12px 16px; min-height: 64px; }
 </style></head><body>
 <div class="stage"><div class="stage-head"><span id="hl"></span><h1>Protótipo navegável · App da família</h1><p>Comece pelo login e navegue como a Mariana. No Modo Criança, segure o cadeado por 3 segundos para sair.</p></div><div class="phone"><div id="app"></div></div></div>
 <button class="telas-btn" id="telasBtn" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>Telas</button>
@@ -281,6 +297,10 @@ alvo:'<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx=
 atividade:'<path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/>',
 cartao:'<rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/>',
 usuario:'<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+camera:'<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/>',
+lixo:'<path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>',
+escola:'<path d="M3 21h18"/><path d="M5 21V10l7-5 7 5v11"/><path d="M10 21v-5h4v5"/><circle cx="12" cy="11" r="2"/>',
+escudo:'<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
 raio:'<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>',
 quebra:'<path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/>',
 elo:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',
@@ -323,6 +343,23 @@ const AREA = { Fono: 'fono', TO: 'to', Psicologia: 'psico', ABA: 'aba', 'Famíli
 const pillArea = a => `<span class="pill p-${AREA[a] || 'neutra'}">${esc(a)}</span>`;
 const av = (t, s = '') => `<span class="av ${s}">${esc(t)}</span>`;
 
+
+// ===== Exportação (arquivos gerados no aparelho) =====
+function baixarArquivo(nome, mime, texto) {
+  const blob = new Blob([texto], { type: mime + ';charset=utf-8' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nome;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+const csvLinha = (cols) => cols.map(c => '"' + String(c ?? '').replace(/"/g, '""') + '"').join(';');
+function abrirRelatorio(titulo, subtitulo, secoes) {
+  const css = 'body{font-family:Arial,Helvetica,sans-serif;color:#161C28;max-width:820px;margin:32px auto;padding:0 20px;line-height:1.45}h1{font-size:24px;margin:0}h2{font-size:17px;margin:28px 0 8px;border-bottom:2px solid #DDE2EA;padding-bottom:6px}.sub{color:#5A6475;margin:4px 0 16px}.aviso{background:#FFF8DB;border-radius:8px;padding:10px 14px;font-size:13px}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:7px 8px;border-bottom:1px solid #DDE2EA;vertical-align:top}th{background:#F6F8FB}button{font:inherit;font-weight:700;background:#1F5BD6;color:#fff;border:0;border-radius:10px;padding:10px 18px;cursor:pointer}@media print{button{display:none}}';
+  const esc2 = (x) => String(x ?? '').replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  const corpo = secoes.map(([t, cab, linhas]) => `<h2>${esc2(t)}</h2>` + (linhas.length ? `<table><tr>${cab.map(c => `<th>${esc2(c)}</th>`).join('')}</tr>${linhas.map(l => `<tr>${l.map(c => `<td>${esc2(c)}</td>`).join('')}</tr>`).join('')}</table>` : '<p>Nada neste período.</p>')).join('');
+  const html = `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>${esc2(titulo)}</title><style>${css}</style></head><body><p><button onclick="print()">Imprimir ou salvar em PDF</button></p><h1>${esc2(titulo)}</h1><p class="sub">${esc2(subtitulo)}</p><p class="aviso">Este documento contém dados de saúde, protegidos pela LGPD. Guarde em local seguro e compartilhe só com quem precisa.</p>${corpo}<p class="sub" style="margin-top:28px">Gerado pelo Elo (protótipo, dados fictícios).</p></body></html>`;
+  const url = URL.createObjectURL(new Blob([html], { type: 'text/html;charset=utf-8' }));
+  const w = window.open(url, '_blank'); if (!w) baixarArquivo(titulo.replace(/\s+/g, '-').toLowerCase() + '.html', 'text/html', html);
+}
+
 // ===== Apresentação inicial =====
 function intro(slides, onDone) {
   let i = 0;
@@ -360,6 +397,12 @@ const artCircle = (k, bg, fg, extra = '') => `<span class="art-circle" style="ba
 // ===== Elo · protótipo navegável do app da família =====
 const S = {
   hist: [], cur: 'login', kid: 1, phrase: [], chatWith: 'AL', fizemos: false,
+  token: { code: 'ELO-TH7-4821', ate: '15:30' }, pedOk: false, codOk: true,
+  pedidos: [{ ini: 'BC', nome: 'Dra. Beatriz Costa', area: 'Fono', reg: 'CRFa 0-00002', clinica: 'Clínica Raízes', h: '14:12', perms: { rotina: true, crises: true, docs: false, ativ: true, conversa: true } }],
+  vinc: { AL: true, CM: true, JR: true, MT: true }, desv: null, desvMotivo: '', excluirAsk: false,
+  docs: [{ id: 1, nome: 'Laudo neurológico', tipo: 'Laudo', data: '05/02/2025', origem: 'Enviado por você', kind: 'pdf', vis: { clinica: true, escola: false } }, { id: 2, nome: 'Relatório de avaliação de outubro', tipo: 'Relatório', data: '28/10/2026', origem: 'Dra. Ana Lima · Clínica Raízes', kind: 'pdf', vis: { clinica: true, escola: false } }, { id: 3, nome: 'Audiometria', tipo: 'Exame', data: '12/08/2025', origem: 'Enviado por você', kind: 'img', vis: { clinica: true, escola: false } }],
+  docFiltro: 'Todos', novoDoc: null, docSel: null, docDelAsk: false,
+  exp: { itens: ['Diário e crises', 'Atividades e respostas', 'Documentos e laudos'], formato: 'Relatório para ler' },
   perfil: 'familia', aceito: false, fOrig: 'todos', alerta: { h: '10:24', t: 'Crise média no recreio' }, escKid: 3, eativ: null, removeAsk: -1,
   conv: { nome: '', funcao: 'Mediadora', escola: 'Escola Municipal Girassol', contato: '', ate: 'Fim do ano letivo (19/12)', ok: false, err: false, edit: -1, perms: { rotina: true, atividades: true, crises: true, conquistas: true, objetivos: false, clinica: false } },
   ecrise: { como: 'Média', onde: 'Recreio', antes: ['Barulho'], ajudou: ['Fone', 'Lugar calmo'], plano: 'Sim, ajudou' },
@@ -401,9 +444,28 @@ const est = (i) => i < S.escKid ? 'Feito' : i === S.escKid ? 'Agora' : 'Depois';
 const sel3 = (key, obj, field, opts, multi) => `<div class="opts">${opts.map(l => { const on = multi ? obj[field].includes(l) : obj[field] === l; return `<button class="opt" aria-pressed="${on}" data-eopt="${key}" data-f="${field}" data-v="${l}" data-multi="${multi ? 1 : 0}">${l}${on ? ic('check', 18) : ''}</button>`; }).join('')}</div>`;
 const escTab = (a) => `<nav class="tabbar" aria-label="Menu da escola">${[['alunos', 'Alunos', 'equipe'], ['eregistros', 'Registros', 'diario'], ['econversas', 'Conversas', 'mensagem']].map(([id, l, k]) => `<button class="tab" data-go="${id}" data-root ${a === id ? 'aria-current="page"' : ''}><span>${ic(k, 24)}</span>${l}</button>`).join('')}</nav>`;
 const origPill = (e) => e.orig === 'escola' ? `<span class="pill p-escola">${ic('escola', 14)}Escola · ${esc(e.autor.split(' · ')[0])}</span>` : '';
+const PPERMS = [['rotina', 'Rotina e diário', 'O dia a dia que você registra.'], ['crises', 'Crises', 'Registros de casa e da escola.'], ['docs', 'Documentos e laudos', 'Só os arquivos que você marcar.'], ['ativ', 'Enviar atividades', 'Para casa ou para a escola.'], ['conversa', 'Conversar com você', 'Conversa só entre vocês.']];
+const ACESSOS_CLI = [['AL', 'Dra. Ana Lima abriu o diário', 'hoje, 09:12'], ['JR', 'Júlia Rocha abriu o laudo neurológico', 'ontem, 16:40'], ['CM', 'Carlos Mendes viu as crises da semana', 'ontem, 10:05']];
+const EXP_ITENS = ['Diário e crises', 'Rotina', 'Atividades e respostas', 'Documentos e laudos', 'Prontuário compartilhado pela clínica'];
+const EXP_FMT = [['Relatório para ler', 'Abre uma página pronta para imprimir ou salvar em PDF.'], ['Planilha (CSV)', 'Para abrir no Excel ou no Google Planilhas.'], ['Cópia completa (JSON)', 'Todos os dados num arquivo, para levar a outro sistema.']];
+const kb = (n) => n > 1048576 ? (n / 1048576).toFixed(1).replace('.', ',') + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB';
+const visTxt = (d) => d.vis.clinica && d.vis.escola ? 'Clínica e escola podem ver' : d.vis.clinica ? 'A Clínica Raízes pode ver' : d.vis.escola ? 'A escola pode ver' : 'Só você vê';
+const vincResumo = () => `${Object.keys(PROS).filter(k => S.vinc[k]).length} profissionais · ${S.esc.filter(e => !e.pend).length} da escola`;
+const pedBanner = () => S.pedidos.length ? `<button class="banner pedido" data-go="pedido">${ic('usuario', 22)}<span class="grow"><b style="display:block">Pedido de vínculo</b><span class="small" style="font-weight:400">${esc(S.pedidos[0].nome)} quer acompanhar o Theo</span></span>Ver</button>` : '';
+function gerarExport() { const e = S.exp, inc = (t) => e.itens.includes(t), linhas = [];
+  if (inc('Diário e crises')) S.diario.forEach(x => linhas.push(['Diário', x.d + '/' + (x.m === 'OUT' ? '10' : '11') + '/2026', x.h, x.t, x.det, x.orig === 'escola' ? 'Escola · ' + x.autor : 'Casa']));
+  if (inc('Rotina')) ROT.forEach(([, t, h]) => linhas.push(['Rotina', 'todos os dias', h, t, '', 'Casa']));
+  if (inc('Atividades e respostas')) linhas.push(['Atividade', '03/11/2026', '', 'Pedir objetos com 2 palavras', S.fizemos ? 'Fizemos! (hoje)' : 'Ainda não marcada', 'Dra. Ana Lima · Fono'], ['Atividade', '08/11/2026', '', 'Usar o fone antes do recreio', S.eativ ? 'Feito na escola: ' + S.eativ.toLowerCase() : 'Ainda não marcada', 'Carlos Mendes · TO']);
+  if (inc('Documentos e laudos')) S.docs.forEach(d => linhas.push(['Documento', d.data, '', d.nome, d.tipo + ' · ' + visTxt(d), d.origem]));
+  if (inc('Prontuário compartilhado pela clínica')) linhas.push(['Prontuário', '06/11/2026', '14:00', 'Sessão de Fono', 'Pediu com 2 palavras em 6 de 10 tentativas.', 'Dra. Ana Lima'], ['Prontuário', '04/11/2026', '10:00', 'Sessão de TO', 'Tolerou o som do liquidificador por 3 min usando fone.', 'Carlos Mendes']);
+  const cab = ['Tipo', 'Data', 'Hora', 'Título', 'Detalhe', 'Origem'];
+  if (e.formato.startsWith('Planilha')) baixarArquivo('elo-theo-dados.csv', 'text/csv', '﻿' + [cab, ...linhas].map(csvLinha).join('\r\n'));
+  else if (e.formato.startsWith('Cópia')) baixarArquivo('elo-theo-dados.json', 'application/json', JSON.stringify({ paciente: { nome: 'Theo', idade: 6, responsavel: 'Mariana' }, gerado_em: new Date().toISOString(), itens: e.itens, registros: linhas.map(l => Object.fromEntries(cab.map((c, i) => [c.toLowerCase(), l[i]]))) }, null, 2));
+  else abrirRelatorio('Dados do Theo', 'Exportado por Mariana (responsável) · ' + e.itens.join(', '), [...new Set(linhas.map(l => l[0]))].map(t => [t, cab.slice(1), linhas.filter(l => l[0] === t).map(l => l.slice(1))]));
+  S.log.unshift(['MA', 'Você exportou os dados do Theo', 'agora']); }
 const sb = (dark) => `<div class="sb ${dark ? 'dark' : ''}"><span>9:41</span><i></i></div>`;
 const hdr = (t, right = '') => `<div class="hdr"><button class="iconbtn" data-back aria-label="Voltar">${ic('voltar', 24)}</button><h2>${t}</h2>${right}</div>`;
-const tabbar = (a) => `<nav class="tabbar" aria-label="Menu principal">${[['inicio', 'Início', 'casa'], ['rotina', 'Rotina', 'rotina'], ['diario', 'Diário', 'diario'], ['equipe', 'Equipe', 'equipe']].map(([id, l, k]) => `<button class="tab" data-go="${id}" data-root ${a === id ? 'aria-current="page"' : ''}><span>${ic(k, 24)}</span>${l}</button>`).join('')}</nav>`;
+const tabbar = (a) => `<nav class="tabbar" aria-label="Menu principal">${[['inicio', 'Início', 'casa'], ['rotina', 'Rotina', 'rotina'], ['diario', 'Diário', 'diario'], ['equipe', 'Equipe', 'equipe'], ['perfil', 'Theo', 'usuario']].map(([id, l, k]) => `<button class="tab" data-go="${id}" data-root ${a === id ? 'aria-current="page"' : ''}><span>${ic(k, 24)}</span>${l}</button>`).join('')}</nav>`;
 const btn = (l, t = 'prim', a = '', icon = '', full = true) => `<button class="btn b-${t} ${full ? 'full' : ''}" ${a}>${icon ? ic(icon, 20) : ''}${l}</button>`;
 const field = (l, ph, k, type = 'text', val = '') => `<label class="field"><span>${l}</span><span class="inp">${ic(k, 20)}<input type="${type}" placeholder="${ph}" value="${val}"></span></label>`;
 const statusPill = (s) => `<span class="pill p-${s === 'Feito' ? 'feito' : s === 'Agora' ? 'agora' : 'depois'}">${s === 'Feito' ? ic('check', 14) : ''}${s}</span>`;
@@ -426,10 +488,10 @@ const V = {
   codigo: () => `<div class="scr">${sb()}${hdr('Código da clínica')}<div class="body" style="gap:20px">
     <p class="muted">Digite o código que a clínica enviou.</p>${field('Código', 'Ex.: RAIZ-4821', 'codigo', 'text', 'RAIZ-4821')}
     <div class="row card" style="background:var(--verde-50);border:0"><span class="av" style="background:var(--verde-700);color:#fff">${ic('check', 20)}</span><div><b>Clínica Raízes</b><p class="small" style="color:var(--verde-700);font-weight:700">Paciente: Theo, 6 anos</p></div></div>
-    <div class="row card" style="background:var(--fundo);border:0"><p class="small grow">Autorizo a Clínica Raízes a registrar os dados de saúde do Theo e a compartilhá-los comigo.</p><button class="tog" role="switch" aria-checked="true" data-toggle aria-label="Consentimento"></button></div>
-    <div style="flex:1"></div>${btn('Vincular e entrar', 'prim', 'data-go="inicio" data-root')}</div></div>`,
+    <div class="row card" style="background:var(--fundo);border:0"><p class="small grow">Autorizo a Clínica Raízes a registrar os dados de saúde do Theo e a compartilhá-los comigo.</p><button class="tog" role="switch" aria-checked="${S.codOk}" data-cod-ok aria-label="Consentimento"></button></div>
+    <div style="flex:1"></div>${btn('Vincular e entrar', 'prim', 'data-go="inicio" data-root' + (S.codOk ? '' : ' disabled'))}${S.codOk ? '' : '<p class="small muted" style="text-align:center">Ative a autorização para vincular.</p>'}</div></div>`,
   inicio: () => `<div class="scr"><div class="hero">${sb(true)}<div class="who">${av('MA', 'm')}<div class="grow"><h1>Olá, Mariana!</h1><p class="small">Theo · 6 anos</p></div><button class="bell" data-go="diario" aria-label="Notificações">${ic('sino', 24)}</button></div></div>
-    <div class="sheet">${S.alerta ? `<button class="banner alerta" data-ver-escola>${ic('escola', 22)}<span class="grow"><b style="display:block">A escola registrou: ${esc(S.alerta.t)}</b><span class="small" style="font-weight:400">${S.alerta.h} · Ana Paula Reis</span></span>Ver</button>` : ''}<div class="shortcuts">
+    <div class="sheet">${pedBanner()}${S.alerta ? `<button class="banner alerta" data-ver-escola>${ic('escola', 22)}<span class="grow"><b style="display:block">A escola registrou: ${esc(S.alerta.t)}</b><span class="small" style="font-weight:400">${S.alerta.h} · Ana Paula Reis</span></span>Ver</button>` : ''}<div class="shortcuts">
       <button class="sc" data-go="kid"><span class="c-azul">${ic('quebra', 26)}</span>Modo Criança</button>
       <button class="sc" data-go="atividade"><span class="c-verm">${ic('atividade', 26)}</span>Atividades</button>
       <button class="sc" data-go="objetivos"><span class="c-amar">${ic('alvo', 26)}</span>Objetivos</button>
@@ -450,7 +512,7 @@ const V = {
       ${e.com ? `<div class="comment">${av(e.ini)}<div><p class="small link">${e.who}</p><p class="small">${esc(e.com)}</p></div></div>` : e.novo ? `<p class="small muted">${ic('relogio', 14)} A equipe ainda não comentou.</p>` : ''}</div>`; }).join('')}</div>${tabbar('diario')}</div>`; },
   equipe: () => `<div class="scr bg">${sb()}<div class="ttl"><h1>Equipe do Theo</h1><p class="small muted">Clínica Raízes</p></div>
     <div class="body" style="gap:10px;padding-top:12px"><div class="banner" style="background:var(--verde-50);color:var(--verde-700)">${ic('passar', 20)}<span>Júlia Rocha assumiu o caso de Paula Souza em 28/10 (Psicologia).</span></div>
-    ${Object.entries(PROS).map(([k, [n, a, s]]) => `<div class="card row" style="padding:14px">${av(k)}<div class="grow col" style="gap:4px"><b>${n}</b><div>${pillArea(a)}</div><p class="small muted">${s}</p></div><button class="btn sm b-sec" data-chat="${k}">Conversar</button></div>`).join('')}
+    ${Object.entries(PROS).filter(([k]) => S.vinc[k]).length ? '' : `<div class="card col" style="gap:8px"><p class="small muted">Nenhum profissional vinculado.</p>${btn('Ver vínculos', 'sec', 'data-go="vinculos"', '', false).replace('btn ', 'btn sm ')}</div>`}${Object.entries(PROS).filter(([k]) => S.vinc[k]).map(([k, [n, a, s]]) => `<div class="card row" style="padding:14px">${av(k)}<div class="grow col" style="gap:4px"><b>${n}</b><div>${pillArea(a)}</div><p class="small muted">${s}</p></div><button class="btn sm b-sec" data-chat="${k}">Conversar</button></div>`).join('')}
     <div class="ctitle" style="margin-top:8px"><h3>Escola</h3><button class="link" data-go="acessos" style="min-height:44px;padding:0 8px">Quem acessa</button></div>
     ${S.esc.map(e => `<div class="card row" style="padding:14px">${av(e.ini)}<div class="grow col" style="gap:4px"><b>${esc(e.nome)}</b><div>${e.pend ? '<span class="pill p-to">Convite enviado</span>' : `<span class="pill p-escola">${esc(e.funcao)}</span>`}</div><p class="small muted">${esc(e.escola)}</p></div>${e.ini === 'AP' && !e.pend ? '<button class="btn sm b-sec" data-chat="AP">Conversar</button>' : ''}</div>`).join('')}
     <button class="card row" data-chat="GRP" style="padding:14px;text-align:left">${av('G')}<div class="grow"><b>Grupo do Theo</b><p class="small muted">Escola, clínica e você</p></div>${ic('direita', 20, 'muted')}</button>
@@ -500,6 +562,96 @@ const V = {
     <div class="col" style="gap:8px"><button class="round" style="background:var(--prim);color:#fff" data-say aria-label="Falar a frase">${ic('falar', 24)}</button><button class="round" style="background:var(--n100);color:var(--n800)" data-del aria-label="Apagar a última palavra">${ic('apagar', 24)}</button></div></div>
     <div class="grid3">${WORDS.map(([k, l, c]) => `<button class="tile ${c}" data-word="${k}">${pic(k, 68)}${l}</button>`).join('')}</div>
     <div class="row small muted" style="background:var(--fundo);border-radius:12px;padding:10px 12px">${ic('info', 18)}<span>Azul: pedir · Verde: brincar e carinho · Vermelho: parar, ajuda e dor</span></div></div></div>`,
+  // ===== Theo no centro: perfil, código, pedidos, vínculos =====
+  perfil: () => `<div class="scr bg">${sb()}<div class="ttl row" style="gap:12px;align-items:center">${av('TH', 'g')}<div class="grow"><h1>Theo</h1><p class="small muted">6 anos · Responsável: Mariana</p></div></div>
+    <div class="body" style="gap:10px;padding-top:12px">
+    ${pedBanner()}
+    <div class="card col" style="gap:10px">
+      <span class="small row" style="gap:6px;font-weight:700;color:var(--link)">${ic('codigo', 16)}Código de vínculo do Theo</span>
+      <p class="token" aria-label="Código ${S.token.code.split('').join(' ')}">${S.token.code}</p>
+      <p class="small muted">Passe este código para a clínica, o terapeuta ou a escola. Você recebe um pedido e decide o que cada um pode ver. Vale até ${S.token.ate} e só uma vez.</p>
+      <div class="row" style="gap:8px;flex-wrap:wrap">${btn('Copiar', 'sec', 'data-copiar', '', false).replace('btn ', 'btn sm ')}${btn('Compartilhar', 'sec', 'data-compartilhar', 'compartilhar', false).replace('btn ', 'btn sm ')}${btn('Gerar outro', 'fant', 'data-novo-token', '', false).replace('btn ', 'btn sm ')}</div>
+    </div>
+    ${[['documentos', 'pasta', 'Documentos e laudos', S.docs.length + ' arquivos', 'c-azul'], ['vinculos', 'equipe', 'Vínculos', vincResumo(), 'c-verde'], ['privacidade', 'escudo', 'Privacidade e dados', 'LGPD, autorizações e quem acessou', 'c-amar'], ['exportar', 'download', 'Exportar dados', 'Relatório, planilha ou cópia completa', 'c-verm']].map(([g, k, t, s, c]) => `<button class="card row" data-go="${g}" style="text-align:left;padding:12px 14px"><span class="circ ${c}">${ic(k, 22)}</span><div class="grow"><b>${t}</b><p class="small muted">${s}</p></div>${ic('direita', 20, 'muted')}</button>`).join('')}
+    <div style="display:flex;justify-content:center">${btn('Sair da conta', 'fant', 'data-go="login" data-root', 'sair', false)}</div>
+    </div>${tabbar('perfil')}</div>`,
+  pedido: () => { const p = S.pedidos[0];
+    if (!p) return `<div class="scr bg">${sb()}${hdr('Pedido de vínculo')}<div class="body"><div class="card"><p class="muted">Nenhum pedido esperando.</p></div></div></div>`;
+    return `<div class="scr bg">${sb()}${hdr('Pedido de vínculo')}<div class="body" style="gap:10px">
+    <div class="card col" style="gap:8px;align-items:center;text-align:center">${av(p.ini, 'g')}<h1 style="font-size:22px">${esc(p.nome)} quer acompanhar o Theo</h1><p class="small muted">${p.area} · ${p.reg} · ${p.clinica}</p><span class="pill p-neutra">Usou o código ${S.token.code} às ${p.h}</span></div>
+    <h3 style="font-size:17px;margin-top:4px">O que vai poder ver e fazer</h3>
+    ${PPERMS.map(([k, l, d]) => `<div class="card row" style="padding:12px 14px"><div class="grow"><b class="small" style="display:block">${l}</b><span class="small muted">${d}</span></div><button class="tog" role="switch" aria-checked="${!!p.perms[k]}" data-pped="${k}" aria-label="${l}"></button></div>`).join('')}
+    <div class="card row" style="padding:12px 14px;border:2px solid var(--prim)"><p class="small grow"><b>Autorizo ${esc(p.nome)} a visualizar os dados do Theo marcados acima.</b> Posso desfazer quando quiser.</p><button class="tog" role="switch" aria-checked="${S.pedOk}" data-ped-ok aria-label="Autorizo"></button></div>
+    <div style="flex:1"></div>${btn('Autorizar vínculo', 'prim', 'data-ped-sim' + (S.pedOk ? '' : ' disabled'), 'check')}${S.pedOk ? '' : '<p class="small muted" style="text-align:center">Ative a autorização para confirmar.</p>'}${btn('Recusar pedido', 'fant', 'data-ped-nao')}</div></div>`; },
+  vinculos: () => { const pros = Object.entries(PROS).filter(([k]) => S.vinc[k]);
+    return `<div class="scr bg">${sb()}${hdr('Vínculos do Theo')}<div class="body" style="gap:10px">
+    <p class="small muted">Quem acompanha o Theo com a sua autorização. Você pode desvincular quando quiser.</p>
+    ${pedBanner()}
+    <div class="ctitle"><h3>Clínica Raízes</h3>${pros.length ? '<button class="link" data-desv="clinica" style="min-height:44px;padding:0 8px;color:var(--verm-700)">Desvincular a clínica</button>' : ''}</div>
+    ${pros.length ? pros.map(([k, [n, a, s]]) => `<div class="card row" style="padding:12px 14px">${av(k)}<div class="grow col" style="gap:4px"><b>${n}</b><div>${pillArea(a)}</div><p class="small muted">${s}</p></div><button class="btn sm b-fant" data-desv="${k}">Desvincular</button></div>`).join('') : '<div class="card"><p class="small muted">Ninguém da clínica está vinculado. Gere um código na aba Theo para vincular de novo.</p></div>'}
+    <div class="ctitle"><h3>Escola</h3><button class="link" data-go="acessos" style="min-height:44px;padding:0 8px">Gerenciar</button></div>
+    ${S.esc.length ? S.esc.map(e => `<div class="card row" style="padding:12px 14px">${av(e.ini)}<div class="grow"><b>${esc(e.nome)}</b><p class="small muted">${esc(e.funcao)} · ${esc(e.escola)}</p></div>${e.pend ? '<span class="pill p-to">Convite enviado</span>' : '<span class="pill p-feito">Ativo</span>'}</div>`).join('') : '<div class="card"><p class="small muted">Ninguém da escola tem acesso.</p></div>'}
+    ${btn('Vincular alguém novo', 'sec', 'data-go="perfil" data-root', 'mais')}</div></div>`; },
+  desvincular: () => { const k = S.desv || (S.desv = 'AL'), todos = k === 'clinica', nome = todos ? 'a Clínica Raízes' : (PROS[k] || ['este profissional'])[0];
+    return `<div class="scr">${sb()}${hdr('Desvincular')}<div class="body" style="gap:14px">
+    <div class="success" style="background:var(--verm-50);color:var(--verm-700)">${ic('sair', 44)}</div>
+    <h1 style="font-size:24px;text-align:center">Desvincular ${esc(nome)}?</h1>
+    <div class="card col" style="gap:10px">${[(todos ? 'Os profissionais da clínica deixam' : esc(nome) + ' deixa') + ' de ver os dados do Theo na hora.', 'Conversas e atividades em andamento são encerradas.', 'O prontuário escrito pela clínica fica guardado com ela, como a lei exige. Você pode pedir uma cópia.', 'Para voltar, é só gerar um novo código de vínculo.'].map(t => `<div class="row small" style="gap:10px;align-items:flex-start">${ic('info', 16)}<span>${t}</span></div>`).join('')}</div>
+    <h3 style="font-size:17px">Motivo (opcional)</h3><div class="opts">${['Terminamos o tratamento', 'Mudamos de clínica', 'Outro motivo'].map(m => `<button class="opt" aria-pressed="${S.desvMotivo === m}" data-motivo="${m}">${m}${S.desvMotivo === m ? ic('check', 18) : ''}</button>`).join('')}</div>
+    ${btn('Baixar os dados antes', 'sec', 'data-go="exportar"', 'download')}
+    <div style="flex:1"></div>${btn('Desvincular', 'perigo', 'data-desv-ok', 'sair')}${btn('Cancelar', 'fant', 'data-back')}</div></div>`; },
+
+  // ===== Documentos e laudos =====
+  documentos: () => { const tipos = ['Todos', 'Laudo', 'Relatório', 'Exame', 'Receita']; const list = S.docs.filter(d => S.docFiltro === 'Todos' || d.tipo === S.docFiltro);
+    return `<div class="scr bg">${sb()}${hdr('Documentos e laudos')}
+    <div class="chips" role="group" aria-label="Filtrar por tipo">${tipos.map(t => `<button class="opt chip" aria-pressed="${S.docFiltro === t}" data-docf="${t}">${t}</button>`).join('')}</div>
+    <div class="body" style="gap:10px;padding-top:4px">
+    <div class="row" style="gap:10px"><label class="btn b-prim grow upl">${ic('camera', 20)}Tirar foto<input type="file" accept="image/*" capture="environment" data-upload class="sr-file"></label><label class="btn b-sec grow upl">${ic('arquivo', 20)}Enviar arquivo<input type="file" accept=".pdf,image/*" data-upload class="sr-file"></label></div>
+    <p class="small muted row" style="gap:8px">${ic('cadeado', 16)}Laudos são dados sensíveis. Cada arquivo só aparece para quem você marcar.</p>
+    ${list.map(d => `<button class="card row" data-doc="${d.id}" style="text-align:left;padding:12px 14px"><span class="circ docthumb">${d.url && d.kind === 'img' ? `<img src="${d.url}" alt="">` : ic(d.kind === 'img' ? 'camera' : 'arquivo', 20)}</span><div class="grow"><b>${esc(d.nome)}</b><p class="small muted">${d.tipo} · ${esc(d.data)} · ${esc(d.origem)}</p><p class="small" style="color:var(--link);font-weight:700">${visTxt(d)}</p></div>${ic('direita', 20, 'muted')}</button>`).join('') || '<p class="small muted">Nenhum arquivo deste tipo.</p>'}
+    </div></div>`; },
+  docnovo: () => { const n = S.novoDoc; if (!n) return `<div class="scr">${sb()}${hdr('Novo documento')}<div class="body"><p class="muted">Escolha um arquivo em Documentos.</p></div></div>`;
+    return `<div class="scr">${sb()}${hdr('Novo documento')}<div class="body" style="gap:12px">
+    <div class="docprev">${n.kind === 'img' ? `<img src="${n.url}" alt="Prévia do arquivo enviado">` : `<div class="col" style="align-items:center;gap:8px">${ic('arquivo', 40)}<b class="small">${esc(n.arquivo)}</b><span class="small muted">${kb(n.size)}</span></div>`}</div>
+    <label class="field"><span>Nome</span><span class="inp"><input id="doc-nome" value="${esc(n.nome)}"></span></label>
+    <span class="small" style="font-weight:700">Tipo</span><div class="opts">${['Laudo', 'Relatório', 'Exame', 'Receita', 'Outro'].map(t => `<button class="opt" aria-pressed="${n.tipo === t}" data-dtipo="${t}">${t}${n.tipo === t ? ic('check', 18) : ''}</button>`).join('')}</div>
+    <label class="field"><span>Data do documento</span><span class="inp">${ic('calendario', 20)}<input id="doc-data" value="${esc(n.data)}" inputmode="numeric"></span></label>
+    <span class="small" style="font-weight:700">Quem pode ver</span>
+    ${[['clinica', 'Clínica Raízes'], ['escola', 'Escola Municipal Girassol']].map(([k, l]) => `<div class="card row" style="padding:12px 14px"><b class="small grow">${l}</b><button class="tog" role="switch" aria-checked="${!!n.vis[k]}" data-dvis="${k}" aria-label="${l} pode ver"></button></div>`).join('')}
+    <div style="flex:1"></div>${btn('Salvar documento', 'prim', 'data-doc-salvar', 'check')}</div></div>`; },
+  docver: () => { const d = S.docs.find(x => x.id === S.docSel) || S.docs[0]; if (d) S.docSel = d.id; if (!d) return `<div class="scr">${sb()}${hdr('Documento')}<div class="body"><p class="muted">Documento não encontrado.</p></div></div>`;
+    const kv = (k, v) => `<div class="row" style="justify-content:space-between"><span class="small muted">${k}</span><b class="small" style="text-align:right">${esc(v)}</b></div>`; const meu = d.origem === 'Enviado por você';
+    return `<div class="scr bg">${sb()}${hdr('Documento')}<div class="body" style="gap:12px">
+    <div class="docprev">${d.url && d.kind === 'img' ? `<img src="${d.url}" alt="${esc(d.nome)}">` : `<div class="col" style="align-items:center;gap:8px;color:var(--texto2)">${ic(d.kind === 'img' ? 'camera' : 'arquivo', 40)}<b class="small">${esc(d.nome)}</b></div>`}</div>
+    <div class="card col" style="gap:8px">${kv('Nome', d.nome)}${kv('Tipo', d.tipo)}${kv('Data', d.data)}${kv('Enviado por', d.origem)}</div>
+    <span class="small" style="font-weight:700">Quem pode ver</span>
+    ${[['clinica', 'Clínica Raízes'], ['escola', 'Escola Municipal Girassol']].map(([k, l]) => `<div class="card row" style="padding:12px 14px"><b class="small grow">${l}</b><button class="tog" role="switch" aria-checked="${!!d.vis[k]}" data-dvis2="${k}" aria-label="${l} pode ver"></button></div>`).join('')}
+    ${btn('Baixar', 'sec', 'data-doc-baixar', 'download')}
+    ${meu ? (S.docDelAsk ? btn('Confirmar exclusão', 'perigo', 'data-doc-del', 'lixo') + btn('Cancelar', 'fant', 'data-doc-del-no') : btn('Excluir arquivo', 'fant', 'data-doc-del-ask', 'lixo')) : '<p class="small muted">Documentos enviados pela clínica só podem ser excluídos por ela.</p>'}
+    </div></div>`; },
+
+  // ===== Privacidade (LGPD) e exportação =====
+  privacidade: () => { const pros = Object.keys(PROS).filter(k => S.vinc[k]).length, escs = S.esc.filter(e => !e.pend).length;
+    const row = ([i, t, h]) => `<div class="row">${av(i)}<div class="grow"><p class="small">${esc(t)}</p><p class="small muted">${h}</p></div></div>`;
+    return `<div class="scr bg">${sb()}${hdr('Privacidade e dados')}<div class="body" style="gap:12px">
+    <div class="card col" style="gap:8px;background:var(--azul-50);border:0"><b class="row" style="gap:8px;color:var(--link)">${ic('escudo', 20)}Os dados do Theo são sensíveis</b><p class="small">Dados de saúde de criança têm proteção especial pela LGPD. No Elo:</p>${['Só vê quem você autorizar, e só o que você marcar.', 'Todo acesso fica registrado, e você confere aqui.', 'Os dados são guardados e enviados com criptografia.', 'Nada é vendido nem usado para anúncios.'].map(t => `<div class="row small" style="gap:8px;align-items:flex-start">${ic('check', 16)}<span>${t}</span></div>`).join('')}</div>
+    <h3 style="font-size:17px">Autorizações ativas</h3>
+    <button class="card row" data-go="vinculos" style="text-align:left;padding:12px 14px"><span class="circ c-verde">${ic('equipe', 20)}</span><div class="grow"><b>Clínica Raízes</b><p class="small muted">${pros} profissionais com acesso</p></div>${ic('direita', 20, 'muted')}</button>
+    <button class="card row" data-go="acessos" style="text-align:left;padding:12px 14px"><span class="circ" style="background:var(--roxo-50);color:var(--roxo-700)">${ic('escola', 20)}</span><div class="grow"><b>Escola Municipal Girassol</b><p class="small muted">${escs} pessoas com acesso</p></div>${ic('direita', 20, 'muted')}</button>
+    <h3 style="font-size:17px">Quem acessou</h3>
+    <div class="card col" style="gap:10px;padding:14px">${ACESSOS_CLI.concat(S.log).slice(0, 6).map(row).join('')}</div>
+    <h3 style="font-size:17px">Seus direitos</h3>
+    ${[['exportar', 'download', 'Baixar todos os dados', ''], ['', 'diario', 'Corrigir uma informação', 'data-toast="Abriria um pedido de correção para quem escreveu o registro"'], ['vinculos', 'sair', 'Revogar autorizações', ''], ['', 'mensagem', 'Falar com o encarregado de dados', 'data-toast="Abriria a conversa com o encarregado de dados do Elo"']].map(([g, k, t, a]) => `<button class="card row" ${g ? `data-go="${g}"` : a} style="text-align:left;padding:12px 14px">${ic(k, 20)}<b class="grow small">${t}</b>${ic('direita', 20, 'muted')}</button>`).join('')}
+    <div class="card col" style="gap:8px"><b class="small">Excluir a conta e os dados</b><p class="small muted">Apaga a conta e os dados que você enviou. Os prontuários escritos pela clínica ficam guardados com ela pelo prazo da lei.</p>${S.excluirAsk ? `<div class="row" style="gap:8px;flex-wrap:wrap">${btn('Confirmar pedido de exclusão', 'perigo', 'data-excluir-ok', '', false).replace('btn ', 'btn sm ')}${btn('Cancelar', 'fant', 'data-excluir-no', '', false).replace('btn ', 'btn sm ')}</div>` : btn('Pedir exclusão', 'fant', 'data-excluir-ask', 'lixo', false).replace('btn ', 'btn sm ')}</div>
+    </div></div>`; },
+  exportar: () => { const e = S.exp;
+    return `<div class="scr">${sb()}${hdr('Exportar dados')}<div class="body" style="gap:12px">
+    <p class="muted">Baixe os dados do Theo para guardar ou levar a outro profissional.</p>
+    <span class="small" style="font-weight:700">O que incluir</span><div class="opts">${EXP_ITENS.map(t => { const on = e.itens.includes(t); return `<button class="opt" aria-pressed="${on}" data-expi="${t}">${t}${on ? ic('check', 18) : ''}</button>`; }).join('')}</div>
+    <span class="small" style="font-weight:700">Formato</span><div class="col" style="gap:8px">${EXP_FMT.map(([f, d]) => `<button class="opt fmt" aria-pressed="${e.formato === f}" data-expf="${f}"><span class="col" style="gap:2px;text-align:left"><b>${f}</b><span class="small muted" style="font-weight:400">${d}</span></span>${e.formato === f ? ic('check', 18) : ''}</button>`).join('')}</div>
+    <p class="small muted row" style="gap:8px">${ic('cadeado', 16)}O arquivo fica só no seu aparelho. Guarde em local seguro.</p>
+    <div style="flex:1"></div>${btn('Gerar arquivo', 'prim', 'data-exportar' + (e.itens.length ? '' : ' disabled'), 'download')}</div></div>`; },
+
   // ===== Família: convidar e controlar a escola =====
   convidar: () => { const c = S.conv; return `<div class="scr">${sb()}${hdr('Convidar da escola')}<div class="body" style="gap:16px">
     <p class="muted">A pessoa recebe um convite e só vê o que você liberar.</p>
@@ -606,7 +758,7 @@ const V = {
 };
 const lockBtn = () => `<button class="lock" data-lock aria-label="Sair do Modo Criança: segure por 3 segundos">${ic('cadeado', 22)}<svg class="ring" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="none" stroke="var(--prim)" stroke-width="3" stroke-dasharray="138.2" stroke-dashoffset="138.2" id="ring"/></svg></button>`;
 
-const NAMES = [['Acesso', [['login', 'Login'], ['cadastro', 'Cadastro'], ['codigo', 'Código da clínica']]], ['Responsável', [['inicio', 'Início'], ['rotina', 'Rotina'], ['diario', 'Diário'], ['equipe', 'Equipe'], ['chat', 'Chat com profissional'], ['crise', 'Registrar crise'], ['registrado', 'Registrado'], ['atividade', 'Atividade'], ['objetivos', 'Objetivos']]], ['Criança', [['kid', 'Modo Criança'], ['prancha', 'Prancha de comunicação']]], ['Família e escola', [['equipe', 'Equipe com a escola'], ['convidar', 'Convidar da escola'], ['permissoes', 'Permissões da escola'], ['acessos', 'Quem acessa os dados']]], ['Escola', [['convite', 'Aceitar convite'], ['alunos', 'Meus alunos'], ['ehoje', 'Theo na escola'], ['ecrise', 'Crise na escola'], ['econquista', 'Conquista na escola'], ['eatividade', 'Atividade em sala'], ['ebilhete', 'Bilhete do dia'], ['eregistros', 'Registros da escola'], ['econversas', 'Conversas da escola']]]];
+const NAMES = [['Acesso', [['login', 'Login'], ['cadastro', 'Cadastro'], ['codigo', 'Código da clínica']]], ['Responsável', [['inicio', 'Início'], ['rotina', 'Rotina'], ['diario', 'Diário'], ['equipe', 'Equipe'], ['chat', 'Chat com profissional'], ['crise', 'Registrar crise'], ['registrado', 'Registrado'], ['atividade', 'Atividade'], ['objetivos', 'Objetivos']]], ['Criança', [['kid', 'Modo Criança'], ['prancha', 'Prancha de comunicação']]], ['Theo no centro', [['perfil', 'Perfil e código de vínculo'], ['pedido', 'Pedido de vínculo'], ['vinculos', 'Vínculos'], ['desvincular', 'Desvincular'], ['documentos', 'Documentos e laudos'], ['privacidade', 'Privacidade e dados'], ['exportar', 'Exportar dados']]], ['Família e escola', [['equipe', 'Equipe com a escola'], ['convidar', 'Convidar da escola'], ['permissoes', 'Permissões da escola'], ['acessos', 'Quem acessa os dados']]], ['Escola', [['convite', 'Aceitar convite'], ['alunos', 'Meus alunos'], ['ehoje', 'Theo na escola'], ['ecrise', 'Crise na escola'], ['econquista', 'Conquista na escola'], ['eatividade', 'Atividade em sala'], ['ebilhete', 'Bilhete do dia'], ['eregistros', 'Registros da escola'], ['econversas', 'Conversas da escola']]]];
 const app = document.getElementById('app');
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 function render(anim) {
@@ -630,6 +782,33 @@ document.addEventListener('click', (e) => {
   const b = e.target.closest('button, [data-go]'); if (!b) return;
   const d = b.dataset;
   if (d.go) { if (d.go === 'kid' && S.kid >= ROT.length) S.kid = 1; return go(d.go, 'root' in d); }
+  if ('copiar' in d) { try { navigator.clipboard.writeText(S.token.code).then(() => toast('Código copiado'), () => toast('Código: ' + S.token.code)); } catch (er) { toast('Código: ' + S.token.code); } return; }
+  if ('compartilhar' in d) { const t = 'Código de vínculo do Theo no Elo: ' + S.token.code; if (navigator.share) { navigator.share({ text: t }).catch(() => {}); return; } return toast('Abriria o compartilhar do celular com o código'); }
+  if ('novoToken' in d) { const L = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; S.token = { code: 'ELO-' + Array.from({ length: 3 }, () => L[Math.floor(Math.random() * L.length)]).join('') + '-' + String(Math.floor(1000 + Math.random() * 9000)), ate: '16:30' }; render(); return toast('Novo código gerado. O anterior não vale mais.'); }
+  if (d.pped) { const p = S.pedidos[0]; p.perms[d.pped] = !p.perms[d.pped]; return render(); }
+  if ('pedOk' in d) { S.pedOk = !S.pedOk; return render(); }
+  if ('pedSim' in d) { const p = S.pedidos.shift(); PROS[p.ini] = [p.nome, p.area, 'Desde hoje · autorizada por você']; S.vinc[p.ini] = true; S.chats[p.ini] = [['p', 'Olá, Mariana! Obrigada por autorizar. Sou a ' + p.nome.split(' ').slice(0, 2).join(' ') + ', da fono.', 'agora']]; S.pedOk = false; S.log.unshift(['MA', 'Você autorizou ' + p.nome, 'agora']); S.hist = ['perfil']; S.cur = 'vinculos'; render('fwd'); return toast('Vínculo confirmado. ' + p.nome.split(' ').slice(0, 2).join(' ') + ' foi avisada.'); }
+  if ('pedNao' in d) { const p = S.pedidos.shift(); S.pedOk = false; S.log.unshift(['MA', 'Você recusou o pedido de ' + p.nome, 'agora']); back(); return toast('Pedido recusado. Avisamos a clínica.'); }
+  if (d.desv) { S.desv = d.desv; S.desvMotivo = ''; return go('desvincular'); }
+  if (d.motivo) { S.desvMotivo = S.desvMotivo === d.motivo ? '' : d.motivo; return render(); }
+  if ('desvOk' in d) { const todos = S.desv === 'clinica', nome = todos ? 'a Clínica Raízes' : PROS[S.desv][0]; if (todos) Object.keys(S.vinc).forEach(k => S.vinc[k] = false); else S.vinc[S.desv] = false; S.log.unshift(['MA', 'Você desvinculou ' + nome, 'agora']); S.hist = ['perfil']; S.cur = 'vinculos'; render('back'); return toast('Vínculo encerrado. Avisamos a clínica.'); }
+  if (d.docf) { S.docFiltro = d.docf; return render(); }
+  if (d.doc) { S.docSel = +d.doc; S.docDelAsk = false; return go('docver'); }
+  if (d.dtipo) { S.novoDoc.tipo = d.dtipo; return render(); }
+  if (d.dvis) { S.novoDoc.vis[d.dvis] = !S.novoDoc.vis[d.dvis]; return render(); }
+  if (d.dvis2) { const doc = S.docs.find(x => x.id === S.docSel); doc.vis[d.dvis2] = !doc.vis[d.dvis2]; render(); return toast(visTxt(doc)); }
+  if ('docSalvar' in d) { const n = S.novoDoc; S.docs.unshift({ ...n, id: Date.now(), origem: 'Enviado por você', nome: n.nome.trim() || n.arquivo }); S.novoDoc = null; S.log.unshift(['MA', 'Você enviou ' + (n.nome.trim() || n.arquivo), 'agora']); S.hist = ['perfil']; S.cur = 'documentos'; S.docFiltro = 'Todos'; render('back'); return toast('Documento salvo'); }
+  if ('docBaixar' in d) { const doc = S.docs.find(x => x.id === S.docSel); if (doc.url) { const a = document.createElement('a'); a.href = doc.url; a.download = doc.arquivo || doc.nome; document.body.appendChild(a); a.click(); a.remove(); return; } return toast('No protótipo, este arquivo é só um exemplo'); }
+  if ('docDelAsk' in d) { S.docDelAsk = true; return render(); }
+  if ('docDelNo' in d) { S.docDelAsk = false; return render(); }
+  if ('docDel' in d) { const i = S.docs.findIndex(x => x.id === S.docSel); const doc = S.docs.splice(i, 1)[0]; S.docDelAsk = false; S.log.unshift(['MA', 'Você excluiu ' + doc.nome, 'agora']); back(); return toast('Arquivo excluído'); }
+  if (d.expi) { const a = S.exp.itens, i = a.indexOf(d.expi); i >= 0 ? a.splice(i, 1) : a.push(d.expi); return render(); }
+  if (d.expf) { S.exp.formato = d.expf; return render(); }
+  if ('exportar' in d) { gerarExport(); render(); return toast(S.exp.formato.startsWith('Relatório') ? 'Relatório aberto em outra aba' : 'Arquivo baixado'); }
+  if ('excluirAsk' in d) { S.excluirAsk = true; return render(); }
+  if ('excluirNo' in d) { S.excluirAsk = false; return render(); }
+  if ('excluirOk' in d) { S.excluirAsk = false; S.log.unshift(['MA', 'Você pediu a exclusão da conta', 'agora']); render(); return toast('Pedido de exclusão registrado. Você recebe a confirmação por e-mail.'); }
+  if ('codOk' in d) { S.codOk = !S.codOk; return render(); }
   if (d.perfil) { S.perfil = d.perfil; return render(); }
   if ('login' in d) { if (S.perfil === 'escola') return go(S.aceito ? 'alunos' : 'convite', true); return go('inicio', true); }
   if ('aceitar' in d) { S.aceito = true; const e = apEsc(); if (e) e.ultimo = 'agora'; go('alunos', true); return toast('Convite aceito. O Theo está na sua lista.'); }
@@ -680,7 +859,9 @@ document.addEventListener('click', (e) => {
   if ('say' in d) { const t = S.phrase.map(k => WORDS.find(x => x[0] === k)[1]).join(' '); if (!t) return; try { const u = new SpeechSynthesisUtterance(t); u.lang = 'pt-BR'; u.rate = .9; speechSynthesis.cancel(); speechSynthesis.speak(u); } catch (er) {} return toast('“' + t + '”'); }
   if (d.toast) return toast(d.toast);
 });
-document.addEventListener('input', (e) => { const id = e.target.id || ''; if (id.startsWith('conv-')) { S.conv[id.slice(5)] = e.target.value; if (S.conv.err && S.conv.nome.trim() && S.conv.contato.trim()) { S.conv.err = false; } } });
+document.addEventListener('change', (e) => { if (!e.target.matches('[data-upload]')) return; const f = e.target.files && e.target.files[0]; if (!f) return;
+  S.novoDoc = { nome: f.name.replace(/\.[^.]+$/, ''), arquivo: f.name, size: f.size, kind: f.type.startsWith('image/') ? 'img' : 'pdf', url: URL.createObjectURL(f), tipo: 'Laudo', data: '08/11/2026', vis: { clinica: true, escola: false } }; go('docnovo'); });
+document.addEventListener('input', (e) => { const id = e.target.id || ''; if (id === 'doc-nome' && S.novoDoc) S.novoDoc.nome = e.target.value; if (id === 'doc-data' && S.novoDoc) S.novoDoc.data = e.target.value; if (id.startsWith('conv-')) { S.conv[id.slice(5)] = e.target.value; if (S.conv.err && S.conv.nome.trim() && S.conv.contato.trim()) { S.conv.err = false; } } });
 document.addEventListener('submit', (e) => { e.preventDefault(); const f = e.target;
   if ('send' in f.dataset) { const v = f.querySelector('input').value.trim(); if (!v) return; S.chats[S.chatWith].push([S.perfil === 'escola' ? 'esc' : (PROS[S.chatWith] ? 'me' : 'fam'), v, 'agora']); render(); }
   if ('comment' in f.dataset) { const v = f.querySelector('input').value.trim(); if (!v) return; S.comments.push({ ini: 'MA', who: 'Mariana · agora', t: v }); render(); }
