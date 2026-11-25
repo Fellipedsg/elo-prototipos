@@ -297,6 +297,12 @@ html.native .tabbar { height: auto; padding-bottom: max(8px, env(safe-area-inset
 .opt.fmt { padding-top: 10px; padding-bottom: 10px; }
 .opt.fmt[aria-pressed="true"] { padding-top: 9px; padding-bottom: 9px; }
 .body > *, .sheet > * { flex-shrink: 0; }
+.guia { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 18px; border-radius: var(--r-card); background: var(--verde-50); }
+.gcirc { width: 120px; height: 120px; border-radius: 50%; background: var(--verde-500); opacity: .85; transition: transform 4s ease-in-out; }
+.gcirc.in { transform: scale(1); animation: gin 4s ease-in-out forwards; } .gcirc.hold { transform: scale(1); } .gcirc.hold2 { transform: scale(.55); } .gcirc.out { animation: gout 4s ease-in-out forwards; }
+@keyframes gin { from { transform: scale(.55); } to { transform: scale(1); } }
+@keyframes gout { from { transform: scale(1); } to { transform: scale(.55); } }
+@media (prefers-reduced-motion: reduce) { .gcirc { animation: none !important; } }
 </style></head><body>
 <div class="stage"><div class="stage-head"><span id="hl"></span><h1>Protótipo navegável · App Elo</h1><p>No login, escolha Responsável (Mariana), Profissional (Dra. Ana Lima) ou Paciente (Lucas, adulto). No Modo Paciente, segure o cadeado por 3 segundos para sair.</p></div><div class="phone"><div id="app"></div></div></div>
 <button class="telas-btn" id="telasBtn" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>Telas</button>
@@ -773,6 +779,15 @@ const V = {
 const A = {
   id: 'ELO-LS2-7318', nome: 'Lucas', nivel: 1, low: false,
   ativ: { senha: true, aceite: false, modo: 'apoiador', apo: { nome: 'Pedro', rel: 'irmão', tel: '(79) 9 8000-0000' }, apoPerm: { agenda: true, plano: true, diario: false, docs: false }, com: ['Mensagem escrita'], aviso: '1 dia antes', wa: true },
+  apoio: [['PE', 'Pedro', 'irmão', '(79) 9 8000-0000'], ['CA', 'Carla', 'amiga', '(79) 9 8111-1111']],
+  exerc: [
+    { id: 'resp', t: 'Respiração quadrada', who: 'Júlia Rocha', area: 'Psicologia', ini: 'JR', freq: 'Todo dia', dur: '5 min', ate: '05/12', env: '18/11', guia: true, obj: 'Baixar a ansiedade antes de sair de casa.',
+      passos: ['Sente com os pés no chão.', 'Inspire pelo nariz contando 4.', 'Segure o ar contando 4.', 'Solte pela boca contando 4.', 'Fique sem ar contando 4. Repita 5 vezes.'], feito: '', obs: '' },
+    { id: 'roteiro', t: 'Roteiro para pedir ajuda no trabalho', who: 'Dra. Ana Lima', area: 'Fono', ini: 'AL', freq: '3× por semana', dur: '10 min', ate: '28/11', env: '20/11', obj: 'Pedir ajuda ao chefe com frases curtas e claras.',
+      passos: ['Escreva 2 frases para pedir ajuda. Ex.: “Pode me explicar por escrito?”', 'Leia em voz alta 3 vezes.', 'Grave um áudio e escute.', 'Use uma das frases nesta semana.'], feito: '', obs: '' },
+    { id: 'depois', t: 'Depois de uma sobrecarga: 3 perguntas', who: 'Júlia Rocha', area: 'Psicologia', ini: 'JR', freq: 'Quando acontecer', dur: '5 min', ate: '—', env: '11/11', obj: 'Entender o que puxou a sobrecarga e o que ajudou.',
+      passos: ['O que estava acontecendo antes?', 'O que eu senti no corpo?', 'O que me ajudou a voltar?'], feito: 'Ok', obs: 'Respondi no diário.', em: '24/11' }],
+  exSel: 'resp', exComo: '', guia: 0,
   energia: 3, lembr: [['08:00', 'Remédio da manhã', true], ['13:00', 'Almoço (sem pular)', true], ['18:00', 'Psicologia com Júlia Rocha', false], ['21:30', 'Desligar telas', false]],
   reg: { o: 'Sobrecarga sensorial', int: 'Média', gat: ['Barulho'], ajudou: '', share: true, err: false },
   diario: [
@@ -784,7 +799,7 @@ const A = {
   wa: { step: 'menu', msgs: [['bot', 'Oi, Lucas! Sou o assistente do Elo. Reconheci o seu número vinculado. Como posso ajudar?']], tmp: {} },
   novo: { nome: '', nasc: '', tel: '', nivel: 0, conta: '', err: false }, ultimo: null
 };
-const A_SCREENS = ['aconvite', 'aconsent', 'aautonomia', 'aprefs', 'ahoje', 'aregistro', 'adiario', 'aequipe', 'aeu', 'aplano', 'acartao', 'awhats'];
+const A_SCREENS = ['aexerc', 'aexercicio', 'aconvite', 'aconsent', 'aautonomia', 'aprefs', 'ahoje', 'aregistro', 'adiario', 'aequipe', 'aeu', 'aplano', 'acartao', 'awhats'];
 const SHARED_SCREENS = ['direitos', 'artigo'];
 const atab = (a) => `<nav class="tabbar" aria-label="Menu do paciente">${[['ahoje', 'Hoje', 'casa'], ['adiario', 'Diário', 'diario'], ['direitos', 'Direitos', 'escudo'], ['aequipe', 'Equipe', 'equipe'], ['aeu', 'Eu', 'usuario']].map(([id, l, k]) => `<button class="tab" data-go="${id}" data-root ${a === id ? 'aria-current="page"' : ''}><span>${ic(k, 24)}</span>${l}</button>`).join('')}</nav>`;
 const aopt = (g, l, on, extra = '') => `<button class="opt" aria-pressed="${on}" data-aopt="${g}" data-v="${esc(l)}" ${extra}>${esc(l)}${on ? ic('check', 18) : ''}</button>`;
@@ -794,6 +809,7 @@ const CONTAS = [['proprio', 'O próprio paciente', 'Conta própria. Ele decide q
 const sugestao = (n, idade) => idade !== null && idade < 18 ? 'responsavel' : n === 3 ? 'responsavel' : n === 2 ? 'apoiador' : 'proprio';
 const idadeDe = (s) => { const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(s || ''); if (!m) return null; let i = 2026 - +m[3]; if (+m[2] > 11 || (+m[2] === 11 && +m[1] > 25)) i--; return i >= 0 && i < 120 ? i : null; };
 const genId = (nome) => { const L = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; const ini = (nome.trim().split(/\s+/).map(w => w[0]).join('').toUpperCase().replace(/[^A-Z]/g, '') + 'XX').slice(0, 2); return 'ELO-' + ini + L[Math.floor(Math.random() * L.length)] + '-' + String(Math.floor(1000 + Math.random() * 9000)); };
+const curto = (w) => w.startsWith('Dra.') ? w.split(' ').slice(0, 2).join(' ') : w.split(' ')[0];
 const bars = (n, big) => `<span class="ebars ${big ? 'big' : ''}" aria-hidden="true">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= n ? 'on e' + n : ''}"></i>`).join('')}</span>`;
 
 // ----- Direitos e caminhos -----
@@ -908,6 +924,8 @@ Object.assign(V, {
       <button class="sc" data-go="awhats"><span class="c-verde">${ic('mensagem', 26)}</span>Assistente</button></div>
     <div class="card col" style="gap:10px;padding:14px"><div class="ctitle"><h3>Lembretes de hoje</h3><span class="small muted">${A.lembr.filter(l => l[2]).length} de ${A.lembr.length}</span></div>
       ${A.lembr.map(([h, t, ok], i) => `<button class="row" data-alembr="${i}" style="text-align:left"><span class="time" style="width:48px;font-weight:700">${h}</span><span class="grow ${ok ? 'muted' : ''}" style="${ok ? 'text-decoration:line-through' : ''}">${t}</span>${ok ? `<span class="pill p-feito">${ic('check', 14)}Feito</span>` : '<span class="pill p-depois">Marcar</span>'}</button>`).join('')}</div>
+    <div class="card col" style="gap:10px;padding:14px"><div class="ctitle"><h3>Exercícios da equipe</h3><button class="small" data-go="aexerc" style="color:var(--link);font-weight:700">Ver todos</button></div>
+      ${A.exerc.filter(x => !x.feito).map(x => `<button class="row" data-aex="${x.id}" style="text-align:left">${av(x.ini)}<div class="grow"><b>${x.t}</b><p class="small muted">${curto(x.who)} · ${x.freq} · ${x.dur}</p></div><span class="pill p-to">Fazer</span></button>`).join('') || `<p class="small muted">Tudo feito por hoje.</p>`}</div>
     <button class="card row" data-aart="adulto-dx" style="text-align:left;padding:12px 14px;background:var(--amar-50);border:0"><span class="circ" style="background:#fff;color:var(--amar-800)">${ic('escudo', 20)}</span><div class="grow"><b>Novo em Direitos</b><p class="small">Diagnóstico na vida adulta: o que mudou com a Lei 15.256/2025</p></div>${ic('direita', 20, 'muted')}</button>
     </div>${atab('ahoje')}</div>`,
   aregistro: () => { const r = A.reg, o = (g, l, multi) => aopt(g, l, multi ? r[g].includes(l) : r[g] === l, multi ? 'data-multi="1"' : '');
@@ -929,15 +947,16 @@ Object.assign(V, {
   aplano: () => `<div class="scr bg">${sb()}${hdr('Meu plano de crise', `<button class="iconbtn" data-toast="Abriria a edição do plano" aria-label="Editar">${ic('diario', 22)}</button>`)}<div class="body" style="gap:12px">
     <p class="small muted">Feito por você com a Júlia. Fica no app e no cartão “Sou autista”.</p>
     ${[['raio', 'c-amar', 'Sinais de que estou chegando no limite', ['Paro de responder', 'Coloco o capuz', 'Mexo muito as mãos']], ['check', 'c-verde', 'O que me ajuda', ['Fone com cancelamento de ruído', 'Lugar com pouca luz', 'Falar pouco e com frases curtas', 'Água gelada']], ['fechar', 'c-verm', 'O que não fazer', ['Tocar em mim sem avisar', 'Fazer muitas perguntas', 'Falar alto']]].map(([k, c, t, l]) => `<div class="card col" style="gap:8px"><b class="row" style="gap:10px"><span class="circ ${c}" style="width:36px;height:36px">${ic(k, 18)}</span>${t}</b>${l.map(x => `<p class="small row" style="gap:8px">${ic('direita', 14, 'muted')}${x}</p>`).join('')}</div>`).join('')}
-    <div class="card col" style="gap:10px"><b>Quem chamar</b>${[['PE', 'Pedro', 'irmão · apoiador', '(79) 9 8000-0000'], ['JR', 'Júlia Rocha', 'Psicologia · Clínica Raízes', 'pelo app']].map(([i, n, d, t]) => `<div class="row">${av(i)}<div class="grow"><b class="small">${n}</b><p class="small muted">${d}</p></div><span class="small" style="font-weight:700">${t}</span></div>`).join('')}
-      <p class="small muted">Em emergência: SAMU 192 · CVV 188 (24 horas).</p></div>
+    <div class="card col" style="gap:10px"><div class="ctitle"><b>Minhas 2 pessoas de apoio</b><button class="small" data-toast="Abriria seus contatos para trocar" style="color:var(--link);font-weight:700">Trocar</button></div>${A.apoio.map(([i, n, d, t]) => `<div class="row">${av(i)}<div class="grow"><b class="small">${n}</b><p class="small muted">${d}</p></div>${btn(t, 'sec', `data-toast="Ligaria para ${n}: ${t}"`, '', false).replace('btn ', 'btn sm ')}</div>`).join('')}
+      <p class="small muted">O assistente do WhatsApp chama essas pessoas quando você disser que não está bem.</p></div>
+    <div class="card row" style="gap:10px">${av('JR')}<div class="grow"><b class="small">Júlia Rocha</b><p class="small muted">Psicologia · recebe aviso pelo app</p></div></div>
     ${btn('Mostrar cartão “Sou autista”', 'prim', 'data-go="acartao"', 'cartao')}</div></div>`,
   acartao: () => `<div class="scr sou">${sb(true)}<div class="hdr" style="background:transparent"><button class="iconbtn" data-back aria-label="Voltar" style="color:#fff">${ic('voltar', 24)}</button></div><div class="body" style="gap:18px;padding-top:4px">
     <span class="pill" style="background:var(--amar-400);color:var(--azul-900);align-self:flex-start">${ic('cartao', 14)}Cartão de comunicação</span>
     <h1 style="font-size:40px;color:#fff;line-height:1.1">Sou autista.</h1>
     <p style="font-size:22px;line-height:1.4">Posso ter dificuldade para falar agora. Por favor:</p>
     ${['Fale devagar e com frases curtas.', 'Me dê espaço e um pouco de tempo.', 'Não toque em mim sem avisar.'].map(t => `<p class="row" style="gap:12px;font-size:20px;align-items:flex-start">${ic('check', 24)}${t}</p>`).join('')}
-    <div class="card col" style="gap:6px;background:rgba(255,255,255,.1);border:0;color:#fff"><span class="small">Se precisar, ligue para</span><b style="font-size:20px">Pedro (irmão) · (79) 9 8000-0000</b><span class="small">CIPTEA nº 000000 (exemplo) · Lucas Souza</span></div>
+    <div class="card col" style="gap:6px;background:rgba(255,255,255,.1);border:0;color:#fff"><span class="small">Se precisar, ligue para</span>${A.apoio.map(([, n, d, t]) => `<b style="font-size:19px">${n} (${d}) · ${t}</b>`).join('')}<span class="small">CIPTEA nº 000000 (exemplo) · Lucas Souza</span></div>
     <div style="flex:1"></div>${btn('Tocar para falar', 'sec', 'data-afalar', 'falar')}</div></div>`,
   aequipe: () => `<div class="scr bg">${sb()}<div class="ttl"><h1>Minha equipe</h1><p class="small muted">Você decide o que cada um vê</p></div>
     <div class="body" style="gap:10px;padding-top:12px">
@@ -956,12 +975,29 @@ Object.assign(V, {
     ${[['documentos', 'pasta', 'Documentos e laudos', 'CIPTEA, laudos e relatórios'], ['', 'escudo', 'Privacidade e dados', 'Quem acessou, baixar ou apagar dados']].map(([g, k, t, s]) => `<button class="card row" ${g ? `data-toast="${t}: mesma tela do responsável, agora em nome do Lucas"` : `data-toast="${t}: mesma tela do responsável, agora em nome do Lucas"`} style="text-align:left;padding:12px 14px"><span class="circ c-azul">${ic(k, 20)}</span><div class="grow"><b>${t}</b><p class="small muted">${s}</p></div>${ic('direita', 20, 'muted')}</button>`).join('')}
     <div style="display:flex;justify-content:center">${btn('Sair da conta', 'fant', 'data-go="login" data-root', 'sair', false)}</div>
     </div>${atab('aeu')}</div>`,
-  awhats: () => { const w = A.wa, qr = WA_Q[w.step] || [];
+  awhats: () => { const w = A.wa, qr = w.step === 'exlist' ? A.exerc.filter(x => !x.feito).map(x => ['Fiz: ' + x.t]).concat([['Voltar ao menu']]) : (WA_Q[w.step] || []);
     return `<div class="scr wa">${sb(true)}<div class="hdr wa-h"><button class="iconbtn" data-back aria-label="Voltar" style="color:#fff">${ic('voltar', 24)}</button><span class="av" style="background:#fff;color:var(--verde-700)">${ic('mensagem', 20)}</span><div class="grow" style="margin-left:8px"><h3 style="font-size:17px;color:#fff">Assistente Elo</h3><p class="small" style="color:#D7F5E4">no WhatsApp · simulação</p></div></div>
-    <div class="wa-note small">${ic('info', 14)} Não dá orientação clínica. Emergência: SAMU 192 · CVV 188.</div>
+    <div class="wa-note small">${ic('info', 14)} Não dá orientação clínica. Pessoas de apoio: Pedro e Carla.</div>
     <div class="body" id="msgs" style="gap:8px;padding:12px 14px">${w.msgs.map(([who, t]) => `<div class="wab ${who === 'me' ? 'me' : ''}">${esc(t).replace(/\n/g, '<br>')}</div>`).join('')}</div>
     <div class="col" style="padding:10px 14px 22px;gap:8px;flex:none;background:#EFE9E0">${qr.length ? `<div class="wa-qr">${qr.map(([l]) => `<button data-wa="${esc(l)}">${esc(l)}</button>`).join('')}</div>` : ''}
     <form class="compose" data-wasend style="background:#fff;border:0"><input id="wa-in" placeholder="Mensagem" aria-label="Mensagem"><button class="send" style="background:var(--verde-700)" aria-label="Enviar">${ic('enviar', 20)}</button></form></div></div>`; },
+  aexerc: () => `<div class="scr bg">${sb()}${hdr('Exercícios da equipe')}<div class="body" style="gap:10px">
+    <p class="small muted">Passados pelos seus terapeutas. Quando você marca como feito, eles veem antes da próxima sessão.</p>
+    ${A.exerc.map(x => `<button class="card col" data-aex="${x.id}" style="text-align:left;gap:8px;padding:14px"><div class="row" style="justify-content:space-between"><span class="row" style="gap:8px">${av(x.ini)}<span class="small muted">${x.who} · ${x.area}</span></span>${x.feito ? `<span class="pill p-feito">${ic('check', 14)}Feito</span>` : '<span class="pill p-to">Fazer</span>'}</div><b style="font-family:var(--f-tit);font-size:18px">${x.t}</b><p class="small muted">${x.freq} · ${x.dur}${x.ate !== '—' ? ' · até ' + x.ate : ''}</p></button>`).join('')}
+    </div></div>`,
+  aexercicio: () => { const x = A.exerc.find(e => e.id === A.exSel) || A.exerc[0], fases = ['Inspire', 'Segure', 'Solte', 'Segure'];
+    return `<div class="scr">${sb()}${hdr('Exercício')}<div class="body" style="gap:14px">
+    <div class="row" style="gap:10px">${av(x.ini)}<div class="grow"><b class="small">${x.who} · ${x.area}</b><p class="small muted">Enviado em ${x.env} · ${x.freq} · ${x.dur}</p></div></div>
+    <h1 style="font-size:26px">${x.t}</h1>
+    <div class="card col" style="gap:4px;background:var(--azul-50);border:0"><span class="small" style="font-weight:700;color:var(--link)">Para quê</span><p class="small">${x.obj}</p></div>
+    ${A.guia && x.guia ? `<div class="guia"><span class="gcirc ${['in', 'hold', 'out', 'hold2'][(A.guia - 1) % 4]}"></span><b style="font-family:var(--f-tit);font-size:26px">${fases[(A.guia - 1) % 4]}</b><span class="small muted">Contando 4 · ciclo ${Math.min(5, Math.floor((A.guia - 1) / 4) + 1)} de 5</span>${btn('Parar', 'fant', 'data-aguia-stop', '', false).replace('btn ', 'btn sm ')}</div>` : ''}
+    <div class="card col" style="gap:12px"><b>Passo a passo</b>${x.passos.map((p, i) => `<div class="row" style="gap:12px;align-items:flex-start"><span class="stepn">${i + 1}</span><p class="small grow">${p}</p></div>`).join('')}</div>
+    ${x.guia && !A.guia ? btn('Fazer com guia', 'sec', 'data-aguia', 'play') : ''}
+    ${x.feito ? `<div class="card col" style="gap:6px;background:var(--verde-50);border:0"><b class="row" style="gap:8px;color:var(--verde-700)">${ic('check', 18)}Feito em ${x.em || 'hoje'} · ${x.feito}</b><p class="small">${esc(x.obs || 'Sem comentário.')}</p></div>`
+      : `<h3 style="font-size:17px">Como foi?</h3><div class="opts">${['Fácil', 'Ok', 'Difícil'].map(l => `<button class="opt" aria-pressed="${A.exComo === l}" data-aexcomo="${l}">${l}${A.exComo === l ? ic('check', 18) : ''}</button>`).join('')}</div>
+      <label class="field"><span>Quer contar algo? (opcional)</span><textarea id="ax-obs" rows="2" placeholder="Ex.: fiz no ônibus, ajudou um pouco." style="border:1px solid var(--n600);border-radius:var(--r-campo);padding:12px;font:inherit;background:var(--sup)">${esc(x.obs)}</textarea></label>
+      ${A.exComo ? btn('Marcar como feito', 'prim', 'data-aex-ok', 'check') : '<button class="btn full" disabled>Marcar como feito</button>'}`}
+    </div></div>`; },
   // ---- compartilhadas ----
   direitos: () => { const list = ART.filter(a => audOk(a) && (A.dirAba === 'Todos' || a.cat === A.dirAba)), ad = S.perfil === 'adulto';
     return `<div class="scr bg">${sb()}${ad ? `<div class="ttl"><h1>Direitos e caminhos</h1><p class="small muted">Leis, benefícios e passo a passo</p></div>` : hdr('Direitos e caminhos')}
@@ -983,7 +1019,9 @@ Object.assign(V, {
 
 // ----- assistente: roteiro simulado -----
 const WA_Q = {
-  menu: [['Registrar como estou'], ['Falar com a Júlia'], ['Próxima consulta'], ['Dúvida sobre o app'], ['Não estou bem']],
+  menu: [['Registrar como estou'], ['Meus exercícios'], ['Falar com a Júlia'], ['Próxima consulta'], ['Dúvida sobre o app'], ['Não estou bem']],
+  exlist: [],
+  excomo: [['Fácil'], ['Ok'], ['Difícil']],
   ident: [['Lucas, ELO-LS2-7318']],
   tipo: [['Sobrecarga'], ['Dia bom'], ['Shutdown']],
   int: [['Leve'], ['Média'], ['Forte']],
@@ -991,9 +1029,10 @@ const WA_Q = {
   conf: [['Confirmar'], ['Corrigir']],
   recado: [['Preciso remarcar quinta'], ['Tive uma semana difícil']],
   lembrete: [['Sim, 1 hora antes'], ['Não precisa']],
-  crise: [['Sim, avisar os dois'], ['Agora não']],
+  crise: [['Avisar o Pedro'], ['Avisar a Carla'], ['Avisar os dois'], ['Agora não']],
   fim: [['Voltar ao menu']]
 };
+let guiaT; function guiaStop() { clearInterval(guiaT); A.guia = 0; }
 function waBot(t) { A.wa.msgs.push(['bot', t]); }
 function waAnswer(txt) {
   const w = A.wa; w.msgs.push(['me', txt]); const s = w.step;
@@ -1003,7 +1042,9 @@ function waAnswer(txt) {
     if (/júlia|julia/i.test(txt)) { waBot('Posso mandar um recado para a Júlia Rocha (Psicologia). O que você quer dizer?'); w.step = 'recado'; return; }
     if (/consulta/i.test(txt)) { waBot('Sua próxima consulta é quinta, 27/11, às 18h, Psicologia com a Júlia Rocha, na Clínica Raízes.\nQuer um lembrete?'); w.step = 'lembrete'; return; }
     if (/dúvida|duvida/i.test(txt)) { waBot('Para mudar quem vê o seu diário:\n1. Abra o Elo e toque em Equipe.\n2. Toque no profissional ou no seu apoiador.\n3. Ligue ou desligue cada item.\nA mudança vale na hora.'); w.step = 'fim'; return; }
-    if (/não estou bem|nao estou bem/i.test(txt)) { waBot('Obrigado por me contar. Você não precisa passar por isso sozinho.\nSe estiver em perigo agora, ligue 192 (SAMU). Para conversar com alguém agora, o CVV atende 24 horas no 188.\nQuer que eu avise o Pedro e a Júlia, como está no seu plano de crise?'); w.step = 'crise'; return; }
+    if (/exerc/i.test(txt)) { const p = A.exerc.filter(x => !x.feito); if (!p.length) { waBot('Você já fez todos os exercícios de hoje. Muito bem!'); w.step = 'fim'; return; }
+      waBot('Seus exercícios de hoje:\n' + p.map((x, i) => `${i + 1}. ${x.t} (${x.dur}) · ${curto(x.who)}`).join('\n') + '\nQuer marcar algum como feito?'); w.step = 'exlist'; return; }
+    if (/não estou bem|nao estou bem/i.test(txt)) { waBot('Obrigado por me contar. Você não precisa passar por isso sozinho.\nSuas pessoas de apoio:\n• Pedro (irmão) · (79) 9 8000-0000\n• Carla (amiga) · (79) 9 8111-1111\nQuer que eu avise uma delas agora para te ligar?'); w.step = 'crise'; return; }
     waBot('Não entendi. Escolha uma das opções abaixo.'); return; }
   if (s === 'ident') { const ok = /ELO-LS2-7318/i.test(txt) && /lucas/i.test(txt);
     if (!ok) { waBot('O nome ou o ID não bate com este número. Confira o ID no app, em Eu.'); return; }
@@ -1016,7 +1057,11 @@ function waAnswer(txt) {
     waBot('Registrado no seu diário. A Júlia vê antes da sessão de quinta.'); w.step = 'fim'; return; }
   if (s === 'recado') { waBot('Recado enviado para a Júlia. Ela responde pelo app em até 1 dia útil.'); w.step = 'fim'; return; }
   if (s === 'lembrete') { waBot(/sim/i.test(txt) ? 'Combinado: aviso você na quinta, às 17h.' : 'Tudo bem, sem lembrete.'); w.step = 'fim'; return; }
-  if (s === 'crise') { waBot(/sim/i.test(txt) ? 'Avisei o Pedro e a Júlia que você pediu apoio. Se quiser, abra o seu cartão “Sou autista” no app.' : 'Tudo bem. Estou aqui se precisar. Em perigo, ligue 192.'); w.step = 'fim'; return; }
+  if (s === 'crise') { const quem = /dois/i.test(txt) ? 'o Pedro e a Carla' : /pedro/i.test(txt) ? 'o Pedro' : /carla/i.test(txt) ? 'a Carla' : '';
+    waBot(quem ? `Avisei ${quem} que você precisa de apoio. ${/dois/i.test(txt) ? 'Eles vão' : 'Vai'} te ligar logo. A Júlia também recebeu um aviso no app.\nSe quiser, abra o cartão “Sou autista”. Em perigo imediato, ligue 192.` : 'Tudo bem. Estou aqui se precisar. Para falar com alguém, os números do Pedro e da Carla estão no seu plano de crise.'); w.step = 'fim'; return; }
+  if (s === 'exlist') { const x = A.exerc.find(e => txt.includes(e.t)); if (!x) { waBot('Escolha um exercício abaixo.'); return; } w.tmp.ex = x.id; waBot(`Como foi “${x.t}”?`); w.step = 'excomo'; return; }
+  if (s === 'excomo') { const x = A.exerc.find(e => e.id === w.tmp.ex); x.feito = txt; x.em = '25/11'; x.obs = 'Marcado pelo WhatsApp.';
+    waBot(`Anotei: ${x.t}, ${txt.toLowerCase()}. ${x.who.split(' ')[0] === 'Dra.' ? 'A Dra. Ana' : 'A ' + x.who.split(' ')[0]} vai ver antes da próxima sessão.`); w.step = 'fim'; return; }
   waBot('Escolha uma das opções abaixo.');
 }
 
@@ -1048,18 +1093,24 @@ document.addEventListener('click', (e) => {
   if (d.adir) { A.dirAba = d.adir; return render(); }
   if (d.aart) { A.art = d.aart; return go('artigo'); }
   if (d.wa) { waAnswer(d.wa); return render(); }
+  if (d.aex) { A.exSel = d.aex; A.exComo = ''; guiaStop(); return go('aexercicio'); }
+  if (d.aexcomo) { A.exComo = d.aexcomo; return render(); }
+  if ('aexOk' in d) { const x = A.exerc.find(e => e.id === A.exSel); x.feito = A.exComo; x.em = '25/11'; guiaStop(); render(); return toast(`Feito! ${x.who.startsWith('Dra.') ? 'A Dra. Ana' : 'A ' + x.who.split(' ')[0]} vai ver antes da sessão.`); }
+  if ('aguia' in d) { guiaStop(); A.guia = 1; render(); guiaT = setInterval(() => { if (S.cur !== 'aexercicio') return guiaStop(); A.guia++; if (A.guia > 20) { guiaStop(); A.exComo = 'Ok'; render(); return toast('Ciclos completos. Marque como foi.'); } render(); }, 4000); return; }
+  if ('aguiaStop' in d) { guiaStop(); return render(); }
 });
 document.addEventListener('input', (e) => { const id = e.target.id || '';
   if (id === 'an-nome') { A.novo.nome = e.target.value; if (A.novo.err && A.novo.nome.trim()) A.novo.err = false; }
   if (id === 'an-tel') A.novo.tel = e.target.value;
   if (id === 'an-nasc') { let v = e.target.value.replace(/\D/g, '').slice(0, 8); if (v.length > 4) v = v.slice(0, 2) + '/' + v.slice(2, 4) + '/' + v.slice(4); else if (v.length > 2) v = v.slice(0, 2) + '/' + v.slice(2); A.novo.nasc = v;
     if (v.length === 10) { if (A.novo.nivel) A.novo.conta = sugestao(A.novo.nivel, idadeDe(v)); render(); const i = document.getElementById('an-nasc'); i.focus(); i.setSelectionRange(10, 10); } else e.target.value = v; }
-  if (id === 'ar-ajudou') A.reg.ajudou = e.target.value; });
+  if (id === 'ar-ajudou') A.reg.ajudou = e.target.value;
+  if (id === 'ax-obs') { const x = A.exerc.find(z => z.id === A.exSel); if (x) x.obs = e.target.value; } });
 document.addEventListener('submit', (e) => { const f = e.target; if (!('wasend' in f.dataset)) return; e.preventDefault(); const v = f.querySelector('input').value.trim(); if (!v) return; waAnswer(v); render(); const i = document.getElementById('wa-in'); if (i) i.focus(); });
 
 const lockBtn = () => `<button class="lock" data-lock aria-label="Sair do Modo Paciente: segure por 3 segundos">${ic('cadeado', 22)}<svg class="ring" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="none" stroke="var(--prim)" stroke-width="3" stroke-dasharray="138.2" stroke-dashoffset="138.2" id="ring"/></svg></button>`;
 
-const NAMES = [['Acesso', [['login', 'Login'], ['cadastro', 'Cadastro'], ['codigo', 'Código da clínica']]], ['Responsável', [['inicio', 'Início'], ['rotina', 'Rotina'], ['diario', 'Diário'], ['equipe', 'Equipe'], ['chat', 'Chat com profissional'], ['crise', 'Registrar crise'], ['registrado', 'Registrado'], ['atividade', 'Atividade'], ['objetivos', 'Objetivos']]], ['Paciente', [['kid', 'Modo Paciente'], ['prancha', 'Prancha de comunicação']]], ['Theo no centro', [['perfil', 'Perfil e código de vínculo'], ['pedido', 'Pedido de vínculo'], ['vinculos', 'Vínculos'], ['desvincular', 'Desvincular'], ['documentos', 'Documentos e laudos'], ['privacidade', 'Privacidade e dados'], ['exportar', 'Exportar dados']]], ['Profissional', [['phoje', 'Hoje'], ['ppacientes', 'Pacientes'], ['ppaciente', 'Paciente (Theo)'], ['pregistro', 'Lançar registro'], ['pativnova', 'Enviar atividade'], ['pvincular', 'Vincular por código'], ['pdesv', 'Desvincular paciente'], ['pconversas', 'Conversas'], ['pchat', 'Chat com o responsável'], ['pconta', 'Conta'], ['pnovo', 'Novo paciente (cadastro)'], ['pnovook', 'Convite enviado com ID']]], ['Paciente adulto', [['aconvite', 'Convite e ID único'], ['aconsent', 'Consentimento (LGPD)'], ['aautonomia', 'Tipo de conta e apoiador'], ['aprefs', 'Preferências'], ['ahoje', 'Hoje'], ['aregistro', 'Como você está'], ['adiario', 'Diário e energia'], ['aplano', 'Plano de crise'], ['acartao', 'Cartão Sou autista'], ['aequipe', 'Equipe e apoiador'], ['aeu', 'Eu'], ['awhats', 'Assistente no WhatsApp']]], ['Direitos e caminhos', [['direitos', 'Conteúdos'], ['artigo', 'Conteúdo aberto']]]];
+const NAMES = [['Acesso', [['login', 'Login'], ['cadastro', 'Cadastro'], ['codigo', 'Código da clínica']]], ['Responsável', [['inicio', 'Início'], ['rotina', 'Rotina'], ['diario', 'Diário'], ['equipe', 'Equipe'], ['chat', 'Chat com profissional'], ['crise', 'Registrar crise'], ['registrado', 'Registrado'], ['atividade', 'Atividade'], ['objetivos', 'Objetivos']]], ['Paciente', [['kid', 'Modo Paciente'], ['prancha', 'Prancha de comunicação']]], ['Theo no centro', [['perfil', 'Perfil e código de vínculo'], ['pedido', 'Pedido de vínculo'], ['vinculos', 'Vínculos'], ['desvincular', 'Desvincular'], ['documentos', 'Documentos e laudos'], ['privacidade', 'Privacidade e dados'], ['exportar', 'Exportar dados']]], ['Profissional', [['phoje', 'Hoje'], ['ppacientes', 'Pacientes'], ['ppaciente', 'Paciente (Theo)'], ['pregistro', 'Lançar registro'], ['pativnova', 'Enviar atividade'], ['pvincular', 'Vincular por código'], ['pdesv', 'Desvincular paciente'], ['pconversas', 'Conversas'], ['pchat', 'Chat com o responsável'], ['pconta', 'Conta'], ['pnovo', 'Novo paciente (cadastro)'], ['pnovook', 'Convite enviado com ID']]], ['Paciente adulto', [['aconvite', 'Convite e ID único'], ['aconsent', 'Consentimento (LGPD)'], ['aautonomia', 'Tipo de conta e apoiador'], ['aprefs', 'Preferências'], ['ahoje', 'Hoje'], ['aregistro', 'Como você está'], ['adiario', 'Diário e energia'], ['aexerc', 'Exercícios da equipe'], ['aexercicio', 'Exercício com guia'], ['aplano', 'Plano de crise'], ['acartao', 'Cartão Sou autista'], ['aequipe', 'Equipe e apoiador'], ['aeu', 'Eu'], ['awhats', 'Assistente no WhatsApp']]], ['Direitos e caminhos', [['direitos', 'Conteúdos'], ['artigo', 'Conteúdo aberto']]]];
 const app = document.getElementById('app');
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 function render(anim) {
@@ -1077,7 +1128,7 @@ function render(anim) {
 function setPerfil(id) { if (SHARED_SCREENS.includes(id)) return; if (A_SCREENS.includes(id)) S.perfil = 'adulto'; else if (PROF_SCREENS.includes(id)) S.perfil = 'prof'; else if (!['login', 'cadastro'].includes(id)) S.perfil = 'familia'; }
 const homeOf = () => S.perfil === 'prof' ? 'phoje' : S.perfil === 'adulto' ? 'ahoje' : 'inicio';
 const histFor0 = (id) => ['inicio', 'phoje', 'login'].includes(id) ? [] : PROF_SCREENS.includes(id) ? (['ppacientes', 'pconversas', 'pconta'].includes(id) ? [] : id === 'ppaciente' || id === 'pvincular' ? ['ppacientes'] : id === 'pchat' ? ['pconversas'] : ['ppacientes', 'ppaciente']) : ['inicio'];
-const histFor = (id) => A_SCREENS.includes(id) ? (['ahoje', 'adiario', 'aequipe', 'aeu', 'aconvite'].includes(id) ? [] : ({ aconsent: ['aconvite'], aautonomia: ['aconvite', 'aconsent'], aprefs: ['aconvite', 'aconsent', 'aautonomia'], acartao: ['ahoje', 'aplano'] })[id] || ['ahoje']) : id === 'direitos' ? (S.perfil === 'adulto' ? [] : ['perfil']) : id === 'artigo' ? (S.perfil === 'adulto' ? ['direitos'] : ['perfil', 'direitos']) : ['pnovo', 'pnovook'].includes(id) ? ['ppacientes'] : histFor0(id);
+const histFor = (id) => A_SCREENS.includes(id) ? (['ahoje', 'adiario', 'aequipe', 'aeu', 'aconvite'].includes(id) ? [] : ({ aconsent: ['aconvite'], aautonomia: ['aconvite', 'aconsent'], aprefs: ['aconvite', 'aconsent', 'aautonomia'], acartao: ['ahoje', 'aplano'], aexercicio: ['ahoje', 'aexerc'] })[id] || ['ahoje']) : id === 'direitos' ? (S.perfil === 'adulto' ? [] : ['perfil']) : id === 'artigo' ? (S.perfil === 'adulto' ? ['direitos'] : ['perfil', 'direitos']) : ['pnovo', 'pnovook'].includes(id) ? ['ppacientes'] : histFor0(id);
 function go(id, root) { if (id === S.cur) return; setPerfil(id); if (root) S.hist = []; else S.hist.push(S.cur); S.cur = id; render(root || id === 'kid' ? 'fade' : 'fwd'); }
 function back() { S.cur = S.hist.pop() || homeOf(); render('back'); }
 let toastT; function toast(t) { const el = document.getElementById('toast'); el.innerHTML = ic('check', 18) + esc(t); el.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => el.hidden = true, 2600); }
