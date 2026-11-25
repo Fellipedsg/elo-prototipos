@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Elo · Equipe alinhada, família junto, paciente evoluindo</title>
-<meta name="description" content="O Elo conecta responsáveis e a equipe de fono, TO, psicologia e ABA em um prontuário compartilhado. Grátis para o responsável. Planos a partir de R$ 70 por terapeuta.">
+<meta name="description" content="O Elo conecta responsáveis e a equipe de fono, TO, psicologia e ABA em um prontuário compartilhado. Grátis para o responsável. Planos a partir de R$ 29,90 por paciente.">
 <meta property="og:title" content="Elo · O cuidado do paciente em rede">
 <meta property="og:description" content="Responsáveis e equipe terapêutica conectados em um só prontuário. Feito para pacientes autistas e neurodivergentes.">
 <meta property="og:image" content="https://fellipedsg.github.io/elo-prototipos/lp/og.jpg"><meta property="og:url" content="https://fellipedsg.github.io/elo-prototipos/"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image">
@@ -196,25 +196,52 @@ p{margin:0}
 
 /* pricing */
 .price-sec{background:var(--bg)}
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
-.plan{background:#fff;border:1px solid var(--line);border-radius:24px;padding:34px;display:flex;flex-direction:column;gap:18px;position:relative}
-.plan.hl{border:2px solid var(--blue);box-shadow:var(--sh);transform:translateY(-10px)}
-.plan .rec{position:absolute;top:-15px;left:34px;background:var(--yel);color:var(--navy);font-family:var(--ft);font-weight:900;font-size:13px;padding:5px 12px;border-radius:999px;letter-spacing:.03em}
-.plan h3{font-size:24px}
-.plan .pr{font-family:var(--ft);font-weight:900;font-size:50px;color:var(--navy);line-height:1;white-space:nowrap}
-.plan .pr small{font-size:16px;font-weight:800;color:var(--ink2);margin-left:6px}
-.plan .cap{font-weight:700;background:var(--blue0);color:var(--blue7);border-radius:12px;padding:10px 14px;font-size:15px}
-.plan ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;font-size:16px}
-.plan li{display:flex;gap:10px}
-.plan li svg{flex:none;width:22px;height:22px;color:var(--grn)}
-.plan .btn{margin-top:auto;width:100%}
+.free{display:inline-flex;align-items:center;gap:8px;margin-top:22px;background:var(--grn0);color:var(--grn7);font-family:var(--ft);font-weight:900;font-size:17px;padding:10px 18px;border-radius:999px}
+.free svg{width:20px;height:20px}
+.plans2{display:grid;grid-template-columns:minmax(240px,1fr) 44px 4fr;align-items:stretch}
+.pgrp{display:flex;flex-direction:column;gap:16px;min-width:0}
+.pglab{display:flex;align-items:center;gap:14px;font-family:var(--ft);font-weight:900;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.pglab::after{content:"";flex:1;height:2px;background:var(--blue1);border-radius:2px}
+.pkgs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;flex:1}
+.ou{align-self:center;justify-self:center;margin-top:32px;width:44px;height:44px;border-radius:50%;background:var(--blue1);color:var(--navy);display:grid;place-items:center;font-family:var(--ft);font-weight:900;font-size:15px;z-index:1}
+.plan{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px 22px;display:flex;flex-direction:column;gap:14px;position:relative;min-width:0}
+.plan.hl{border:2px solid var(--blue);box-shadow:var(--sh)}
+.plan .rec{position:absolute;top:-14px;left:50%;transform:translateX(-50%);white-space:nowrap;background:var(--blue);color:#fff;font-family:var(--ft);font-weight:900;font-size:12px;padding:5px 12px;border-radius:999px;letter-spacing:.04em}
+.plan h3{font-size:20px}
+.plan .pr{font-family:var(--ft);font-weight:900;font-size:34px;color:var(--navy);line-height:1;white-space:nowrap}
+.plan .pr.sc{font-size:28px;white-space:normal}
+.plan .per{display:block;margin-top:6px;font-size:14px;font-weight:700;color:var(--ink2)}
+.plan .cap{font-weight:700;background:var(--blue0);color:var(--blue7);border-radius:12px;padding:9px 12px;font-size:14px;line-height:1.35}
+.plan ul{list-style:none;padding:0;margin:0;display:grid;gap:9px;font-size:15px;line-height:1.4}
+.plan li{display:flex;gap:8px}
+.plan li svg{flex:none;width:20px;height:20px;color:var(--grn);margin-top:1px}
+.plan .fit{margin-top:auto;padding-top:6px;font-size:14px;font-weight:700;color:var(--grn7)}
+.plan .btn{width:100%;min-height:50px;font-size:16px;padding:0 14px}
+.plan.dark{background:var(--navy);border-color:var(--navy);color:#fff;flex:1}
+.plan.dark h3,.plan.dark .pr{color:#fff}.plan.dark .per{color:#C3D0EE}
+.plan.dark .cap{background:rgba(255,255,255,.1);color:#fff}
+.plan.dark li svg{color:#6BD6A0}.plan.dark .fit{color:#8FE3B6}
+.plan.dark .btn{background:var(--yel);color:var(--navy);box-shadow:none}
+.plan.dark ul{font-size:16px}
+@media (max-width:1180px){
+  .plans2{grid-template-columns:1fr;gap:0}
+  .ou{margin:18px auto}
+  .pkgs{grid-template-columns:repeat(2,1fr);gap:22px 16px}
+  .plan.dark ul{grid-template-columns:repeat(3,auto);justify-content:start;gap:9px 26px}
+}
+@media (max-width:640px){
+  .pkgs{grid-template-columns:1fr}
+  .plan.dark ul{grid-template-columns:1fr}
+  .calc{grid-template-columns:1fr!important;padding:24px 20px}
+  .free{font-size:15px}
+}
 .calc{margin-top:34px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:30px 34px;display:grid;grid-template-columns:auto auto 1fr;gap:22px 30px;align-items:center}
 .calc h3{grid-column:1/-1;font-size:22px}
 .num-in{display:flex;flex-direction:column;gap:8px;font-weight:700;font-size:15px}
 .stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:14px;overflow:hidden;height:52px}
 .stepper button{width:48px;height:100%;border:0;background:var(--bg);font-size:22px;font-weight:700;color:var(--navy);cursor:pointer}
 .stepper button:hover{background:var(--blue0)}
-.stepper input{width:76px;height:100%;border:0;text-align:center;font:inherit;font-size:19px;font-weight:700;color:var(--navy)}
+.stepper input{flex:1;min-width:0;width:76px;height:100%;border:0;text-align:center;font:inherit;font-size:19px;font-weight:700;color:var(--navy)}
 .calc-out{background:var(--navy);color:#fff;border-radius:18px;padding:18px 24px}
 .calc-out b{font-family:var(--ft);font-size:34px;font-weight:900;color:var(--yel);display:block;line-height:1.1}
 .calc-out span{font-size:15px;color:#C3D0EE}
@@ -295,9 +322,8 @@ footer a:hover{color:#fff}
   .hero .wrap,.panel,.panel.web,.aud,.lgpd .wrap,.faq .wrap,.final .wrap{grid-template-columns:1fr}
   .panel.web .media{order:0}
   .stage{height:520px;max-width:640px;width:100%;margin:0 auto}.stage .browser{right:0;width:88%}
-  .pgrid,.flow,.plans,.dir{grid-template-columns:1fr}.agrid{grid-template-columns:1fr;gap:56px}.acol{align-items:center;text-align:center}.stats{grid-template-columns:1fr 1fr}
-  .plan.hl{transform:none}
-  .calc{grid-template-columns:1fr 1fr}.calc-out{grid-column:1/-1}
+  .pgrid,.flow,.dir{grid-template-columns:1fr}.agrid{grid-template-columns:1fr;gap:56px}.acol{align-items:center;text-align:center}.stats{grid-template-columns:1fr 1fr}
+    .calc{grid-template-columns:1fr 1fr}.calc-out{grid-column:1/-1}
   .ods-card{grid-template-columns:1fr;text-align:left}
   footer .wrap{grid-template-columns:1fr 1fr}footer .wrap>div:first-child{grid-column:1/-1}
 }
@@ -383,7 +409,7 @@ footer a:hover{color:#fff}
       </div>
       <div class="trust">
         <span><svg><use href="#okc"/></svg>Grátis para o responsável</span>
-        <span><svg><use href="#okc"/></svg>A partir de R$ 70 por terapeuta</span>
+        <span><svg><use href="#okc"/></svg>A partir de R$ 29,90 por paciente</span>
         <span><svg><use href="#okc"/></svg>LGPD por padrão</span>
       </div>
     </div>
@@ -592,27 +618,41 @@ footer a:hover{color:#fff}
   <div class="wrap">
     <div class="sec-h center rv">
       <span class="eyebrow">Planos</span>
-      <h2>Preço por terapeuta. Simples assim.</h2>
-      <p>A clínica paga pelos terapeutas que usam o Elo. O responsável nunca paga.</p>
+      <h2>Pague por paciente ou escolha um pacote.</h2>
+      <p>Terapeutas e clínicas assinam do jeito que fizer mais sentido.</p>
+      <span class="free"><svg><use href="#okc"/></svg>Responsáveis e pacientes: grátis, sempre</span>
     </div>
-    <div class="plans">
-      <div class="plan rv"><h3>Essencial</h3><div class="pr">R$ 70<small>/terapeuta/mês</small></div><div class="cap">Até 15 pacientes ativos por terapeuta</div>
-        <ul><li><svg><use href="#okc"/></svg>Prontuário, atividades e diário do responsável</li><li><svg><use href="#okc"/></svg>Dashboard por paciente</li><li><svg><use href="#okc"/></svg>Vínculo por código, com autorização do responsável</li></ul>
-        <a class="btn b2" href="#contato" data-plan="Essencial">Quero o Essencial</a></div>
-      <div class="plan hl rv"><span class="rec">MAIS ESCOLHIDO</span><h3>Profissional</h3><div class="pr">R$ 85<small>/terapeuta/mês</small></div><div class="cap">Até 30 pacientes ativos por terapeuta</div>
-        <ul><li><svg><use href="#okc"/></svg>Tudo do Essencial</li><li><svg><use href="#okc"/></svg>Passagem de caso</li><li><svg><use href="#okc"/></svg>Documentos e laudos compartilhados</li><li><svg><use href="#okc"/></svg>Exportar prontuário</li></ul>
-        <a class="btn b1" href="#contato" data-plan="Profissional">Quero o Profissional</a></div>
-      <div class="plan rv"><h3>Clínica</h3><div class="pr">R$ 100<small>/terapeuta/mês</small></div><div class="cap">Até 50 pacientes ativos por terapeuta</div>
-        <ul><li><svg><use href="#okc"/></svg>Tudo do Profissional</li><li><svg><use href="#okc"/></svg>Gestão de profissionais e acompanhamento geral</li><li><svg><use href="#okc"/></svg>Chat da equipe e app do profissional</li><li><svg><use href="#okc"/></svg>Exportação em lote e registro de acessos</li></ul>
-        <a class="btn b2" href="#contato" data-plan="Clínica">Quero o Clínica</a></div>
+    <div class="plans2">
+      <div class="pgrp"><span class="pglab">Por paciente</span>
+        <div class="plan dark rv"><h3>Avulso</h3><div class="pr">R$ 29,90<span class="per">por paciente ativo / mês</span></div><div class="cap">Sem mínimo de pacientes</div>
+          <ul><li><svg><use href="#okc"/></svg>Para terapeutas e clínicas</li><li><svg><use href="#okc"/></svg>Paga só pelos pacientes que atende</li><li><svg><use href="#okc"/></svg>2 primeiros pacientes grátis</li></ul>
+          <p class="fit">Ideal para quem está começando</p><a class="btn" href="#contato" data-plan="Avulso">Começar no Avulso</a></div>
+      </div>
+      <div class="ou" aria-hidden="true">OU</div>
+      <div class="pgrp"><span class="pglab">Pacotes</span>
+        <div class="pkgs">
+        <div class="plan rv"><h3>Terapeuta</h3><div class="pr">R$ 199,90<span class="per">por mês</span></div><div class="cap">Até 20 pacientes ativos</div>
+          <ul><li><svg><use href="#okc"/></svg>Agenda e dashboard por paciente</li><li><svg><use href="#okc"/></svg>Passagem de caso e laudos</li><li><svg><use href="#okc"/></svg>Exportar prontuário</li></ul>
+          <p class="fit">Compensa a partir de 9 pacientes</p><a class="btn b2" href="#contato" data-plan="Terapeuta">Quero o Terapeuta</a></div>
+        <div class="plan rv"><h3>Clínica Essencial</h3><div class="pr">R$ 590<span class="per">por mês</span></div><div class="cap">Até 50 pacientes e 10 profissionais</div>
+          <ul><li><svg><use href="#okc"/></svg>Tudo do Terapeuta</li><li><svg><use href="#okc"/></svg>Painel web da clínica</li><li><svg><use href="#okc"/></svg>Chat da equipe por paciente</li></ul>
+          <p class="fit">Compensa a partir de 22 pacientes</p><a class="btn b2" href="#contato" data-plan="Clínica Essencial">Quero o Essencial</a></div>
+        <div class="plan hl rv"><span class="rec">RECOMENDADO</span><h3>Clínica Pro</h3><div class="pr">R$ 1.290<span class="per">por mês</span></div><div class="cap">Até 150 pacientes, profissionais ilimitados</div>
+          <ul><li><svg><use href="#okc"/></svg>Tudo do Essencial</li><li><svg><use href="#okc"/></svg>Gestão de profissionais e agenda</li><li><svg><use href="#okc"/></svg>Registro de acessos (LGPD)</li></ul>
+          <p class="fit">Compensa a partir de 46 pacientes</p><a class="btn b1" href="#contato" data-plan="Clínica Pro">Quero o Pro</a></div>
+        <div class="plan rv"><h3>Rede</h3><div class="pr sc">Sob consulta<span class="per">contrato anual</span></div><div class="cap">Mais de 150 pacientes ou várias unidades</div>
+          <ul><li><svg><use href="#okc"/></svg>Várias unidades</li><li><svg><use href="#okc"/></svg>Suporte dedicado</li></ul>
+          <p class="fit"></p><a class="btn b2" href="#contato" data-plan="Rede">Falar com a gente</a></div>
+        </div>
+      </div>
     </div>
     <div class="calc rv" aria-live="polite">
-      <h3>Quanto a sua clínica pagaria?</h3>
-      <div class="num-in">Terapeutas<div class="stepper"><button type="button" data-st="t" data-d="-1" aria-label="Menos um terapeuta">−</button><input id="cT" inputmode="numeric" value="6" aria-label="Número de terapeutas"><button type="button" data-st="t" data-d="1" aria-label="Mais um terapeuta">+</button></div></div>
-      <div class="num-in">Pacientes ativos<div class="stepper"><button type="button" data-st="p" data-d="-10" aria-label="Menos dez pacientes">−</button><input id="cP" inputmode="numeric" value="120" aria-label="Número de pacientes ativos"><button type="button" data-st="p" data-d="10" aria-label="Mais dez pacientes">+</button></div></div>
-      <div class="calc-out"><b id="cOut">R$ 510/mês</b><span id="cTxt">Plano Profissional · R$ 85 × 6 terapeutas</span></div>
+      <h3>Qual opção sai mais em conta para você?</h3>
+      <div class="num-in">Profissionais<div class="stepper"><button type="button" data-st="t" data-d="-1" aria-label="Menos um profissional">−</button><input id="cT" inputmode="numeric" value="4" aria-label="Número de profissionais"><button type="button" data-st="t" data-d="1" aria-label="Mais um profissional">+</button></div></div>
+      <div class="num-in">Pacientes ativos<div class="stepper"><button type="button" data-st="p" data-d="-5" aria-label="Menos cinco pacientes">−</button><input id="cP" inputmode="numeric" value="40" aria-label="Número de pacientes ativos"><button type="button" data-st="p" data-d="5" aria-label="Mais cinco pacientes">+</button></div></div>
+      <div class="calc-out"><b id="cOut">R$ 590/mês</b><span id="cTxt">Clínica Essencial</span></div>
     </div>
-    <p class="price-note">Pagamento por Pix ou cartão. Precisa de mais pacientes por terapeuta? <a href="#contato">Fale com a gente</a> para um plano sob medida.</p>
+    <p class="price-note"><b>Referência:</b> plataformas para TEA cobram de R$ 29,90 a R$ 99,90 por paciente. Pagamento por Pix ou cartão. <b>Em breve:</b> CRM, teleatendimento e módulo escola.</p>
   </div>
 </section>
 
@@ -654,7 +694,7 @@ footer a:hover{color:#fff}
       <p style="margin-top:16px;color:var(--ink2)">Não achou a sua? <a href="#contato">Fale com a gente</a>.</p>
     </div>
     <div class="rv">
-      <details open><summary>O responsável paga alguma coisa?</summary><p>Não. O app do responsável é sempre grátis. Quem assina é a clínica, por terapeuta.</p></details>
+      <details open><summary>O responsável paga alguma coisa?</summary><p>Não. Responsáveis e pacientes usam grátis, sempre. Quem assina é o terapeuta ou a clínica: por paciente atendido (Avulso) ou em pacote.</p></details>
       <details><summary>Preciso instalar alguma coisa?</summary><p>Responsáveis e terapeutas usam o app no celular. A gestão da clínica é feita no navegador, sem instalar nada.</p></details>
       <details><summary>Terapeutas de clínicas diferentes podem atender o mesmo paciente?</summary><p>Sim. Cada profissional pede vínculo com o código do paciente e o responsável autoriza. Todos passam a ver o mesmo caso, cada um com as permissões liberadas.</p></details>
       <details><summary>Como o Elo trata a LGPD?</summary><p>Nenhum profissional acessa dados sem autorização do responsável, que escolhe o que cada um pode ver e pode desvincular a qualquer momento. Os acessos ficam registrados e os dados podem ser exportados.</p></details>
@@ -684,7 +724,7 @@ footer a:hover{color:#fff}
         <label class="fld">WhatsApp<input name="whats" type="tel" inputmode="tel" autocomplete="tel" placeholder="(79) 9 0000-0000" required></label>
         <label class="fld">Terapeutas na equipe<select name="equipe"><option>1 a 5</option><option selected>6 a 15</option><option>16 a 40</option><option>Mais de 40</option></select></label>
       </div>
-      <label class="fld">Plano de interesse<select name="plano" id="fPlano"><option>Ainda não sei</option><option>Essencial</option><option>Profissional</option><option>Clínica</option></select></label>
+      <label class="fld">Plano de interesse<select name="plano" id="fPlano"><option>Ainda não sei</option><option>Avulso</option><option>Terapeuta</option><option>Clínica Essencial</option><option>Clínica Pro</option><option>Rede</option></select></label>
       <button class="btn b1" type="submit"><svg><use href="#cal"/></svg>Quero minha demonstração</button>
       <small>Usamos seus dados só para falar sobre a demonstração.</small>
       <div class="ok" role="status"><div class="i"><svg><use href="#ok"/></svg></div><h3>Pedido recebido!</h3><p style="color:var(--ink2);margin-top:8px">Vamos falar com você pelo WhatsApp para marcar o melhor horário.</p></div>
@@ -734,13 +774,15 @@ function sel(t){ tabs.forEach(x => { const on = x === t; x.setAttribute('aria-se
 tabs.forEach((t, i) => { t.onclick = () => sel(t); t.onkeydown = e => { const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (d) { const n = tabs[(i + d + tabs.length) % tabs.length]; n.focus(); sel(n); } }; });
 
 // calculator
-const PL = [['Essencial', 70, 15], ['Profissional', 85, 30], ['Clínica', 100, 50]];
+const PL = [['Terapeuta', 199.9, 20, 1], ['Clínica Essencial', 590, 50, 10], ['Clínica Pro', 1290, 150, Infinity]];
 const cT = document.getElementById('cT'), cP = document.getElementById('cP');
-const brl = n => 'R$ ' + n.toLocaleString('pt-BR');
+const brl = n => 'R$ ' + n.toLocaleString('pt-BR', { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 });
 function calc(){ const t = Math.max(1, parseInt(cT.value) || 1), p = Math.max(0, parseInt(cP.value) || 0);
-  const pl = PL.find(x => x[2] * t >= p);
-  document.getElementById('cOut').textContent = pl ? brl(pl[1] * t) + '/mês' : 'Plano sob medida';
-  document.getElementById('cTxt').textContent = pl ? `Plano ${pl[0]} · ${brl(pl[1])} × ${t} terapeuta${t > 1 ? 's' : ''} · até ${pl[2] * t} pacientes` : `Mais de 50 pacientes por terapeuta: fale com a gente.`; }
+  const av = Math.max(0, p - 2) * 29.9, out = document.getElementById('cOut'), txt = document.getElementById('cTxt');
+  const pk = PL.filter(x => p <= x[2] && t <= x[3]).sort((a, b) => a[1] - b[1])[0];
+  if (!pk && p > 150) { out.textContent = 'Plano Rede'; txt.textContent = `Mais de 150 pacientes: sob consulta, com contrato anual. No Avulso seriam ${brl(av)}/mês.`; return; }
+  if (!pk || av <= pk[1]) { out.textContent = av ? brl(av) + '/mês' : 'Grátis'; txt.textContent = `Avulso · ${p} paciente${p === 1 ? '' : 's'}, os 2 primeiros grátis` + (pk ? ` · o pacote ${pk[0]} sairia ${brl(pk[1])}` : ''); return; }
+  out.textContent = brl(pk[1]) + '/mês'; txt.textContent = `Pacote ${pk[0]} · no Avulso seriam ${brl(av)}/mês`; }
 document.querySelectorAll('[data-st]').forEach(b => b.onclick = () => { const i = b.dataset.st === 't' ? cT : cP; i.value = Math.max(b.dataset.st === 't' ? 1 : 0, (parseInt(i.value) || 0) + +b.dataset.d); calc(); });
 [cT, cP].forEach(i => i.oninput = () => { i.value = i.value.replace(/\D/g, '').slice(0, 4); calc(); });
 calc();
