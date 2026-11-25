@@ -148,6 +148,20 @@ p{margin:0}
 .ticks li{display:flex;gap:12px;align-items:flex-start}
 .ticks svg{flex:none;width:24px;height:24px;color:var(--grn);margin-top:1px}
 
+/* adultos */
+.adult{background:linear-gradient(180deg,#fff,#FFF8E6)}
+.agrid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.acol{display:flex;flex-direction:column;align-items:flex-start}
+.acol .phone{width:230px;margin:0 auto 26px}
+.anum{width:40px;height:40px;border-radius:12px;background:var(--navy);color:#fff;display:grid;place-items:center;font-family:var(--ft);font-weight:900;margin-bottom:12px}
+.acol h3{font-size:24px;margin-bottom:8px}
+.acol p{color:var(--ink2)}
+.dir{margin-top:50px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:30px 34px;display:grid;grid-template-columns:1fr 1.1fr;gap:28px;align-items:center}
+.dir h3{font-size:26px;margin:10px 0 8px}
+.dir p{color:var(--ink2)}
+.dchips{display:flex;flex-wrap:wrap;gap:10px}
+.dchips span{padding:9px 14px;border-radius:999px;background:var(--blue0);color:var(--blue7);font-family:var(--ft);font-weight:800;font-size:15px}
+
 /* audiences */
 .aud{display:grid;grid-template-columns:1.15fr 1fr;gap:24px}
 .acard{border-radius:28px;padding:44px;position:relative;overflow:hidden}
@@ -281,7 +295,7 @@ footer a:hover{color:#fff}
   .hero .wrap,.panel,.panel.web,.aud,.lgpd .wrap,.faq .wrap,.final .wrap{grid-template-columns:1fr}
   .panel.web .media{order:0}
   .stage{height:520px;max-width:640px;width:100%;margin:0 auto}.stage .browser{right:0;width:88%}
-  .pgrid,.flow,.plans{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}
+  .pgrid,.flow,.plans,.dir{grid-template-columns:1fr}.agrid{grid-template-columns:1fr;gap:56px}.acol{align-items:center;text-align:center}.stats{grid-template-columns:1fr 1fr}
   .plan.hl{transform:none}
   .calc{grid-template-columns:1fr 1fr}.calc-out{grid-column:1/-1}
   .ods-card{grid-template-columns:1fr;text-align:left}
@@ -346,6 +360,7 @@ footer a:hover{color:#fff}
     <nav class="links" id="links" aria-label="Seções">
       <a href="#como">Como funciona</a>
       <a href="#demo">Veja o app</a>
+      <a href="#adultos">Adultos</a>
       <a href="#clinicas">Para clínicas</a>
       <a href="#planos">Planos</a>
       <a href="#duvidas">Dúvidas</a>
@@ -494,6 +509,28 @@ footer a:hover{color:#fff}
   </div>
 </section>
 
+<section class="sec adult" id="adultos">
+  <div class="wrap">
+    <div class="sec-h center rv">
+      <span class="eyebrow">Novo · Pacientes adultos</span>
+      <h2>Também para adultos autistas, com autonomia de verdade.</h2>
+      <p>O terapeuta começa o cadastro. O adulto assume a própria conta e decide quem vê o quê, com ou sem um apoiador.</p>
+    </div>
+    <div class="agrid">
+      <div class="acol rv"><div class="phone"><video data-src="lp/10-novo-paciente.mp4" poster="lp/10-novo-paciente.jpg" muted loop playsinline aria-label="Profissional cadastra um paciente e gera o ID único"></video></div>
+        <span class="anum">1</span><h3>O profissional cadastra</h3><p>Pré-cadastro com nível de suporte e um ID único para cada paciente. O convite chega pelo WhatsApp.</p></div>
+      <div class="acol rv"><div class="phone"><video data-src="lp/08-paciente-adulto.mp4" poster="lp/08-paciente-adulto.jpg" muted loop playsinline aria-label="Paciente adulto registra a energia e abre o plano de crise"></video></div>
+        <span class="anum">2</span><h3>O adulto assume a conta</h3><p>Sozinho, com um apoiador que ele escolhe ou com curador. Energia do dia, lembretes, plano de crise e cartão “Sou autista”.</p></div>
+      <div class="acol rv"><div class="phone"><video data-src="lp/09-assistente-whatsapp.mp4" poster="lp/09-assistente-whatsapp.jpg" muted loop playsinline aria-label="Assistente do Elo no WhatsApp registra como o paciente está"></video></div>
+        <span class="anum">3</span><h3>Assistente no WhatsApp</h3><p>Registra como a pessoa está, manda recado para a equipe e tira dúvidas. Confirma antes de salvar e não dá orientação clínica.</p></div>
+    </div>
+    <div class="dir rv">
+      <div><span class="eyebrow">Direitos e caminhos</span><h3>Leis, benefícios e passo a passo, dentro do app.</h3><p>Conteúdo revisado e com fonte, para adultos e para quem cuida de crianças.</p></div>
+      <div class="dchips"><span>CIPTEA</span><span>BPC/LOAS</span><span>Atendimento prioritário</span><span>Diagnóstico na vida adulta</span><span>Decisão apoiada</span><span>Trabalho e cotas</span><span>Escola</span><span>Aos 18 anos</span></div>
+    </div>
+  </div>
+</section>
+
 <section class="sec" id="clinicas">
   <div class="wrap">
     <div class="sec-h rv">
@@ -622,6 +659,8 @@ footer a:hover{color:#fff}
       <details><summary>Terapeutas de clínicas diferentes podem atender o mesmo paciente?</summary><p>Sim. Cada profissional pede vínculo com o código do paciente e o responsável autoriza. Todos passam a ver o mesmo caso, cada um com as permissões liberadas.</p></details>
       <details><summary>Como o Elo trata a LGPD?</summary><p>Nenhum profissional acessa dados sem autorização do responsável, que escolhe o que cada um pode ver e pode desvincular a qualquer momento. Os acessos ficam registrados e os dados podem ser exportados.</p></details>
       <details><summary>O Elo substitui meu sistema de agenda ou o protocolo ABA?</summary><p>Não. O Elo conecta a equipe e a família em torno do paciente. Ele convive com a agenda, o faturamento e os protocolos que a clínica já usa.</p></details>
+      <details><summary>Funciona para pacientes adultos?</summary><p>Sim. O terapeuta cadastra o paciente com o nível de suporte e um ID único. O adulto ativa a conta e escolhe se usa sozinho, com um apoiador ou com curador (este, só com decisão judicial). Ele decide o que cada profissional vê.</p></details>
+      <details><summary>Como funciona o assistente no WhatsApp?</summary><p>O paciente liga o assistente no app e vincula o número. Pelo WhatsApp, ele registra como está, manda recados para a equipe e tira dúvidas. O assistente confirma antes de salvar, não dá orientação clínica e indica o SAMU (192) e o CVV (188) em emergências.</p></details>
       <details><summary>Posso ver antes de assinar?</summary><p>Sim. Teste o protótipo agora, com dados fictícios, ou agende uma demonstração de 20 minutos com a sua equipe.</p></details>
     </div>
   </div>

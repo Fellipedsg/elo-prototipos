@@ -266,8 +266,39 @@ html.native .tabbar { height: auto; padding-bottom: max(8px, env(safe-area-inset
 .opt.fmt { justify-content: space-between; padding: 12px 16px; min-height: 64px; }
 
 .bubble.me small { opacity: 1; }
+/* v6 · paciente adulto */
+.chk { width: 26px; height: 26px; border-radius: 8px; border: 2px solid var(--n600); display: grid; place-items: center; flex: none; color: #fff; }
+.chk.on { background: var(--prim); border-color: var(--prim); }
+.ebars { display: inline-flex; gap: 3px; align-items: flex-end; }
+.ebars i { width: 8px; height: 16px; border-radius: 3px; background: var(--n200); }
+.ebars i.on.e1, .wbar i.e1 { background: var(--verm-500); } .ebars i.on.e2, .wbar i.e2 { background: #F08C3A; } .ebars i.on.e3, .wbar i.e3 { background: var(--amar-400); } .ebars i.on.e4, .wbar i.e4 { background: #7CC26F; } .ebars i.on.e5, .wbar i.e5 { background: var(--verde-500); }
+.week { display: flex; gap: 6px; }
+.wbar { height: 90px; width: 100%; max-width: 30px; background: var(--n100); border-radius: 8px; display: flex; align-items: flex-end; overflow: hidden; }
+.wbar i { width: 100%; border-radius: 8px; }
+.scr.sou { background: var(--azul-900); color: #fff; }
+.scr.sou .btn.b-sec { background: #fff; color: var(--azul-900); }
+.scr.wa { background: #EFE9E0; }
+.wa-h { background: #1D7348; height: 64px; }
+.wa-note { display: flex; gap: 6px; align-items: center; justify-content: center; padding: 6px 12px; background: #FFF8DB; color: #5C4600; font-weight: 700; flex: none; }
+.wab { max-width: 84%; padding: 9px 12px; border-radius: 12px; background: #fff; font-size: 15px; line-height: 1.4; box-shadow: 0 1px 1px rgba(0,0,0,.08); align-self: flex-start; }
+.wab.me { align-self: flex-end; background: #DCF8C6; }
+.wa-qr { display: flex; flex-wrap: wrap; gap: 8px; }
+.wa-qr button { flex: none; padding: 9px 14px; border-radius: 18px; background: #fff; color: #1D7348; font-weight: 700; font-size: 14px; border: 1px solid #BFE6CF; }
+.wa-qr button:hover { background: #EAF8EF; }
+.chips-x { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; flex: none; }
+.chips-x .pill { flex: none; cursor: pointer; }
+.stepn { width: 28px; height: 28px; border-radius: 50%; background: var(--azul-50); color: var(--link); font-weight: 700; display: grid; place-items: center; flex: none; font-size: 14px; }
+#app.low .hero { background: var(--n100); color: var(--texto); }
+#app.low .hero .small, #app.low .hero h1 { color: var(--texto); }
+#app.low .sc span { background: var(--n100) !important; color: var(--n800) !important; }
+#app.low .pill, #app.low .ebars i.on, #app.low .wbar i { filter: grayscale(.85); }
+#app.low * { animation: none !important; transition: none !important; }
+@media (max-width: 500px) { body:has(.scr.wa) .telas-btn, body:has(.scr.sou) .telas-btn { display: none; } }
+.opt.fmt { padding-top: 10px; padding-bottom: 10px; }
+.opt.fmt[aria-pressed="true"] { padding-top: 9px; padding-bottom: 9px; }
+.body > *, .sheet > * { flex-shrink: 0; }
 </style></head><body>
-<div class="stage"><div class="stage-head"><span id="hl"></span><h1>Protótipo navegável · App Elo</h1><p>No login, escolha Responsável (Mariana) ou Profissional (Dra. Ana Lima). No Modo Paciente, segure o cadeado por 3 segundos para sair.</p></div><div class="phone"><div id="app"></div></div></div>
+<div class="stage"><div class="stage-head"><span id="hl"></span><h1>Protótipo navegável · App Elo</h1><p>No login, escolha Responsável (Mariana), Profissional (Dra. Ana Lima) ou Paciente (Lucas, adulto). No Modo Paciente, segure o cadeado por 3 segundos para sair.</p></div><div class="phone"><div id="app"></div></div></div>
 <button class="telas-btn" id="telasBtn" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>Telas</button>
 <div class="telas" id="telas" hidden><div></div></div><div class="toast" id="toast" role="status" hidden></div>
 <script>// ===== Elo · ícones (Lucide, licença ISC) e pictogramas próprios =====
@@ -424,7 +455,7 @@ const PROS = { AL: ['Dra. Ana Lima', 'Fono', 'Desde fev/2025'], CM: ['Carlos Men
 const ROT = [['banheiro', 'Ir ao banheiro', '07:00'], ['escovar-dentes', 'Escovar os dentes', '07:15'], ['cafe', 'Tomar café', '07:30'], ['vestir', 'Vestir a roupa', '08:00'], ['escola', 'Ir para a escola', '08:30'], ['comer', 'Almoço', '12:00']];
 const WORDS = [['eu-quero', 'Eu quero', 't-azul'], ['agua', 'Água', 't-branco'], ['comer', 'Comer', 't-branco'], ['brincar', 'Brincar', 't-verde'], ['banheiro', 'Banheiro', 't-branco'], ['abraco', 'Abraço', 't-verde'], ['parar', 'Parar', 't-verm'], ['ajuda', 'Ajuda', 't-verm'], ['dor', 'Dor', 't-verm']];
 
-const PAC = { theo: ['TH', 'Theo', '6 anos · TEA · Responsável: Mariana', 'Em atendimento', 'Hoje, 14h · Fono'], miguel: ['MI', 'Miguel', '4 anos · TDAH · Responsável: Rodrigo', 'Em atendimento', 'Hoje, 09h · feita'], laura: ['LM', 'Laura M.', '7 anos · Dislexia', 'Em atendimento', 'Qua, 10h'], davi: ['DR', 'Davi R.', '5 anos · TEA', 'Em pausa', 'Sem sessão marcada'], sofia: ['ST', 'Sofia T.', '9 anos · Tourette', 'Em atendimento', 'Sex, 15h'] };
+const PAC = { theo: ['TH', 'Theo', '6 anos · TEA · Responsável: Mariana', 'Em atendimento', 'Hoje, 14h · Fono'], miguel: ['MI', 'Miguel', '4 anos · TDAH · Responsável: Rodrigo', 'Em atendimento', 'Hoje, 09h · feita'], laura: ['LM', 'Laura M.', '7 anos · Dislexia', 'Em atendimento', 'Qua, 10h'], davi: ['DR', 'Davi R.', '5 anos · TEA', 'Em pausa', 'Sem sessão marcada'], sofia: ['ST', 'Sofia T.', '9 anos · Tourette', 'Em atendimento', 'Sex, 15h'], lucas: ['LS', 'Lucas Souza', '27 anos · TEA nível 1 · conta própria', 'Em atendimento', 'Qui, 18h · Fono'] };
 const PAG = [['09:00', 'miguel', 'Miguel', 'Fono · sala 2', true], ['14:00', 'theo', 'Theo', 'Fono · sala 2', false], ['16:00', 'laura', 'Laura M.', 'Fono · sala 1', false]];
 const P = { busca: '', aba: 'resumo', pend: [], cod: '', codErr: false, desv: false, desvMot: 'Alta do tratamento', chatWith: 'AL',
   reg: { tipo: 'Sessão', obj: 'Pedir com 2 palavras', como: 'Avançou', txt: '', fam: true, err: false },
@@ -433,7 +464,7 @@ const P = { busca: '', aba: 'resumo', pend: [], cod: '', codErr: false, desv: fa
     { d: '06/11', h: '14:00', area: 'Fono', tipo: 'Sessão', txt: 'Pediu com 2 palavras em 6 de 10 tentativas. Usou “quero bola” e “quero água”.', autor: 'Dra. Ana Lima', fam: true },
     { d: '04/11', h: '10:00', area: 'TO', tipo: 'Sessão', txt: 'Tolerou o som do liquidificador por 3 min usando fone.', autor: 'Carlos Mendes' }],
   ativs: [{ t: 'Pedir objetos com 2 palavras', det: '3 passos e vídeo', freq: '3× por semana', ate: '14/11' }, { t: 'Nomear 5 frutas no café', det: '2 passos', freq: 'Diária', ate: '07/11', feito: 'com ajuda · 06/11' }] };
-const PROF_SCREENS = ['phoje', 'ppacientes', 'ppaciente', 'pregistro', 'pativnova', 'pvincular', 'pdesv', 'pconversas', 'pchat', 'pconta'];
+const PROF_SCREENS = ['pnovo', 'pnovook', 'phoje', 'ppacientes', 'ppaciente', 'pregistro', 'pativnova', 'pvincular', 'pdesv', 'pconversas', 'pchat', 'pconta'];
 const ptab = (a) => `<nav class="tabbar" aria-label="Menu do profissional">${[['phoje', 'Hoje', 'casa'], ['ppacientes', 'Pacientes', 'equipe'], ['pconversas', 'Conversas', 'mensagem'], ['pconta', 'Conta', 'usuario']].map(([id, l, k]) => `<button class="tab" data-go="${id}" data-root ${a === id ? 'aria-current="page"' : ''}><span>${ic(k, 24)}</span>${l}</button>`).join('')}</nav>`;
 const PPERMS = [['rotina', 'Rotina e diário', 'O dia a dia que você registra.'], ['crises', 'Crises', 'Os registros de crise feitos em casa.'], ['docs', 'Documentos e laudos', 'Só os arquivos que você marcar.'], ['ativ', 'Enviar atividades', 'Atividades para fazer em casa.'], ['conversa', 'Conversar com você', 'Conversa só entre vocês.']];
 const ACESSOS_CLI = [['AL', 'Dra. Ana Lima abriu o diário', 'hoje, 09:12'], ['JR', 'Júlia Rocha abriu o laudo neurológico', 'ontem, 16:40'], ['CM', 'Carlos Mendes viu as crises da semana', 'ontem, 10:05']];
@@ -465,11 +496,11 @@ const st = (i) => i < S.kid ? 'Feito' : i === S.kid ? 'Agora' : 'Depois';
 const V = {
   login: () => `<div class="scr">${sb()}<div class="body" style="justify-content:center;gap:28px;padding-bottom:48px">
     <div style="display:flex;justify-content:center">${logo(56)}</div>
-    <div class="col" style="gap:16px">${field('E-mail', 'seu@email.com', 'email', 'email', S.perfil === 'prof' ? 'ana.lima@raizes.com' : 'mariana@email.com')}${field('Senha', 'Sua senha', 'senha', 'password', 'senha1234')}</div>
-    <div class="col" style="gap:8px"><span class="small" style="font-weight:700">Entrar como</span><div class="row" style="gap:8px"><button class="opt grow" aria-pressed="${S.perfil === 'familia'}" data-perfil="familia">Responsável</button><button class="opt grow" aria-pressed="${S.perfil === 'prof'}" data-perfil="prof">Profissional</button></div></div>
+    <div class="col" style="gap:16px">${field('E-mail', 'seu@email.com', 'email', 'email', S.perfil === 'prof' ? 'ana.lima@raizes.com' : S.perfil === 'adulto' ? 'lucas@email.com' : 'mariana@email.com')}${field('Senha', 'Sua senha', 'senha', 'password', 'senha1234')}</div>
+    <div class="col" style="gap:8px"><span class="small" style="font-weight:700">Entrar como</span><div class="row" style="gap:8px">${[['familia', 'Responsável'], ['prof', 'Profissional'], ['adulto', 'Paciente']].map(([v, l]) => `<button class="opt grow" style="padding:0 6px;font-size:15px" aria-pressed="${S.perfil === v}" data-perfil="${v}">${l}</button>`).join('')}</div></div>
     ${btn('Entrar', 'prim', 'data-login')}
     <p class="small muted row" style="gap:8px;justify-content:center;text-align:center">${ic('escudo', 16)}Dados de saúde protegidos pela LGPD.</p>
-    <div style="display:flex;justify-content:center">${btn(S.perfil === 'prof' ? 'Criar conta de profissional' : 'Criar conta', 'fant', 'data-go="cadastro"', '', false)}</div></div></div>`,
+    <div style="display:flex;justify-content:center">${S.perfil === 'adulto' ? btn('Recebi um convite', 'fant', 'data-go="aconvite"', '', false) : btn(S.perfil === 'prof' ? 'Criar conta de profissional' : 'Criar conta', 'fant', 'data-go="cadastro"', '', false)}</div></div></div>`,
   cadastro: () => `<div class="scr">${sb()}${hdr('Criar conta')}<div class="body" style="gap:20px">
     <div class="col" style="gap:16px">${field('Nome', 'Seu nome', 'usuario')}${field('E-mail', 'seu@email.com', 'email', 'email')}${field('Senha', 'Crie uma senha', 'senha', 'password')}</div>
     ${S.perfil === 'prof' ? field('Registro profissional', 'Ex.: CRFa 0-00000', 'profissional') + field('Clínica', 'Nome da clínica', 'pasta', 'text', 'Clínica Raízes') : ''}
@@ -561,7 +592,7 @@ const V = {
       <p class="small muted">Passe este código para a clínica ou o terapeuta. Você recebe um pedido e decide o que cada um pode ver. Vale até ${S.token.ate} e só uma vez.</p>
       <div class="row" style="gap:8px;flex-wrap:wrap">${btn('Copiar', 'sec', 'data-copiar', '', false).replace('btn ', 'btn sm ')}${btn('Compartilhar', 'sec', 'data-compartilhar', 'compartilhar', false).replace('btn ', 'btn sm ')}${btn('Gerar outro', 'fant', 'data-novo-token', '', false).replace('btn ', 'btn sm ')}</div>
     </div>
-    ${[['documentos', 'pasta', 'Documentos e laudos', S.docs.length + ' arquivos', 'c-azul'], ['vinculos', 'equipe', 'Vínculos', vincResumo(), 'c-verde'], ['privacidade', 'escudo', 'Privacidade e dados', 'LGPD, autorizações e quem acessou', 'c-amar'], ['exportar', 'download', 'Exportar dados', 'Relatório, planilha ou cópia completa', 'c-verm']].map(([g, k, t, s, c]) => `<button class="card row" data-go="${g}" style="text-align:left;padding:12px 14px"><span class="circ ${c}">${ic(k, 22)}</span><div class="grow"><b>${t}</b><p class="small muted">${s}</p></div>${ic('direita', 20, 'muted')}</button>`).join('')}
+    ${[['documentos', 'pasta', 'Documentos e laudos', S.docs.length + ' arquivos', 'c-azul'], ['vinculos', 'equipe', 'Vínculos', vincResumo(), 'c-verde'], ['privacidade', 'escudo', 'Privacidade e dados', 'LGPD, autorizações e quem acessou', 'c-amar'], ['exportar', 'download', 'Exportar dados', 'Relatório, planilha ou cópia completa', 'c-verm'], ['direitos', 'info', 'Direitos e caminhos', 'Leis, benefícios e passo a passo', 'c-azul']].map(([g, k, t, s, c]) => `<button class="card row" data-go="${g}" style="text-align:left;padding:12px 14px"><span class="circ ${c}">${ic(k, 22)}</span><div class="grow"><b>${t}</b><p class="small muted">${s}</p></div>${ic('direita', 20, 'muted')}</button>`).join('')}
     <div style="display:flex;justify-content:center">${btn('Sair da conta', 'fant', 'data-go="login" data-root', 'sair', false)}</div>
     </div>${tabbar('perfil')}</div>`,
   pedido: () => { const p = S.pedidos[0];
@@ -646,7 +677,7 @@ const V = {
       <button class="sc" data-go="pvincular"><span class="c-azul">${ic('codigo', 26)}</span>Vincular</button>
       <button class="sc" data-preg="theo"><span class="c-verde">${ic('prontuario', 26)}</span>Registro</button>
       <button class="sc" data-pativ-novo="theo"><span class="c-verm">${ic('atividade', 26)}</span>Atividade</button>
-      <button class="sc" data-go="ppacientes" data-root><span class="c-amar">${ic('equipe', 26)}</span>Pacientes</button></div>
+      <button class="sc" data-go="pnovo"><span class="c-amar">${ic('mais', 26)}</span>Novo paciente</button></div>
     <div class="card col" style="gap:10px;padding:14px"><div class="ctitle"><h3>Agenda de hoje</h3><span class="small muted">Ter, 11 nov</span></div>
       ${PAG.map(([h, k, n, t, ok]) => `<button class="row" ${k === 'theo' ? 'data-pac="theo"' : 'data-toast="No protótipo, só o Theo está aberto"'} style="text-align:left"><span class="time" style="width:48px;font-weight:700">${h}</span>${av(PAC[k][0])}<div class="grow"><b>${PAC[k][1]}</b><p class="small muted">${t}</p></div>${ok ? `<span class="pill p-feito">${ic('check', 14)}Feita</span>` : '<span class="pill p-agora">Próxima</span>'}</button>`).join('')}</div>
     <div class="card col" style="gap:10px;padding:14px"><h3 style="font-size:17px">Dos responsáveis</h3>
@@ -655,11 +686,11 @@ const V = {
     <p class="small muted row" style="gap:8px">${ic('escudo', 16)}Você só vê o que cada responsável autorizou. Todo acesso fica registrado.</p>
     </div>${ptab('phoje')}</div>`,
   ppacientes: () => { const q = P.busca.trim().toLowerCase(), list = Object.entries(PAC).filter(([, p]) => p[1].toLowerCase().includes(q));
-    return `<div class="scr bg">${sb()}<div class="ttl row" style="justify-content:space-between"><div><h1>Pacientes</h1><p class="small muted">${Object.keys(PAC).length} pacientes · Fono</p></div>${btn('Vincular', 'prim', 'data-go="pvincular"', 'codigo', false)}</div>
+    return `<div class="scr bg">${sb()}<div class="ttl row" style="justify-content:space-between"><div><h1>Pacientes</h1><p class="small muted">${Object.keys(PAC).length} pacientes · Fono</p></div><div class="row" style="gap:6px">${btn('Novo', 'prim', 'data-go="pnovo"', 'mais', false).replace('btn ', 'btn sm ')}${btn('Vincular', 'sec', 'data-go="pvincular"', 'codigo', false).replace('btn ', 'btn sm ')}</div></div>
     <div class="body" style="gap:10px;padding-top:12px">
     <label class="inp">${ic('busca', 20)}<input id="pbusca" placeholder="Buscar paciente" aria-label="Buscar paciente" value="${esc(P.busca)}"></label>
     ${P.pend.map(c => `<div class="card row" style="padding:12px 14px">${av('?')}<div class="grow col" style="gap:4px"><b>Código ${esc(c)}</b><p class="small muted">Pedido enviado agora</p><div><span class="pill p-to">Aguardando o responsável</span></div></div></div>`).join('')}
-    ${list.map(([k, [i, n, d, sit, u]]) => `<button class="card row" ${k === 'theo' ? 'data-pac="theo"' : 'data-toast="No protótipo, só o Theo está aberto"'} style="text-align:left;padding:12px 14px">${av(i)}<div class="grow"><b>${n}</b><p class="small muted">${d}</p><p class="small" style="color:var(--link);font-weight:700">${u}</p></div>${k === 'theo' && P.desv ? '<span class="pill p-neutra">Desvinculado</span>' : sit === 'Em pausa' ? '<span class="pill p-to">Em pausa</span>' : ''}${ic('direita', 20, 'muted')}</button>`).join('') || '<p class="small muted">Nenhum paciente com esse nome.</p>'}
+    ${list.map(([k, [i, n, d, sit, u]]) => `<button class="card row" ${k === 'theo' ? 'data-pac="theo"' : 'data-toast="No protótipo, só o Theo está aberto"'} style="text-align:left;padding:12px 14px">${av(i)}<div class="grow"><b>${n}</b><p class="small muted">${d}</p><p class="small" style="color:var(--link);font-weight:700">${u}</p></div>${k === 'theo' && P.desv ? '<span class="pill p-neutra">Desvinculado</span>' : sit === 'Em pausa' ? '<span class="pill p-to">Em pausa</span>' : sit === 'Convite enviado' ? '<span class="pill p-neutra">Convite enviado</span>' : ''}${ic('direita', 20, 'muted')}</button>`).join('') || '<p class="small muted">Nenhum paciente com esse nome.</p>'}
     <p class="small muted row" style="gap:8px">${ic('cadeado', 16)}Cada paciente tem o seu espaço. Os dados não se misturam.</p>
     </div>${ptab('ppacientes')}</div>`; },
   ppaciente: () => { const a = P.aba, tabs = [['resumo', 'Resumo'], ['prontuario', 'Prontuário'], ['atividades', 'Atividades'], ['documentos', 'Documentos']];
@@ -738,9 +769,297 @@ const V = {
     <div style="display:flex;justify-content:center">${btn('Sair da conta', 'fant', 'data-go="login" data-root', 'sair', false)}</div>
     </div>${ptab('pconta')}</div>`
 };
+// ===== v6 · Paciente adulto, cadastro pelo profissional, assistente no WhatsApp e Direitos e caminhos =====
+const A = {
+  id: 'ELO-LS2-7318', nome: 'Lucas', nivel: 1, low: false,
+  ativ: { senha: true, aceite: false, modo: 'apoiador', apo: { nome: 'Pedro', rel: 'irmão', tel: '(79) 9 8000-0000' }, apoPerm: { agenda: true, plano: true, diario: false, docs: false }, com: ['Mensagem escrita'], aviso: '1 dia antes', wa: true },
+  energia: 3, lembr: [['08:00', 'Remédio da manhã', true], ['13:00', 'Almoço (sem pular)', true], ['18:00', 'Psicologia com Júlia Rocha', false], ['21:30', 'Desligar telas', false]],
+  reg: { o: 'Sobrecarga sensorial', int: 'Média', gat: ['Barulho'], ajudou: '', share: true, err: false },
+  diario: [
+    { d: '24/11', h: '19:05', t: 'Sobrecarga sensorial · média', det: 'Gatilhos: barulho, muita gente. Ajudou: fone e voltar a pé.', share: true, via: 'App' },
+    { d: '23/11', h: '21:00', t: 'Energia 2 de 5', det: 'Dia longo no trabalho.', share: false, via: 'App' },
+    { d: '22/11', h: '10:20', t: 'Dia bom · energia 4 de 5', det: 'Caminhada cedo ajudou.', share: true, via: 'WhatsApp' }],
+  semana: [3, 2, 4, 2, 3, 4, 3],
+  dirAba: 'Todos', art: null,
+  wa: { step: 'menu', msgs: [['bot', 'Oi, Lucas! Sou o assistente do Elo. Reconheci o seu número vinculado. Como posso ajudar?']], tmp: {} },
+  novo: { nome: '', nasc: '', tel: '', nivel: 0, conta: '', err: false }, ultimo: null
+};
+const A_SCREENS = ['aconvite', 'aconsent', 'aautonomia', 'aprefs', 'ahoje', 'aregistro', 'adiario', 'aequipe', 'aeu', 'aplano', 'acartao', 'awhats'];
+const SHARED_SCREENS = ['direitos', 'artigo'];
+const atab = (a) => `<nav class="tabbar" aria-label="Menu do paciente">${[['ahoje', 'Hoje', 'casa'], ['adiario', 'Diário', 'diario'], ['direitos', 'Direitos', 'escudo'], ['aequipe', 'Equipe', 'equipe'], ['aeu', 'Eu', 'usuario']].map(([id, l, k]) => `<button class="tab" data-go="${id}" data-root ${a === id ? 'aria-current="page"' : ''}><span>${ic(k, 24)}</span>${l}</button>`).join('')}</nav>`;
+const aopt = (g, l, on, extra = '') => `<button class="opt" aria-pressed="${on}" data-aopt="${g}" data-v="${esc(l)}" ${extra}>${esc(l)}${on ? ic('check', 18) : ''}</button>`;
+const tog = (on, attr, label) => `<button class="tog" role="switch" aria-checked="${on}" ${attr} aria-label="${esc(label)}"></button>`;
+const NIVEIS = [[1, 'Nível 1', 'Precisa de pouco suporte'], [2, 'Nível 2', 'Precisa de suporte substancial'], [3, 'Nível 3', 'Precisa de suporte muito substancial']];
+const CONTAS = [['proprio', 'O próprio paciente', 'Conta própria. Ele decide quem vê o quê.'], ['apoiador', 'Paciente com apoiador', 'O paciente escolhe uma pessoa de confiança e o que ela pode ver.'], ['responsavel', 'Responsável legal', 'Menor de idade, ou adulto com curatela decidida pela Justiça.']];
+const sugestao = (n, idade) => idade !== null && idade < 18 ? 'responsavel' : n === 3 ? 'responsavel' : n === 2 ? 'apoiador' : 'proprio';
+const idadeDe = (s) => { const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(s || ''); if (!m) return null; let i = 2026 - +m[3]; if (+m[2] > 11 || (+m[2] === 11 && +m[1] > 25)) i--; return i >= 0 && i < 120 ? i : null; };
+const genId = (nome) => { const L = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; const ini = (nome.trim().split(/\s+/).map(w => w[0]).join('').toUpperCase().replace(/[^A-Z]/g, '') + 'XX').slice(0, 2); return 'ELO-' + ini + L[Math.floor(Math.random() * L.length)] + '-' + String(Math.floor(1000 + Math.random() * 9000)); };
+const bars = (n, big) => `<span class="ebars ${big ? 'big' : ''}" aria-hidden="true">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= n ? 'on e' + n : ''}"></i>`).join('')}</span>`;
+
+// ----- Direitos e caminhos -----
+const ART = [
+  { id: 'direitos5', cat: 'Leis', aud: 'todos', min: 4, t: 'Seus direitos em 5 minutos', r: 'O básico que vale para crianças e adultos autistas.',
+    sec: [['Autismo é deficiência para a lei', 'A Lei 12.764/2012 (Lei Berenice Piana) diz que a pessoa com transtorno do espectro autista é considerada pessoa com deficiência para todos os efeitos legais.'],
+      ['Atendimento prioritário', 'Vale em bancos, lojas, serviços públicos e filas em geral (Lei 10.048/2000). Para comprovar, use a CIPTEA, o RG com o CID ou um laudo. O lugar deve adaptar o atendimento e não pode recusar o serviço.'],
+      ['Cordão de Girassol', 'A Lei 14.624/2023 reconhece o cordão como forma de sinalizar uma deficiência que não aparece. Ele ajuda, mas não substitui os documentos.'],
+      ['Se um direito for negado', 'Em comércio, procure o Procon. Em qualquer instituição, ligue para o Disque 100.']],
+    src: 'Lei 12.764/2012 · Lei 10.048/2000 · Lei 14.624/2023' },
+  { id: 'ciptea', cat: 'Passo a passo', aud: 'todos', min: 3, t: 'Como tirar a CIPTEA', r: 'A carteira que identifica a pessoa autista e agiliza o atendimento.',
+    passos: ['Separe o laudo com o CID, um documento com foto, o comprovante de residência e uma foto 3x4. A lista pode mudar no seu estado.', 'Procure o órgão do seu estado ou município que emite a carteira. Em geral, o pedido é feito pela internet.', 'O pedido é gratuito. Se o paciente for menor de idade ou tiver curador, o responsável faz o pedido.', 'A carteira vale por 5 anos. Guarde uma foto dela no Elo, em Documentos.'],
+    src: 'Lei 13.977/2020 (Lei Romeo Mion)' },
+  { id: 'adulto-dx', cat: 'Saúde', aud: 'adulto', min: 4, t: 'Diagnóstico na vida adulta', r: 'Nunca é tarde para entender como você funciona.',
+    sec: [['O que diz a lei', 'A Lei 15.256/2025 incluiu o incentivo ao diagnóstico de adultos e idosos na política nacional para pessoas autistas.']],
+    passos: ['Marque consulta na UBS com o médico de família e conte o que você percebe no dia a dia.', 'Peça encaminhamento para psiquiatria ou neurologia.', 'A avaliação neuropsicológica, feita por psicólogo, ajuda a fechar o diagnóstico.', 'Com o laudo, você pode pedir a CIPTEA e organizar o seu acompanhamento: psicologia, terapia ocupacional e fono, se precisar.'],
+    src: 'Lei 15.256/2025' },
+  { id: 'decisao', cat: 'Leis', aud: 'adulto', min: 3, t: 'Autonomia com apoio: decisão apoiada', r: 'Você continua decidindo. Só escolhe quem te ajuda.',
+    sec: [['Você tem capacidade civil plena', 'A Lei Brasileira de Inclusão (Lei 13.146/2015) diz que a deficiência não tira a capacidade de decidir sobre a própria vida.'],
+      ['Tomada de decisão apoiada', 'Você escolhe pelo menos duas pessoas de confiança para te ajudar em decisões importantes e faz o pedido ao juiz. A decisão continua sendo sua.'],
+      ['Curatela é exceção', 'A curatela só existe com decisão da Justiça e vale para atos de dinheiro e contratos. No Elo, a conta com curador só é aberta com esse documento.']],
+    src: 'Lei 13.146/2015 · Código Civil, art. 1.783-A' },
+  { id: 'bpc', cat: 'Benefícios', aud: 'todos', min: 3, t: 'BPC/LOAS: quem pode receber', r: 'Um salário mínimo por mês para pessoas com deficiência de baixa renda.',
+    passos: ['Confira se a renda da família está dentro do limite do INSS.', 'Faça ou atualize o Cadastro Único (CadÚnico) no CRAS.', 'Peça o benefício pelo app ou site Meu INSS, ou pelo telefone 135.', 'Vá às avaliações médica e social marcadas pelo INSS, com laudos e relatórios dos terapeutas.'],
+    src: 'Lei 8.742/1993 (LOAS)' },
+  { id: 'trabalho', cat: 'Trabalho', aud: 'adulto', min: 3, t: 'Trabalho: cotas e adaptações', r: 'Seus direitos para conseguir e manter um emprego.',
+    sec: [['Cotas', 'Empresas com 100 empregados ou mais devem reservar vagas para pessoas com deficiência (Lei 8.213/1991, art. 93).'],
+      ['Adaptação razoável', 'Você pode pedir ajustes que não pesem demais para a empresa: instruções por escrito, lugar com menos barulho, pausas, fone de ouvido.'],
+      ['Dica do Elo', 'Leve o seu plano de crise e o cartão “Sou autista” para conversar com o RH.']],
+    src: 'Lei 8.213/1991 · Lei 13.146/2015' },
+  { id: 'nutri', cat: 'Saúde', aud: 'todos', min: 2, t: 'Seletividade alimentar e nutrição', r: 'A nutrição adequada também é um direito.',
+    sec: [['O que diz a lei', 'A Lei 15.131/2025 garante à pessoa autista nutrição adequada e terapia nutricional, com acompanhamento de profissional habilitado.'], ['Como pedir', 'Leve ao médico ou à nutricionista o que você registrou no Elo sobre alimentação. Isso ajuda a montar o plano.']],
+    src: 'Lei 15.131/2025' },
+  { id: 'escola', cat: 'Passo a passo', aud: 'crianca', min: 3, t: 'Escola: acompanhante e adaptações', r: 'O que pedir para a escola do paciente.',
+    sec: [['Acompanhante especializado', 'Quando houver necessidade comprovada, o aluno autista tem direito a acompanhante especializado na sala comum (Lei 12.764/2012).']],
+    passos: ['Peça à equipe um relatório com as necessidades do paciente na escola.', 'Entregue à escola com um pedido por escrito e guarde o protocolo.', 'Se negarem, procure a Secretaria de Educação ou a Defensoria Pública.'],
+    src: 'Lei 12.764/2012' },
+  { id: 'aos18', cat: 'Passo a passo', aud: 'crianca', min: 2, t: 'Aos 18 anos, a conta passa a ser dele', r: 'Como o Elo cuida da transição para a vida adulta.',
+    sec: [['O que acontece no Elo', 'Quando o paciente faz 18 anos, ele recebe o convite para assumir a própria conta. O histórico continua.'], ['E o responsável?', 'Pode virar apoiador, se o paciente quiser, e ver só o que ele liberar. Se houver curatela decidida pela Justiça, a conta continua com o curador.']],
+    src: 'Lei 13.146/2015' }
+];
+const CATS = ['Todos', 'Leis', 'Benefícios', 'Passo a passo', 'Saúde', 'Trabalho'];
+const audOk = (a) => a.aud === 'todos' || (S.perfil === 'adulto' ? a.aud === 'adulto' : a.aud === 'crianca');
+
+Object.assign(V, {
+  // ---- profissional: cadastrar paciente ----
+  pnovo: () => { const n = A.novo, idade = idadeDe(n.nasc), sug = n.nivel || idade !== null ? sugestao(n.nivel, idade) : '';
+    return `<div class="scr">${sb()}${hdr('Novo paciente')}<div class="body" style="gap:14px">
+    <div class="card col" style="gap:6px;background:var(--azul-50);border:0"><b class="row" style="gap:8px;color:var(--link)">${ic('usuario', 20)}Você começa, o paciente decide</b><p class="small">Você faz o pré-cadastro. O paciente (ou quem responde por ele) recebe um convite, ativa a conta e escolhe quem pode ver o quê.</p></div>
+    <label class="field"><span>Nome completo</span><span class="inp">${ic('usuario', 20)}<input id="an-nome" placeholder="Nome do paciente" value="${esc(n.nome)}" autocomplete="off"></span></label>
+    ${n.err ? `<p class="small err" role="alert">${ic('info', 16)} Escreva o nome do paciente.</p>` : ''}
+    <div class="row" style="gap:10px;align-items:flex-start"><label class="field grow"><span>Nascimento</span><span class="inp"><input id="an-nasc" placeholder="dd/mm/aaaa" inputmode="numeric" maxlength="10" value="${esc(n.nasc)}"></span></label>
+      <div class="field" style="width:96px"><span>Idade</span><span class="inp" style="justify-content:center;color:var(--texto);font-weight:700">${idade === null ? '—' : idade + ' anos'}</span></div></div>
+    <label class="field"><span>WhatsApp do paciente ou do responsável</span><span class="inp">${ic('mensagem', 20)}<input id="an-tel" type="tel" inputmode="tel" placeholder="(79) 9 0000-0000" value="${esc(n.tel)}"></span></label>
+    <h3 style="font-size:17px">Nível de suporte</h3>
+    <div class="col" style="gap:8px">${NIVEIS.map(([v, l, d]) => `<button class="opt fmt" aria-pressed="${n.nivel === v}" data-anivel="${v}"><span style="text-align:left"><b style="display:block">${l}</b><span class="small muted" style="font-weight:400">${d}</span></span>${n.nivel === v ? ic('check', 20) : ''}</button>`).join('')}</div>
+    <h3 style="font-size:17px">Quem cuida da conta</h3>
+    <div class="col" style="gap:8px">${CONTAS.map(([v, l, d]) => `<button class="opt fmt" aria-pressed="${n.conta === v}" data-aconta="${v}"><span style="text-align:left"><b style="display:block">${l}${sug === v ? ' <span class="pill p-feito" style="height:22px;font-size:12px;margin-left:4px">Sugerido</span>' : ''}</b><span class="small muted" style="font-weight:400">${d}</span></span>${n.conta === v ? ic('check', 20) : ''}</button>`).join('')}</div>
+    <p class="small muted row" style="gap:8px;align-items:flex-start">${ic('info', 16)}O nível de suporte só sugere. Um adulto tem capacidade civil plena: a escolha final é dele na ativação, e curatela só com decisão judicial.</p>
+    ${btn('Gerar ID e enviar convite', 'prim', 'data-anovo-ok', 'enviar')}</div></div>`; },
+  pnovook: () => { const u = A.ultimo || { nome: 'Lucas Souza', id: A.id, tel: '(79) 9 9000-1234', conta: 'apoiador', nivel: 1 };
+    return `<div class="scr">${sb()}<div class="body" style="padding-top:40px;text-align:center"><div class="success">${ic('check', 52)}</div><h1 style="font-size:28px">Convite enviado</h1>
+    <p class="muted">${esc(u.nome.split(' ')[0])} recebe o convite no WhatsApp ${esc(u.tel)} para ativar a conta.</p>
+    <div class="card col" style="gap:8px"><span class="small" style="font-weight:700;color:var(--link)">ID único do paciente</span><p class="token">${u.id}</p><p class="small muted">O ID diferencia o paciente no banco de dados, mesmo com nomes iguais. Ele também usa o ID para se identificar no assistente do WhatsApp.</p></div>
+    <div class="card col" style="gap:8px;text-align:left">${[['Nível de suporte', u.nivel ? 'Nível ' + u.nivel : 'Não informado'], ['Conta', (CONTAS.find(c => c[0] === u.conta) || CONTAS[0])[1] + ' (sugestão)'], ['Situação', 'Aguardando ativação']].map(([k, v]) => `<div class="row" style="justify-content:space-between"><span class="small muted">${k}</span><b class="small">${v}</b></div>`).join('')}</div>
+    <div style="flex:1"></div>${btn('Ver como o paciente recebe', 'prim', 'data-go="aconvite" data-root', 'play')}${btn('Voltar aos pacientes', 'fant', 'data-go="ppacientes" data-root')}</div></div>`; },
+  // ---- ativação do paciente adulto ----
+  aconvite: () => `<div class="scr">${sb()}<div class="body" style="gap:18px;padding-top:28px">
+    <div style="display:flex;justify-content:center">${logo(48)}</div>
+    <div class="col" style="gap:6px;text-align:center"><h1 style="font-size:26px">Olá, Lucas!</h1><p class="muted">A Dra. Ana Lima, da Clínica Raízes, convidou você para o Elo. É o seu espaço para organizar o dia, registrar como você está e falar com a sua equipe.</p></div>
+    <div class="card col" style="gap:8px"><span class="small" style="font-weight:700;color:var(--link)">${ic('codigo', 16)} Seu ID no Elo</span><p class="token">${A.id}</p><p class="small muted">Ele é só seu. Use para entrar e para se identificar no assistente do WhatsApp.</p></div>
+    ${field('Crie uma senha', 'Mínimo de 8 caracteres', 'senha', 'password', 'senha1234')}
+    <div style="flex:1"></div>${btn('Continuar', 'prim', 'data-go="aconsent"')}
+    <p class="small muted" style="text-align:center">Passo 1 de 4</p></div></div>`,
+  aconsent: () => `<div class="scr">${sb()}${hdr('Seus dados são seus')}<div class="body" style="gap:12px">
+    <p class="muted">Antes de começar, veja como o Elo cuida dos seus dados de saúde.</p>
+    ${[['escudo', 'Só vê quem você autorizar', 'Cada profissional pede acesso e você escolhe o que ele pode ver.'], ['cadeado', 'Dados protegidos', 'Guardados com criptografia. Nada é vendido nem usado para anúncios.'], ['sair', 'Você pode mudar de ideia', 'Tire acessos, baixe ou apague seus dados quando quiser.'], ['mensagem', 'Assistente no WhatsApp', 'Só funciona se você ativar, e você pode desligar a qualquer momento.']].map(([k, t, d]) => `<div class="row card" style="align-items:flex-start;padding:12px 14px"><span class="circ c-azul">${ic(k, 20)}</span><div class="grow"><b>${t}</b><p class="small muted">${d}</p></div></div>`).join('')}
+    <button class="row" data-aaceite style="gap:12px;text-align:left;align-items:flex-start;padding:6px 2px"><span class="chk ${A.ativ.aceite ? 'on' : ''}" aria-hidden="true">${A.ativ.aceite ? ic('check', 16) : ''}</span><span class="small">Li e concordo com o uso dos meus dados de saúde como descrito acima (LGPD). <span style="color:var(--link);font-weight:700">Ler termos completos</span></span></button>
+    <div style="flex:1"></div>${A.ativ.aceite ? btn('Concordo e continuar', 'prim', 'data-go="aautonomia"') : '<button class="btn full" disabled>Concordo e continuar</button>'}
+    <p class="small muted" style="text-align:center">Passo 2 de 4</p></div></div>`,
+  aautonomia: () => { const a = A.ativ;
+    return `<div class="scr">${sb()}${hdr('Como você quer usar o Elo?')}<div class="body" style="gap:12px">
+    <p class="small muted row" style="gap:8px">${ic('info', 16)}Sugestão da Dra. Ana: conta própria (nível de suporte 1). Quem decide é você.</p>
+    ${[['proprio', 'Sozinho', 'Eu cuido da minha conta.'], ['apoiador', 'Com um apoiador que eu escolho', 'Uma pessoa de confiança me ajuda e vê só o que eu liberar.'], ['curador', 'Com curador', 'Só com decisão da Justiça. Envie o documento da curatela.']].map(([v, l, d]) => `<button class="opt fmt" aria-pressed="${a.modo === v}" data-amodo="${v}"><span style="text-align:left"><b style="display:block">${l}</b><span class="small muted" style="font-weight:400">${d}</span></span>${a.modo === v ? ic('check', 20) : ''}</button>`).join('')}
+    ${a.modo === 'apoiador' ? `<div class="card col" style="gap:10px"><b>Seu apoiador</b>
+      <div class="row" style="gap:10px">${av('PE')}<div class="grow"><b>${esc(a.apo.nome)}</b><p class="small muted">${esc(a.apo.rel)} · ${esc(a.apo.tel)}</p></div>${btn('Trocar', 'fant', 'data-toast="Abriria a busca nos seus contatos"', '', false).replace('btn ', 'btn sm ')}</div>
+      <span class="small" style="font-weight:700">O que o ${esc(a.apo.nome)} pode ver</span>
+      ${[['agenda', 'Agenda e lembretes'], ['plano', 'Plano de crise'], ['diario', 'Diário e registros'], ['docs', 'Documentos e laudos']].map(([k, l]) => `<div class="row" style="justify-content:space-between"><span class="small">${l}</span>${tog(a.apoPerm[k], `data-aperm="${k}"`, l)}</div>`).join('')}</div>` : ''}
+    ${a.modo === 'curador' ? `<div class="card col" style="gap:8px;background:var(--amar-50);border:0"><b class="small">Documento necessário</b><p class="small">Envie a decisão judicial de curatela. Até a conferência, o curador tem acesso só à agenda.</p>${btn('Enviar documento', 'sec', 'data-toast="Abriria a câmera ou os arquivos"', 'camera', false).replace('btn ', 'btn sm ')}</div>` : ''}
+    <div style="flex:1"></div>${btn('Continuar', 'prim', 'data-go="aprefs"')}
+    <p class="small muted" style="text-align:center">Passo 3 de 4 · Você pode mudar isso depois</p></div></div>`; },
+  aprefs: () => { const a = A.ativ;
+    return `<div class="scr">${sb()}${hdr('Do seu jeito')}<div class="body" style="gap:12px">
+    <h3 style="font-size:17px">Como prefere que a equipe fale com você?</h3>
+    <div class="opts">${['Mensagem escrita', 'Áudio', 'Ligação', 'Presencial'].map(l => aopt('com', l, a.com.includes(l))).join('')}</div>
+    <h3 style="font-size:17px">Avisos de mudança na agenda</h3>
+    <div class="opts">${['No mesmo dia', '1 dia antes', '1 semana antes'].map(l => aopt('aviso', l, a.aviso === l)).join('')}</div>
+    <div class="card row" style="justify-content:space-between"><div class="grow"><b>Modo baixa estimulação</b><p class="small muted">Menos cor e nenhum movimento na tela.</p></div>${tog(A.low, 'data-alow', 'Modo baixa estimulação')}</div>
+    <div class="card row" style="justify-content:space-between;align-items:flex-start"><div class="grow"><b>Assistente no WhatsApp</b><p class="small muted">Tire dúvidas, registre como está e mande recados para a equipe pelo número (79) 9 9000-1234.</p></div>${tog(a.wa, 'data-awa', 'Assistente no WhatsApp')}</div>
+    <div style="flex:1"></div>${btn('Concluir', 'prim', 'data-go="ahoje" data-root')}
+    <p class="small muted" style="text-align:center">Passo 4 de 4</p></div></div>`; },
+  // ---- dia a dia do paciente adulto ----
+  ahoje: () => `<div class="scr"><div class="hero">${sb(true)}<div class="who">${av('LS', 'm')}<div class="grow"><h1>Olá, Lucas!</h1><p class="small">Terça, 25 de novembro</p></div><button class="bell" data-go="awhats" aria-label="Assistente no WhatsApp">${ic('mensagem', 24)}</button></div></div>
+    <div class="sheet">
+    <div class="card col" style="gap:10px;padding:14px"><div class="ctitle"><h3>Como está sua energia?</h3>${bars(A.energia)}</div>
+      <div class="row" style="gap:6px">${[1, 2, 3, 4, 5].map(i => `<button class="opt grow" style="min-height:48px;padding:0" aria-pressed="${A.energia === i}" data-aenergia="${i}" aria-label="Energia ${i} de 5">${i}</button>`).join('')}</div>
+      <div class="row small muted" style="justify-content:space-between"><span>Esgotado</span><span>Cheio</span></div></div>
+    <div class="shortcuts">
+      <button class="sc" data-go="aregistro"><span class="c-amar">${ic('raio', 26)}</span>Registrar</button>
+      <button class="sc" data-go="aplano"><span class="c-verm">${ic('escudo', 26)}</span>Plano de crise</button>
+      <button class="sc" data-go="acartao"><span class="c-azul">${ic('cartao', 26)}</span>Sou autista</button>
+      <button class="sc" data-go="awhats"><span class="c-verde">${ic('mensagem', 26)}</span>Assistente</button></div>
+    <div class="card col" style="gap:10px;padding:14px"><div class="ctitle"><h3>Lembretes de hoje</h3><span class="small muted">${A.lembr.filter(l => l[2]).length} de ${A.lembr.length}</span></div>
+      ${A.lembr.map(([h, t, ok], i) => `<button class="row" data-alembr="${i}" style="text-align:left"><span class="time" style="width:48px;font-weight:700">${h}</span><span class="grow ${ok ? 'muted' : ''}" style="${ok ? 'text-decoration:line-through' : ''}">${t}</span>${ok ? `<span class="pill p-feito">${ic('check', 14)}Feito</span>` : '<span class="pill p-depois">Marcar</span>'}</button>`).join('')}</div>
+    <button class="card row" data-aart="adulto-dx" style="text-align:left;padding:12px 14px;background:var(--amar-50);border:0"><span class="circ" style="background:#fff;color:var(--amar-800)">${ic('escudo', 20)}</span><div class="grow"><b>Novo em Direitos</b><p class="small">Diagnóstico na vida adulta: o que mudou com a Lei 15.256/2025</p></div>${ic('direita', 20, 'muted')}</button>
+    </div>${atab('ahoje')}</div>`,
+  aregistro: () => { const r = A.reg, o = (g, l, multi) => aopt(g, l, multi ? r[g].includes(l) : r[g] === l, multi ? 'data-multi="1"' : '');
+    return `<div class="scr">${sb()}${hdr('Como você está?')}<div class="body" style="gap:12px">
+    <h3 style="font-size:17px">O que está acontecendo?</h3><div class="opts">${['Sobrecarga sensorial', 'Shutdown', 'Meltdown', 'Ansiedade', 'Cansaço social', 'Dia bom'].map(l => o('o', l)).join('')}</div>
+    <h3 style="font-size:17px">Intensidade</h3><div class="opts">${['Leve', 'Média', 'Forte'].map(l => o('int', l)).join('')}</div>
+    <h3 style="font-size:17px">O que puxou?</h3><div class="opts">${['Barulho', 'Luz', 'Muita gente', 'Mudança de plano', 'Trabalho', 'Não sei'].map(l => o('gat', l, 1)).join('')}</div>
+    <label class="field"><span style="font-family:var(--f-tit);font-size:17px">O que ajudou?</span><textarea id="ar-ajudou" rows="3" placeholder="Do seu jeito. Ex.: fone, quarto escuro, ficar sozinho um pouco." style="border:1px solid var(--n600);border-radius:var(--r-campo);padding:12px;font:inherit;background:var(--sup)">${esc(r.ajudou)}</textarea></label>
+    <div class="card row" style="justify-content:space-between"><div class="grow"><b>Compartilhar com a equipe</b><p class="small muted">Júlia Rocha e Dra. Ana Lima veem antes da sessão.</p></div>${tog(r.share, 'data-ashare', 'Compartilhar com a equipe')}</div>
+    <div style="flex:1"></div>${btn('Salvar', 'prim', 'data-areg-ok')}</div></div>`; },
+  adiario: () => { const dias = ['Qua', 'Qui', 'Sex', 'Sáb', 'Dom', 'Seg', 'Ter'];
+    return `<div class="scr bg">${sb()}<div class="ttl row" style="justify-content:space-between"><h1>Diário</h1>${btn('Registrar', 'prim', 'data-go="aregistro"', 'mais', false).replace('btn ', 'btn sm ')}</div>
+    <div class="body" style="gap:12px;padding-top:12px">
+    <div class="card col" style="gap:10px;padding:14px"><div class="ctitle"><h3>Energia na semana</h3><span class="small muted">média ${(A.semana.reduce((a, b) => a + b, 0) / 7).toFixed(1).replace('.', ',')}</span></div>
+      <div class="week">${A.semana.map((v, i) => `<div class="col" style="gap:6px;align-items:center;flex:1"><span class="wbar"><i class="e${v}" style="height:${v * 20}%"></i></span><span class="small muted">${dias[i]}</span></div>`).join('')}</div>
+      <p class="small">Os dias com energia baixa foram dias de trabalho presencial. Vale levar isso para a Júlia.</p></div>
+    ${A.diario.map(e => `<div class="card col" style="gap:6px;padding:14px"><div class="row" style="justify-content:space-between"><span class="small muted">${e.d} · ${e.h}</span><span class="row" style="gap:6px">${e.via === 'WhatsApp' ? '<span class="pill p-psico">via WhatsApp</span>' : ''}${e.share ? '<span class="pill p-neutra">Equipe vê</span>' : `<span class="pill p-depois">${ic('cadeado', 14)}Só você</span>`}</span></div><b>${esc(e.t)}</b><p class="small">${esc(e.det)}</p></div>`).join('')}
+    </div>${atab('adiario')}</div>`; },
+  aplano: () => `<div class="scr bg">${sb()}${hdr('Meu plano de crise', `<button class="iconbtn" data-toast="Abriria a edição do plano" aria-label="Editar">${ic('diario', 22)}</button>`)}<div class="body" style="gap:12px">
+    <p class="small muted">Feito por você com a Júlia. Fica no app e no cartão “Sou autista”.</p>
+    ${[['raio', 'c-amar', 'Sinais de que estou chegando no limite', ['Paro de responder', 'Coloco o capuz', 'Mexo muito as mãos']], ['check', 'c-verde', 'O que me ajuda', ['Fone com cancelamento de ruído', 'Lugar com pouca luz', 'Falar pouco e com frases curtas', 'Água gelada']], ['fechar', 'c-verm', 'O que não fazer', ['Tocar em mim sem avisar', 'Fazer muitas perguntas', 'Falar alto']]].map(([k, c, t, l]) => `<div class="card col" style="gap:8px"><b class="row" style="gap:10px"><span class="circ ${c}" style="width:36px;height:36px">${ic(k, 18)}</span>${t}</b>${l.map(x => `<p class="small row" style="gap:8px">${ic('direita', 14, 'muted')}${x}</p>`).join('')}</div>`).join('')}
+    <div class="card col" style="gap:10px"><b>Quem chamar</b>${[['PE', 'Pedro', 'irmão · apoiador', '(79) 9 8000-0000'], ['JR', 'Júlia Rocha', 'Psicologia · Clínica Raízes', 'pelo app']].map(([i, n, d, t]) => `<div class="row">${av(i)}<div class="grow"><b class="small">${n}</b><p class="small muted">${d}</p></div><span class="small" style="font-weight:700">${t}</span></div>`).join('')}
+      <p class="small muted">Em emergência: SAMU 192 · CVV 188 (24 horas).</p></div>
+    ${btn('Mostrar cartão “Sou autista”', 'prim', 'data-go="acartao"', 'cartao')}</div></div>`,
+  acartao: () => `<div class="scr sou">${sb(true)}<div class="hdr" style="background:transparent"><button class="iconbtn" data-back aria-label="Voltar" style="color:#fff">${ic('voltar', 24)}</button></div><div class="body" style="gap:18px;padding-top:4px">
+    <span class="pill" style="background:var(--amar-400);color:var(--azul-900);align-self:flex-start">${ic('cartao', 14)}Cartão de comunicação</span>
+    <h1 style="font-size:40px;color:#fff;line-height:1.1">Sou autista.</h1>
+    <p style="font-size:22px;line-height:1.4">Posso ter dificuldade para falar agora. Por favor:</p>
+    ${['Fale devagar e com frases curtas.', 'Me dê espaço e um pouco de tempo.', 'Não toque em mim sem avisar.'].map(t => `<p class="row" style="gap:12px;font-size:20px;align-items:flex-start">${ic('check', 24)}${t}</p>`).join('')}
+    <div class="card col" style="gap:6px;background:rgba(255,255,255,.1);border:0;color:#fff"><span class="small">Se precisar, ligue para</span><b style="font-size:20px">Pedro (irmão) · (79) 9 8000-0000</b><span class="small">CIPTEA nº 000000 (exemplo) · Lucas Souza</span></div>
+    <div style="flex:1"></div>${btn('Tocar para falar', 'sec', 'data-afalar', 'falar')}</div></div>`,
+  aequipe: () => `<div class="scr bg">${sb()}<div class="ttl"><h1>Minha equipe</h1><p class="small muted">Você decide o que cada um vê</p></div>
+    <div class="body" style="gap:10px;padding-top:12px">
+    ${[['JR', 'Júlia Rocha', 'Psicologia · Clínica Raízes', 'Diário, plano de crise, agenda'], ['AL', 'Dra. Ana Lima', 'Fono · Clínica Raízes', 'Agenda e registros que você compartilhar']].map(([i, n, d, v]) => `<button class="card row" data-toast="Abriria o que ${n.split(' ').slice(-2).join(' ')} pode ver, com botões para tirar cada acesso" style="text-align:left;padding:12px 14px;align-items:flex-start">${av(i)}<div class="grow"><b>${n}</b><p class="small muted">${d}</p><p class="small" style="color:var(--link);font-weight:700">Vê: ${v}</p></div>${ic('direita', 20, 'muted')}</button>`).join('')}
+    <h3 style="font-size:17px;margin-top:6px">Meu apoiador</h3>
+    <div class="card col" style="gap:10px"><div class="row">${av('PE')}<div class="grow"><b>Pedro</b><p class="small muted">irmão · escolhido por você</p></div></div>
+      ${[['agenda', 'Agenda e lembretes'], ['plano', 'Plano de crise'], ['diario', 'Diário e registros'], ['docs', 'Documentos e laudos']].map(([k, l]) => `<div class="row" style="justify-content:space-between"><span class="small">${l}</span>${tog(A.ativ.apoPerm[k], `data-aperm="${k}"`, l)}</div>`).join('')}</div>
+    <div class="card col" style="gap:8px"><span class="small" style="font-weight:700;color:var(--link)">${ic('codigo', 16)} Seu ID para novos profissionais</span><p class="token">${A.id}</p><p class="small muted">Quem receber o ID manda um pedido. Você aceita ou recusa.</p></div>
+    </div>${atab('aequipe')}</div>`,
+  aeu: () => `<div class="scr bg">${sb()}<div class="ttl row" style="gap:12px;align-items:center">${av('LS', 'g')}<div class="grow"><h1>Lucas Souza</h1><p class="small muted">27 anos · ${A.id}</p></div></div>
+    <div class="body" style="gap:10px;padding-top:12px">
+    <div class="card col" style="gap:6px"><span class="small muted">Tipo de conta</span><b>${{ proprio: 'Sozinho', apoiador: 'Com apoiador (Pedro)', curador: 'Com curador' }[A.ativ.modo]}</b>${btn('Mudar', 'fant', 'data-go="aautonomia"', '', false).replace('btn ', 'btn sm ')}</div>
+    <div class="card col" style="gap:6px"><span class="small muted">Como prefiro que falem comigo</span><b>${A.ativ.com.join(', ') || 'Sem preferência'} · avisos ${A.ativ.aviso}</b>${btn('Editar', 'fant', 'data-go="aprefs"', '', false).replace('btn ', 'btn sm ')}</div>
+    <div class="card row" style="justify-content:space-between"><div class="grow"><b>Modo baixa estimulação</b><p class="small muted">Menos cor e nenhum movimento.</p></div>${tog(A.low, 'data-alow', 'Modo baixa estimulação')}</div>
+    <div class="card row" style="justify-content:space-between"><div class="grow"><b>Assistente no WhatsApp</b><p class="small muted">${A.ativ.wa ? 'Ligado · (79) 9 9000-1234' : 'Desligado'}</p></div>${tog(A.ativ.wa, 'data-awa', 'Assistente no WhatsApp')}</div>
+    ${[['documentos', 'pasta', 'Documentos e laudos', 'CIPTEA, laudos e relatórios'], ['', 'escudo', 'Privacidade e dados', 'Quem acessou, baixar ou apagar dados']].map(([g, k, t, s]) => `<button class="card row" ${g ? `data-toast="${t}: mesma tela do responsável, agora em nome do Lucas"` : `data-toast="${t}: mesma tela do responsável, agora em nome do Lucas"`} style="text-align:left;padding:12px 14px"><span class="circ c-azul">${ic(k, 20)}</span><div class="grow"><b>${t}</b><p class="small muted">${s}</p></div>${ic('direita', 20, 'muted')}</button>`).join('')}
+    <div style="display:flex;justify-content:center">${btn('Sair da conta', 'fant', 'data-go="login" data-root', 'sair', false)}</div>
+    </div>${atab('aeu')}</div>`,
+  awhats: () => { const w = A.wa, qr = WA_Q[w.step] || [];
+    return `<div class="scr wa">${sb(true)}<div class="hdr wa-h"><button class="iconbtn" data-back aria-label="Voltar" style="color:#fff">${ic('voltar', 24)}</button><span class="av" style="background:#fff;color:var(--verde-700)">${ic('mensagem', 20)}</span><div class="grow" style="margin-left:8px"><h3 style="font-size:17px;color:#fff">Assistente Elo</h3><p class="small" style="color:#D7F5E4">no WhatsApp · simulação</p></div></div>
+    <div class="wa-note small">${ic('info', 14)} Não dá orientação clínica. Emergência: SAMU 192 · CVV 188.</div>
+    <div class="body" id="msgs" style="gap:8px;padding:12px 14px">${w.msgs.map(([who, t]) => `<div class="wab ${who === 'me' ? 'me' : ''}">${esc(t).replace(/\n/g, '<br>')}</div>`).join('')}</div>
+    <div class="col" style="padding:10px 14px 22px;gap:8px;flex:none;background:#EFE9E0">${qr.length ? `<div class="wa-qr">${qr.map(([l]) => `<button data-wa="${esc(l)}">${esc(l)}</button>`).join('')}</div>` : ''}
+    <form class="compose" data-wasend style="background:#fff;border:0"><input id="wa-in" placeholder="Mensagem" aria-label="Mensagem"><button class="send" style="background:var(--verde-700)" aria-label="Enviar">${ic('enviar', 20)}</button></form></div></div>`; },
+  // ---- compartilhadas ----
+  direitos: () => { const list = ART.filter(a => audOk(a) && (A.dirAba === 'Todos' || a.cat === A.dirAba)), ad = S.perfil === 'adulto';
+    return `<div class="scr bg">${sb()}${ad ? `<div class="ttl"><h1>Direitos e caminhos</h1><p class="small muted">Leis, benefícios e passo a passo</p></div>` : hdr('Direitos e caminhos')}
+    <div class="body" style="gap:10px;padding-top:12px">
+    <div class="chips-x">${CATS.map(c => `<button class="pill ${A.dirAba === c ? 'p-agora' : 'p-depois'}" data-adir="${c}">${c}</button>`).join('')}</div>
+    ${!ad ? `<p class="small muted">Conteúdo para quem cuida de uma criança ou adolescente. Quando o paciente fizer 18 anos, ele passa a ver a versão adulta.</p>` : ''}
+    ${list.map(a => `<button class="card col" data-aart="${a.id}" style="text-align:left;gap:6px;padding:14px"><div class="row" style="justify-content:space-between"><span class="pill ${{ Leis: 'p-aba', 'Benefícios': 'p-feito', 'Passo a passo': 'p-to', 'Saúde': 'p-fono', 'Trabalho': 'p-psico' }[a.cat]}">${a.cat}</span><span class="small muted">${a.min} min</span></div><b style="font-family:var(--f-tit);font-size:18px">${a.t}</b><p class="small muted">${a.r}</p></button>`).join('') || '<p class="small muted">Nada nesta categoria ainda.</p>'}
+    <p class="small muted row" style="gap:8px;align-items:flex-start">${ic('info', 16)}Conteúdo informativo, revisado pela equipe do Elo em nov/2026. Não substitui orientação jurídica ou médica.</p>
+    </div>${ad ? atab('direitos') : ''}</div>`; },
+  artigo: () => { const a = ART.find(x => x.id === A.art) || ART[0];
+    return `<div class="scr">${sb()}${hdr(a.cat)}<div class="body" style="gap:14px">
+    <h1 style="font-size:26px">${a.t}</h1><p class="muted">${a.r}</p>
+    ${(a.sec || []).map(([h, t]) => `<div class="col" style="gap:6px"><h3 style="font-size:18px">${h}</h3><p>${t}</p></div>`).join('')}
+    ${a.passos ? `<div class="card col" style="gap:12px"><b>Passo a passo</b>${a.passos.map((p, i) => `<div class="row" style="gap:12px;align-items:flex-start"><span class="stepn">${i + 1}</span><p class="small grow">${p}</p></div>`).join('')}</div>` : ''}
+    <div class="card col" style="gap:4px;background:var(--azul-50);border:0"><span class="small" style="font-weight:700;color:var(--link)">Fonte</span><p class="small">${a.src}</p></div>
+    <p class="small muted">Atualizado em nov/2026. Conteúdo informativo: não substitui orientação jurídica ou médica.</p>
+    ${btn('Salvar nos meus documentos', 'sec', 'data-toast="Artigo salvo para ler depois"', 'download')}</div></div>`; }
+});
+
+// ----- assistente: roteiro simulado -----
+const WA_Q = {
+  menu: [['Registrar como estou'], ['Falar com a Júlia'], ['Próxima consulta'], ['Dúvida sobre o app'], ['Não estou bem']],
+  ident: [['Lucas, ELO-LS2-7318']],
+  tipo: [['Sobrecarga'], ['Dia bom'], ['Shutdown']],
+  int: [['Leve'], ['Média'], ['Forte']],
+  ajudou: [['Fone e quarto escuro'], ['Caminhar sozinho'], ['Não sei']],
+  conf: [['Confirmar'], ['Corrigir']],
+  recado: [['Preciso remarcar quinta'], ['Tive uma semana difícil']],
+  lembrete: [['Sim, 1 hora antes'], ['Não precisa']],
+  crise: [['Sim, avisar os dois'], ['Agora não']],
+  fim: [['Voltar ao menu']]
+};
+function waBot(t) { A.wa.msgs.push(['bot', t]); }
+function waAnswer(txt) {
+  const w = A.wa; w.msgs.push(['me', txt]); const s = w.step;
+  if (txt === 'Voltar ao menu') { waBot('Posso ajudar com mais alguma coisa?'); w.step = 'menu'; return; }
+  if (s === 'menu') {
+    if (/registrar/i.test(txt)) { waBot('Vamos lá. Para lançar no lugar certo, me diga seu nome e o seu ID do Elo.'); w.step = 'ident'; return; }
+    if (/júlia|julia/i.test(txt)) { waBot('Posso mandar um recado para a Júlia Rocha (Psicologia). O que você quer dizer?'); w.step = 'recado'; return; }
+    if (/consulta/i.test(txt)) { waBot('Sua próxima consulta é quinta, 27/11, às 18h, Psicologia com a Júlia Rocha, na Clínica Raízes.\nQuer um lembrete?'); w.step = 'lembrete'; return; }
+    if (/dúvida|duvida/i.test(txt)) { waBot('Para mudar quem vê o seu diário:\n1. Abra o Elo e toque em Equipe.\n2. Toque no profissional ou no seu apoiador.\n3. Ligue ou desligue cada item.\nA mudança vale na hora.'); w.step = 'fim'; return; }
+    if (/não estou bem|nao estou bem/i.test(txt)) { waBot('Obrigado por me contar. Você não precisa passar por isso sozinho.\nSe estiver em perigo agora, ligue 192 (SAMU). Para conversar com alguém agora, o CVV atende 24 horas no 188.\nQuer que eu avise o Pedro e a Júlia, como está no seu plano de crise?'); w.step = 'crise'; return; }
+    waBot('Não entendi. Escolha uma das opções abaixo.'); return; }
+  if (s === 'ident') { const ok = /ELO-LS2-7318/i.test(txt) && /lucas/i.test(txt);
+    if (!ok) { waBot('O nome ou o ID não bate com este número. Confira o ID no app, em Eu.'); return; }
+    waBot('Confirmado: Lucas Souza · ELO-LS2-7318.\nO que você quer registrar?'); w.step = 'tipo'; return; }
+  if (s === 'tipo') { w.tmp.tipo = txt; waBot('Qual a intensidade?'); w.step = 'int'; return; }
+  if (s === 'int') { w.tmp.int = txt; waBot('O que ajudou? Pode escrever do seu jeito.'); w.step = 'ajudou'; return; }
+  if (s === 'ajudou') { w.tmp.ajudou = txt; waBot(`Vou registrar no seu diário:\n• ${w.tmp.tipo}, ${w.tmp.int.toLowerCase()}, hoje às 17:20\n• Ajudou: ${txt.toLowerCase()}\n• A Júlia e a Dra. Ana podem ver\nConfirma?`); w.step = 'conf'; return; }
+  if (s === 'conf') { if (/corrigir/i.test(txt)) { waBot('Sem problema. O que você quer registrar?'); w.step = 'tipo'; return; }
+    A.diario.unshift({ d: '25/11', h: '17:20', t: `${w.tmp.tipo} · ${w.tmp.int.toLowerCase()}`, det: 'Ajudou: ' + w.tmp.ajudou.toLowerCase() + '.', share: true, via: 'WhatsApp' });
+    waBot('Registrado no seu diário. A Júlia vê antes da sessão de quinta.'); w.step = 'fim'; return; }
+  if (s === 'recado') { waBot('Recado enviado para a Júlia. Ela responde pelo app em até 1 dia útil.'); w.step = 'fim'; return; }
+  if (s === 'lembrete') { waBot(/sim/i.test(txt) ? 'Combinado: aviso você na quinta, às 17h.' : 'Tudo bem, sem lembrete.'); w.step = 'fim'; return; }
+  if (s === 'crise') { waBot(/sim/i.test(txt) ? 'Avisei o Pedro e a Júlia que você pediu apoio. Se quiser, abra o seu cartão “Sou autista” no app.' : 'Tudo bem. Estou aqui se precisar. Em perigo, ligue 192.'); w.step = 'fim'; return; }
+  waBot('Escolha uma das opções abaixo.');
+}
+
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return; const d = b.dataset;
+  if (d.anivel) { A.novo.nivel = +d.anivel; A.novo.conta = sugestao(A.novo.nivel, idadeDe(A.novo.nasc)); return render(); }
+  if (d.aconta) { A.novo.conta = d.aconta; return render(); }
+  if ('anovoOk' in d) { const n = A.novo; if (!n.nome.trim()) { n.err = true; return render(); }
+    const id = genId(n.nome), ini = n.nome.trim().split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase(), idade = idadeDe(n.nasc);
+    PAC['n' + Date.now()] = [ini, n.nome.trim(), `${idade !== null ? idade + ' anos · ' : ''}${n.nivel ? 'TEA nível ' + n.nivel + ' · ' : ''}ID ${id}`, 'Convite enviado', 'Aguardando ativação'];
+    A.ultimo = { nome: n.nome.trim(), id, tel: n.tel || '(79) 9 9000-1234', conta: n.conta || 'proprio', nivel: n.nivel };
+    A.novo = { nome: '', nasc: '', tel: '', nivel: 0, conta: '', err: false }; S.hist = ['ppacientes']; S.cur = 'pnovook'; render('fwd'); return; }
+  if ('aaceite' in d) { A.ativ.aceite = !A.ativ.aceite; return render(); }
+  if (d.amodo) { A.ativ.modo = d.amodo; return render(); }
+  if (d.aperm) { A.ativ.apoPerm[d.aperm] = !A.ativ.apoPerm[d.aperm]; render(); return toast('O Pedro ' + (A.ativ.apoPerm[d.aperm] ? 'agora vê' : 'não vê mais') + ' esse item'); }
+  if (d.aopt) { const g = d.aopt, v = d.v;
+    if (g === 'com') { const a = A.ativ.com, i = a.indexOf(v); i >= 0 ? a.splice(i, 1) : a.push(v); }
+    else if (g === 'aviso') A.ativ.aviso = v;
+    else if (d.multi === '1') { const a = A.reg[g], i = a.indexOf(v); i >= 0 ? a.splice(i, 1) : a.push(v); }
+    else A.reg[g] = v; return render(); }
+  if ('alow' in d) { A.low = !A.low; app.classList.toggle('low', A.low); render(); return toast(A.low ? 'Modo baixa estimulação ligado' : 'Modo baixa estimulação desligado'); }
+  if ('awa' in d) { A.ativ.wa = !A.ativ.wa; render(); return toast(A.ativ.wa ? 'Assistente ligado' : 'Assistente desligado'); }
+  if ('ashare' in d) { A.reg.share = !A.reg.share; return render(); }
+  if (d.aenergia) { A.energia = +d.aenergia; A.semana[6] = A.energia; A.diario.unshift({ d: '25/11', h: '09:41', t: `Energia ${A.energia} de 5`, det: 'Check-in rápido.', share: false, via: 'App' }); render(); return toast('Energia registrada: ' + A.energia + ' de 5'); }
+  if (d.alembr) { const l = A.lembr[+d.alembr]; l[2] = !l[2]; return render(); }
+  if ('aregOk' in d) { const r = A.reg; A.diario.unshift({ d: '25/11', h: '17:20', t: `${r.o} · ${r.int.toLowerCase()}`, det: `Gatilhos: ${r.gat.join(', ').toLowerCase() || 'não informado'}. Ajudou: ${(r.ajudou.trim() || 'não informado').replace(/\.$/, '')}.`, share: r.share, via: 'App' });
+    S.hist = []; S.cur = 'adiario'; render('fwd'); return toast(r.share ? 'Salvo. A equipe vê antes da sessão.' : 'Salvo só para você'); }
+  if ('afalar' in d) { const t = 'Sou autista. Posso ter dificuldade para falar agora. Por favor, fale devagar e com frases curtas. Me dê espaço e um pouco de tempo.'; try { const u = new SpeechSynthesisUtterance(t); u.lang = 'pt-BR'; u.rate = .9; speechSynthesis.cancel(); speechSynthesis.speak(u); } catch (er) {} return toast('Lendo o cartão em voz alta'); }
+  if (d.adir) { A.dirAba = d.adir; return render(); }
+  if (d.aart) { A.art = d.aart; return go('artigo'); }
+  if (d.wa) { waAnswer(d.wa); return render(); }
+});
+document.addEventListener('input', (e) => { const id = e.target.id || '';
+  if (id === 'an-nome') { A.novo.nome = e.target.value; if (A.novo.err && A.novo.nome.trim()) A.novo.err = false; }
+  if (id === 'an-tel') A.novo.tel = e.target.value;
+  if (id === 'an-nasc') { let v = e.target.value.replace(/\D/g, '').slice(0, 8); if (v.length > 4) v = v.slice(0, 2) + '/' + v.slice(2, 4) + '/' + v.slice(4); else if (v.length > 2) v = v.slice(0, 2) + '/' + v.slice(2); A.novo.nasc = v;
+    if (v.length === 10) { if (A.novo.nivel) A.novo.conta = sugestao(A.novo.nivel, idadeDe(v)); render(); const i = document.getElementById('an-nasc'); i.focus(); i.setSelectionRange(10, 10); } else e.target.value = v; }
+  if (id === 'ar-ajudou') A.reg.ajudou = e.target.value; });
+document.addEventListener('submit', (e) => { const f = e.target; if (!('wasend' in f.dataset)) return; e.preventDefault(); const v = f.querySelector('input').value.trim(); if (!v) return; waAnswer(v); render(); const i = document.getElementById('wa-in'); if (i) i.focus(); });
+
 const lockBtn = () => `<button class="lock" data-lock aria-label="Sair do Modo Paciente: segure por 3 segundos">${ic('cadeado', 22)}<svg class="ring" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="none" stroke="var(--prim)" stroke-width="3" stroke-dasharray="138.2" stroke-dashoffset="138.2" id="ring"/></svg></button>`;
 
-const NAMES = [['Acesso', [['login', 'Login'], ['cadastro', 'Cadastro'], ['codigo', 'Código da clínica']]], ['Responsável', [['inicio', 'Início'], ['rotina', 'Rotina'], ['diario', 'Diário'], ['equipe', 'Equipe'], ['chat', 'Chat com profissional'], ['crise', 'Registrar crise'], ['registrado', 'Registrado'], ['atividade', 'Atividade'], ['objetivos', 'Objetivos']]], ['Paciente', [['kid', 'Modo Paciente'], ['prancha', 'Prancha de comunicação']]], ['Theo no centro', [['perfil', 'Perfil e código de vínculo'], ['pedido', 'Pedido de vínculo'], ['vinculos', 'Vínculos'], ['desvincular', 'Desvincular'], ['documentos', 'Documentos e laudos'], ['privacidade', 'Privacidade e dados'], ['exportar', 'Exportar dados']]], ['Profissional', [['phoje', 'Hoje'], ['ppacientes', 'Pacientes'], ['ppaciente', 'Paciente (Theo)'], ['pregistro', 'Lançar registro'], ['pativnova', 'Enviar atividade'], ['pvincular', 'Vincular por código'], ['pdesv', 'Desvincular paciente'], ['pconversas', 'Conversas'], ['pchat', 'Chat com o responsável'], ['pconta', 'Conta']]]];
+const NAMES = [['Acesso', [['login', 'Login'], ['cadastro', 'Cadastro'], ['codigo', 'Código da clínica']]], ['Responsável', [['inicio', 'Início'], ['rotina', 'Rotina'], ['diario', 'Diário'], ['equipe', 'Equipe'], ['chat', 'Chat com profissional'], ['crise', 'Registrar crise'], ['registrado', 'Registrado'], ['atividade', 'Atividade'], ['objetivos', 'Objetivos']]], ['Paciente', [['kid', 'Modo Paciente'], ['prancha', 'Prancha de comunicação']]], ['Theo no centro', [['perfil', 'Perfil e código de vínculo'], ['pedido', 'Pedido de vínculo'], ['vinculos', 'Vínculos'], ['desvincular', 'Desvincular'], ['documentos', 'Documentos e laudos'], ['privacidade', 'Privacidade e dados'], ['exportar', 'Exportar dados']]], ['Profissional', [['phoje', 'Hoje'], ['ppacientes', 'Pacientes'], ['ppaciente', 'Paciente (Theo)'], ['pregistro', 'Lançar registro'], ['pativnova', 'Enviar atividade'], ['pvincular', 'Vincular por código'], ['pdesv', 'Desvincular paciente'], ['pconversas', 'Conversas'], ['pchat', 'Chat com o responsável'], ['pconta', 'Conta'], ['pnovo', 'Novo paciente (cadastro)'], ['pnovook', 'Convite enviado com ID']]], ['Paciente adulto', [['aconvite', 'Convite e ID único'], ['aconsent', 'Consentimento (LGPD)'], ['aautonomia', 'Tipo de conta e apoiador'], ['aprefs', 'Preferências'], ['ahoje', 'Hoje'], ['aregistro', 'Como você está'], ['adiario', 'Diário e energia'], ['aplano', 'Plano de crise'], ['acartao', 'Cartão Sou autista'], ['aequipe', 'Equipe e apoiador'], ['aeu', 'Eu'], ['awhats', 'Assistente no WhatsApp']]], ['Direitos e caminhos', [['direitos', 'Conteúdos'], ['artigo', 'Conteúdo aberto']]]];
 const app = document.getElementById('app');
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 function render(anim) {
@@ -755,9 +1074,10 @@ function render(anim) {
     setTimeout(() => { g.remove(); cur.classList.remove('in-fwd', 'in-back', 'in-fade'); }, 620);
   }
   try { history.replaceState(null, '', '#' + S.cur); } catch (e) {} const m = document.getElementById('msgs'); if (m) m.scrollTop = m.scrollHeight; }
-function setPerfil(id) { if (PROF_SCREENS.includes(id)) S.perfil = 'prof'; else if (!['login', 'cadastro'].includes(id)) S.perfil = 'familia'; }
-const homeOf = () => S.perfil === 'prof' ? 'phoje' : 'inicio';
-const histFor = (id) => ['inicio', 'phoje', 'login'].includes(id) ? [] : PROF_SCREENS.includes(id) ? (['ppacientes', 'pconversas', 'pconta'].includes(id) ? [] : id === 'ppaciente' || id === 'pvincular' ? ['ppacientes'] : id === 'pchat' ? ['pconversas'] : ['ppacientes', 'ppaciente']) : ['inicio'];
+function setPerfil(id) { if (SHARED_SCREENS.includes(id)) return; if (A_SCREENS.includes(id)) S.perfil = 'adulto'; else if (PROF_SCREENS.includes(id)) S.perfil = 'prof'; else if (!['login', 'cadastro'].includes(id)) S.perfil = 'familia'; }
+const homeOf = () => S.perfil === 'prof' ? 'phoje' : S.perfil === 'adulto' ? 'ahoje' : 'inicio';
+const histFor0 = (id) => ['inicio', 'phoje', 'login'].includes(id) ? [] : PROF_SCREENS.includes(id) ? (['ppacientes', 'pconversas', 'pconta'].includes(id) ? [] : id === 'ppaciente' || id === 'pvincular' ? ['ppacientes'] : id === 'pchat' ? ['pconversas'] : ['ppacientes', 'ppaciente']) : ['inicio'];
+const histFor = (id) => A_SCREENS.includes(id) ? (['ahoje', 'adiario', 'aequipe', 'aeu', 'aconvite'].includes(id) ? [] : ({ aconsent: ['aconvite'], aautonomia: ['aconvite', 'aconsent'], aprefs: ['aconvite', 'aconsent', 'aautonomia'], acartao: ['ahoje', 'aplano'] })[id] || ['ahoje']) : id === 'direitos' ? (S.perfil === 'adulto' ? [] : ['perfil']) : id === 'artigo' ? (S.perfil === 'adulto' ? ['direitos'] : ['perfil', 'direitos']) : ['pnovo', 'pnovook'].includes(id) ? ['ppacientes'] : histFor0(id);
 function go(id, root) { if (id === S.cur) return; setPerfil(id); if (root) S.hist = []; else S.hist.push(S.cur); S.cur = id; render(root || id === 'kid' ? 'fade' : 'fwd'); }
 function back() { S.cur = S.hist.pop() || homeOf(); render('back'); }
 let toastT; function toast(t) { const el = document.getElementById('toast'); el.innerHTML = ic('check', 18) + esc(t); el.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => el.hidden = true, 2600); }
@@ -794,7 +1114,7 @@ document.addEventListener('click', (e) => {
   if ('excluirOk' in d) { S.excluirAsk = false; S.log.unshift(['MA', 'Você pediu a exclusão da conta', 'agora']); render(); return toast('Pedido de exclusão registrado. Você recebe a confirmação por e-mail.'); }
   if ('codOk' in d) { S.codOk = !S.codOk; return render(); }
   if (d.perfil) { S.perfil = d.perfil; return render(); }
-  if ('login' in d) return go(S.perfil === 'prof' ? 'phoje' : 'inicio', true);
+  if ('login' in d) return go(S.perfil === 'prof' ? 'phoje' : S.perfil === 'adulto' ? 'ahoje' : 'inicio', true);
   // profissional
   if (d.pac) { P.aba = d.paba || 'resumo'; return go('ppaciente'); }
   if (d.paba) { P.aba = d.paba; return render(); }
@@ -864,6 +1184,7 @@ const INTRO = [
   { eyebrow: 'Diário e crises', title: 'Registre em poucos toques', text: 'Como foi, o que aconteceu antes e o que ajudou: tudo em botões grandes. A equipe vê o registro no prontuário e comenta.', art: artCircle('raio', 'var(--amar-50)', 'var(--amar-800)') + artCircle('diario', 'var(--azul-50)', 'var(--azul-700)') },
   { eyebrow: 'Equipe por perto', title: 'Atividades e conversa com cada profissional', text: 'Receba as atividades para casa com passo a passo e vídeo, marque “Fizemos!” e converse direto com a fono, a TO ou a psicóloga.', art: artCircle('atividade', 'var(--verm-50)', 'var(--verm-700)') + artCircle('mensagem', 'var(--verde-50)', 'var(--verde-700)') },
   { eyebrow: 'Para profissionais', title: 'O consultório no bolso', text: 'A fono, a TO ou a psicóloga entra como Profissional: vê a agenda, lança registros, envia atividades e conversa com o responsável, sempre com o que ele autorizou.', art: artCircle('prontuario', 'var(--azul-50)', 'var(--azul-700)') + artCircle('cadeado', 'var(--verde-50)', 'var(--verde-700)') },
+  { eyebrow: 'Também para adultos', title: 'Quem pode, cuida de si', text: 'O profissional cadastra o paciente e gera um ID único. O adulto ativa a conta, escolhe se quer um apoiador, registra como está e usa o assistente no WhatsApp.', art: artCircle('usuario', 'var(--azul-50)', 'var(--azul-700)') + artCircle('mensagem', 'var(--verde-50)', 'var(--verde-700)') },
   { eyebrow: 'Prancha de comunicação', title: 'Quero falar', text: 'O paciente monta frases tocando nas figuras, e o app fala em voz alta.', art: `${pic('eu-quero', 84)}${pic('agua', 84)}${pic('abraco', 84)}` }
 ];
 (function () {
