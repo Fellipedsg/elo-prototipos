@@ -797,10 +797,30 @@ const A = {
   semana: [3, 2, 4, 2, 3, 4, 3],
   dirAba: 'Todos', art: null,
   wa: { step: 'menu', msgs: [['bot', 'Oi, Lucas! Sou o assistente do Elo. Reconheci o seu número vinculado. Como posso ajudar?']], tmp: {} },
-  novo: { nome: '', nasc: '', tel: '', nivel: 0, conta: '', err: false }, ultimo: null
+  novo: { nome: '', nasc: '', tel: '', nivel: 0, conta: '', err: false }, ultimo: null,
+  vg: { sel: 'v1', filtro: 'Todas', aviso: true, banner: true, cand: {}, salvas: {}, cartao: false }
 };
 const A_SCREENS = ['aexerc', 'aexercicio', 'aconvite', 'aconsent', 'aautonomia', 'aprefs', 'ahoje', 'aregistro', 'adiario', 'aequipe', 'aeu', 'aplano', 'acartao', 'awhats'];
 const SHARED_SCREENS = ['direitos', 'artigo'];
+A_SCREENS.push('avagas', 'avaga');
+// vagas de exemplo: empresas e valores fictícios, criados para o protótipo
+const VAGAS = [
+  { id: 'v1', t: 'Auxiliar de dados', emp: 'Nordeste Dados', ini: 'ND', mod: 'Remoto', carga: '30h por semana', meio: false, sal: 'R$ 2.100', pcd: true, nova: true,
+    sobre: 'Conferir e organizar planilhas de cadastro. As tarefas chegam em lista, com prazo claro, e a rotina é a mesma todos os dias.',
+    adap: ['Entrevista por escrito, se você preferir', 'Instruções sempre por escrito', 'Câmera opcional nas reuniões', 'Horário flexível nos dias de terapia'] },
+  { id: 'v2', t: 'Testador de software júnior', emp: 'Cajueiro Tech', ini: 'CT', mod: 'Híbrido · Aracaju', carga: '40h por semana', meio: false, sal: 'R$ 2.800', pcd: true, nova: true,
+    sobre: 'Testar telas de aplicativos seguindo roteiros e anotar o que não funciona. Bom para quem gosta de detalhes e de achar padrões.',
+    adap: ['Mentor fixo nos primeiros 3 meses', 'Treinamento com checklist', 'Sala silenciosa e fone liberado', 'Pausas quando precisar'] },
+  { id: 'v3', t: 'Assistente de biblioteca', emp: 'Biblioteca Comunitária Farol', ini: 'BF', mod: 'Presencial · Aracaju', carga: '6h por dia', meio: false, sal: 'R$ 1.800', pcd: false, nova: true,
+    sobre: 'Organizar o acervo, cadastrar livros novos e cuidar da ordem das estantes.',
+    adap: ['Ambiente silencioso', 'Uma tarefa de cada vez, em lista', 'Atendimento ao público só se você quiser'] },
+  { id: 'v4', t: 'Repositor de estoque', emp: 'Mercadinho Maré Alta', ini: 'MA', mod: 'Presencial · Aracaju', carga: 'Meio período, manhã', meio: true, sal: 'R$ 1.100', pcd: false, nova: false,
+    sobre: 'Repor prateleiras e conferir validades antes da loja abrir.',
+    adap: ['Turno antes da abertura, com menos barulho', 'Fone de ouvido permitido', 'Mapa visual do estoque'] }
+];
+const VFILT = ['Todas', 'Remoto', 'Híbrido', 'Presencial', 'Meio período'];
+const vfOk = (v, f) => f === 'Todas' || (f === 'Meio período' ? v.meio : v.mod.startsWith(f));
+const vRow = (v) => `<button class="row" data-avaga="${v.id}" style="text-align:left">${av(v.ini)}<div class="grow"><b>${v.t}</b><p class="small muted">${v.emp} · ${v.mod.split(' · ')[0]}</p></div>${A.vg.cand[v.id] ? '<span class="pill p-feito">Enviada</span>' : v.nova ? '<span class="pill p-agora">Nova</span>' : ''}</button>`;
 const atab = (a) => `<nav class="tabbar" aria-label="Menu do paciente">${[['ahoje', 'Hoje', 'casa'], ['adiario', 'Diário', 'diario'], ['direitos', 'Direitos', 'escudo'], ['aequipe', 'Equipe', 'equipe'], ['aeu', 'Eu', 'usuario']].map(([id, l, k]) => `<button class="tab" data-go="${id}" data-root ${a === id ? 'aria-current="page"' : ''}><span>${ic(k, 24)}</span>${l}</button>`).join('')}</nav>`;
 const aopt = (g, l, on, extra = '') => `<button class="opt" aria-pressed="${on}" data-aopt="${g}" data-v="${esc(l)}" ${extra}>${esc(l)}${on ? ic('check', 18) : ''}</button>`;
 const tog = (on, attr, label) => `<button class="tog" role="switch" aria-checked="${on}" ${attr} aria-label="${esc(label)}"></button>`;
@@ -914,6 +934,7 @@ Object.assign(V, {
   // ---- dia a dia do paciente adulto ----
   ahoje: () => `<div class="scr"><div class="hero">${sb(true)}<div class="who">${av('LS', 'm')}<div class="grow"><h1>Olá, Lucas!</h1><p class="small">Terça, 25 de novembro</p></div><button class="bell" data-go="awhats" aria-label="Assistente no WhatsApp">${ic('mensagem', 24)}</button></div></div>
     <div class="sheet">
+    ${A.vg.aviso && A.vg.banner ? `<div class="card row" role="status" style="gap:12px;padding:12px 14px;background:var(--azul-50);border:0"><span class="circ" style="background:#fff;color:var(--link)">${ic('sino', 20)}</span><button class="grow" data-go="avagas" style="text-align:left"><b>${VAGAS.filter(v => v.nova).length} vagas novas para você</b><p class="small">Auxiliar de dados (remoto) e mais ${VAGAS.filter(v => v.nova).length - 1}, todas com adaptações</p></button><button class="iconbtn" data-avbanner aria-label="Dispensar aviso de vagas">${ic('fechar', 18)}</button></div>` : ''}
     <div class="card col" style="gap:10px;padding:14px"><div class="ctitle"><h3>Como está sua energia?</h3>${bars(A.energia)}</div>
       <div class="row" style="gap:6px">${[1, 2, 3, 4, 5].map(i => `<button class="opt grow" style="min-height:48px;padding:0" aria-pressed="${A.energia === i}" data-aenergia="${i}" aria-label="Energia ${i} de 5">${i}</button>`).join('')}</div>
       <div class="row small muted" style="justify-content:space-between"><span>Esgotado</span><span>Cheio</span></div></div>
@@ -926,6 +947,8 @@ Object.assign(V, {
       ${A.lembr.map(([h, t, ok], i) => `<button class="row" data-alembr="${i}" style="text-align:left"><span class="time" style="width:48px;font-weight:700">${h}</span><span class="grow ${ok ? 'muted' : ''}" style="${ok ? 'text-decoration:line-through' : ''}">${t}</span>${ok ? `<span class="pill p-feito">${ic('check', 14)}Feito</span>` : '<span class="pill p-depois">Marcar</span>'}</button>`).join('')}</div>
     <div class="card col" style="gap:10px;padding:14px"><div class="ctitle"><h3>Exercícios da equipe</h3><button class="small" data-go="aexerc" style="color:var(--link);font-weight:700">Ver todos</button></div>
       ${A.exerc.filter(x => !x.feito).map(x => `<button class="row" data-aex="${x.id}" style="text-align:left">${av(x.ini)}<div class="grow"><b>${x.t}</b><p class="small muted">${curto(x.who)} · ${x.freq} · ${x.dur}</p></div><span class="pill p-to">Fazer</span></button>`).join('') || `<p class="small muted">Tudo feito por hoje.</p>`}</div>
+    <div class="card col" style="gap:10px;padding:14px"><div class="ctitle"><h3>Vagas para você</h3><button class="small" data-go="avagas" style="color:var(--link);font-weight:700">Ver todas</button></div>
+      ${VAGAS.slice(0, 2).map(vRow).join('')}</div>
     <button class="card row" data-aart="adulto-dx" style="text-align:left;padding:12px 14px;background:var(--amar-50);border:0"><span class="circ" style="background:#fff;color:var(--amar-800)">${ic('escudo', 20)}</span><div class="grow"><b>Novo em Direitos</b><p class="small">Diagnóstico na vida adulta: o que mudou com a Lei 15.256/2025</p></div>${ic('direita', 20, 'muted')}</button>
     </div>${atab('ahoje')}</div>`,
   aregistro: () => { const r = A.reg, o = (g, l, multi) => aopt(g, l, multi ? r[g].includes(l) : r[g] === l, multi ? 'data-multi="1"' : '');
@@ -972,6 +995,7 @@ Object.assign(V, {
     <div class="card col" style="gap:6px"><span class="small muted">Como prefiro que falem comigo</span><b>${A.ativ.com.join(', ') || 'Sem preferência'} · avisos ${A.ativ.aviso}</b>${btn('Editar', 'fant', 'data-go="aprefs"', '', false).replace('btn ', 'btn sm ')}</div>
     <div class="card row" style="justify-content:space-between"><div class="grow"><b>Modo baixa estimulação</b><p class="small muted">Menos cor e nenhum movimento.</p></div>${tog(A.low, 'data-alow', 'Modo baixa estimulação')}</div>
     <div class="card row" style="justify-content:space-between"><div class="grow"><b>Assistente no WhatsApp</b><p class="small muted">${A.ativ.wa ? 'Ligado · (79) 9 9000-1234' : 'Desligado'}</p></div>${tog(A.ativ.wa, 'data-awa', 'Assistente no WhatsApp')}</div>
+    <div class="card row" style="justify-content:space-between"><div class="grow"><b>Avisos de vagas de emprego</b><p class="small muted">${A.vg.aviso ? 'Ligado · vagas com adaptações' : 'Desligado'}</p></div>${tog(A.vg.aviso, 'data-avaviso', 'Avisos de vagas de emprego')}</div>
     ${[['documentos', 'pasta', 'Documentos e laudos', 'CIPTEA, laudos e relatórios'], ['', 'escudo', 'Privacidade e dados', 'Quem acessou, baixar ou apagar dados']].map(([g, k, t, s]) => `<button class="card row" ${g ? `data-toast="${t}: mesma tela do responsável, agora em nome do Lucas"` : `data-toast="${t}: mesma tela do responsável, agora em nome do Lucas"`} style="text-align:left;padding:12px 14px"><span class="circ c-azul">${ic(k, 20)}</span><div class="grow"><b>${t}</b><p class="small muted">${s}</p></div>${ic('direita', 20, 'muted')}</button>`).join('')}
     <div style="display:flex;justify-content:center">${btn('Sair da conta', 'fant', 'data-go="login" data-root', 'sair', false)}</div>
     </div>${atab('aeu')}</div>`,
@@ -997,6 +1021,30 @@ Object.assign(V, {
       : `<h3 style="font-size:17px">Como foi?</h3><div class="opts">${['Fácil', 'Ok', 'Difícil'].map(l => `<button class="opt" aria-pressed="${A.exComo === l}" data-aexcomo="${l}">${l}${A.exComo === l ? ic('check', 18) : ''}</button>`).join('')}</div>
       <label class="field"><span>Quer contar algo? (opcional)</span><textarea id="ax-obs" rows="2" placeholder="Ex.: fiz no ônibus, ajudou um pouco." style="border:1px solid var(--n600);border-radius:var(--r-campo);padding:12px;font:inherit;background:var(--sup)">${esc(x.obs)}</textarea></label>
       ${A.exComo ? btn('Marcar como feito', 'prim', 'data-aex-ok', 'check') : '<button class="btn full" disabled>Marcar como feito</button>'}`}
+    </div></div>`; },
+  avagas: () => { const list = VAGAS.filter(v => vfOk(v, A.vg.filtro));
+    return `<div class="scr bg">${sb()}${hdr('Vagas para você')}<div class="body" style="gap:10px">
+    <p class="small muted">Empresas que oferecem adaptações para pessoas neurodivergentes. Contar ou não sobre o diagnóstico é escolha sua.</p>
+    <div class="card row" style="justify-content:space-between"><div class="grow"><b>Me avisar de vagas novas</b><p class="small muted">Aviso no app, sem e-mail.</p></div>${tog(A.vg.aviso, 'data-avaviso', 'Me avisar de vagas novas')}</div>
+    <div class="chips-x">${VFILT.map(f => `<button class="pill ${A.vg.filtro === f ? 'p-agora' : 'p-depois'}" data-avfiltro="${f}">${f}</button>`).join('')}</div>
+    ${list.map(v => `<button class="card col" data-avaga="${v.id}" style="text-align:left;gap:8px;padding:14px"><div class="row" style="justify-content:space-between"><span class="row" style="gap:8px">${av(v.ini)}<span class="small muted">${v.emp}</span></span>${A.vg.cand[v.id] ? `<span class="pill p-feito">${ic('check', 14)}Enviada</span>` : v.nova ? '<span class="pill p-agora">Nova</span>' : ''}</div><b style="font-family:var(--f-tit);font-size:18px">${v.t}</b><p class="small muted">${v.mod} · ${v.carga} · ${v.sal}</p><div class="row" style="gap:6px;flex-wrap:wrap">${v.pcd ? '<span class="pill p-psico">Vaga PcD</span>' : ''}<span class="pill p-depois">${v.adap[0]}</span></div></button>`).join('') || '<p class="small muted">Nenhuma vaga com esse filtro agora. Ligue os avisos para saber quando surgir.</p>'}
+    <button class="card row" data-aart="trabalho" style="text-align:left;padding:12px 14px;background:var(--amar-50);border:0"><span class="circ" style="background:#fff;color:var(--amar-800)">${ic('escudo', 20)}</span><div class="grow"><b>Seus direitos no trabalho</b><p class="small">Cotas e adaptação razoável</p></div>${ic('direita', 20, 'muted')}</button>
+    <p class="small muted row" style="gap:8px;align-items:flex-start">${ic('info', 16)}Vagas e empresas de exemplo, criadas para o protótipo.</p>
+    </div></div>`; },
+  avaga: () => { const v = VAGAS.find(x => x.id === A.vg.sel) || VAGAS[0], ok = A.vg.cand[v.id], escrito = A.ativ.com.includes('Mensagem escrita');
+    return `<div class="scr">${sb()}${hdr('Vaga')}<div class="body" style="gap:14px">
+    <div class="row" style="gap:10px">${av(v.ini)}<div class="grow"><b class="small">${v.emp}</b><p class="small muted">Empresa parceira do Elo</p></div>${v.nova && !ok ? '<span class="pill p-agora">Nova</span>' : ''}</div>
+    <h1 style="font-size:26px">${v.t}</h1>
+    <div class="row" style="gap:6px;flex-wrap:wrap"><span class="pill p-depois">${v.mod}</span><span class="pill p-depois">${v.carga}</span><span class="pill p-depois">${v.sal}</span>${v.pcd ? '<span class="pill p-psico">Vaga PcD</span>' : ''}</div>
+    <div class="card col" style="gap:4px;background:var(--azul-50);border:0"><span class="small" style="font-weight:700;color:var(--link)">Por que combina com você</span><p class="small">${escrito ? 'A empresa fala por mensagem escrita, como você prefere, e' : 'A empresa'} mantém uma rotina previsível.</p></div>
+    <div class="card col" style="gap:10px"><b>Adaptações oferecidas</b>${v.adap.map(a => `<div class="row small" style="gap:8px;align-items:flex-start;color:var(--n900)">${ic('check', 18)}<span class="grow">${a}</span></div>`).join('')}</div>
+    <div class="col" style="gap:6px"><h3 style="font-size:17px">O que você vai fazer</h3><p class="small">${v.sobre}</p></div>
+    <div class="card col" style="gap:12px"><b>Como é o processo</b>${['Você se candidata pelo Elo, com o seu currículo.', 'Você escolhe a entrevista: por escrito, por vídeo ou presencial.', 'Antes de começar, uma conversa com o RH sobre as adaptações.'].map((p, i) => `<div class="row" style="gap:12px;align-items:flex-start"><span class="stepn">${i + 1}</span><p class="small grow">${p}</p></div>`).join('')}</div>
+    ${ok ? `<div class="card col" style="gap:6px;background:var(--verde-50);border:0"><b class="row" style="gap:8px;color:var(--verde-700)">${ic('check', 18)}Candidatura enviada em 25/11</b><p class="small">A ${v.emp} vai responder ${escrito ? 'por mensagem escrita' : 'pelo app'}. ${A.vg.cartao ? 'O seu cartão “Sou autista” foi junto.' : 'O diagnóstico não foi compartilhado.'}</p></div>
+      ${btn('Ver meus direitos no trabalho', 'sec', 'data-aart="trabalho"', 'escudo')}`
+    : `<div class="card row" style="justify-content:space-between;align-items:flex-start"><div class="grow"><b>Enviar meu cartão “Sou autista”</b><p class="small muted">Opcional. Ajuda a empresa a preparar a entrevista.</p></div>${tog(A.vg.cartao, 'data-avcartao', 'Enviar meu cartão Sou autista')}</div>
+      ${btn('Quero me candidatar', 'prim', 'data-avcand', 'enviar')}${btn(A.vg.salvas[v.id] ? 'Vaga salva' : 'Salvar vaga', 'sec', 'data-avsalvar', A.vg.salvas[v.id] ? 'check' : 'download')}`}
+    <p class="small muted">Vaga e empresa de exemplo, criadas para o protótipo.</p>
     </div></div>`; },
   // ---- compartilhadas ----
   direitos: () => { const list = ART.filter(a => audOk(a) && (A.dirAba === 'Todos' || a.cat === A.dirAba)), ad = S.perfil === 'adulto';
@@ -1091,6 +1139,13 @@ document.addEventListener('click', (e) => {
     S.hist = []; S.cur = 'adiario'; render('fwd'); return toast(r.share ? 'Salvo. A equipe vê antes da sessão.' : 'Salvo só para você'); }
   if ('afalar' in d) { const t = 'Sou autista. Posso ter dificuldade para falar agora. Por favor, fale devagar e com frases curtas. Me dê espaço e um pouco de tempo.'; try { const u = new SpeechSynthesisUtterance(t); u.lang = 'pt-BR'; u.rate = .9; speechSynthesis.cancel(); speechSynthesis.speak(u); } catch (er) {} return toast('Lendo o cartão em voz alta'); }
   if (d.adir) { A.dirAba = d.adir; return render(); }
+  if (d.avaga) { A.vg.sel = d.avaga; return go('avaga'); }
+  if (d.avfiltro) { A.vg.filtro = d.avfiltro; return render(); }
+  if ('avbanner' in d) { A.vg.banner = false; render(); return toast('Aviso dispensado. As vagas continuam em Hoje.'); }
+  if ('avaviso' in d) { A.vg.aviso = !A.vg.aviso; if (A.vg.aviso) A.vg.banner = true; render(); return toast(A.vg.aviso ? 'Avisos de vagas ligados' : 'Avisos de vagas desligados'); }
+  if ('avcartao' in d) { A.vg.cartao = !A.vg.cartao; return render(); }
+  if ('avsalvar' in d) { A.vg.salvas[A.vg.sel] = !A.vg.salvas[A.vg.sel]; render(); return toast(A.vg.salvas[A.vg.sel] ? 'Vaga salva' : 'Vaga removida dos salvos'); }
+  if ('avcand' in d) { const v = VAGAS.find(x => x.id === A.vg.sel); A.vg.cand[v.id] = true; render(); return toast('Candidatura enviada para a ' + v.emp); }
   if (d.aart) { A.art = d.aart; return go('artigo'); }
   if (d.wa) { waAnswer(d.wa); return render(); }
   if (d.aex) { A.exSel = d.aex; A.exComo = ''; guiaStop(); return go('aexercicio'); }
@@ -1110,7 +1165,7 @@ document.addEventListener('submit', (e) => { const f = e.target; if (!('wasend' 
 
 const lockBtn = () => `<button class="lock" data-lock aria-label="Sair do Modo Paciente: segure por 3 segundos">${ic('cadeado', 22)}<svg class="ring" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="none" stroke="var(--prim)" stroke-width="3" stroke-dasharray="138.2" stroke-dashoffset="138.2" id="ring"/></svg></button>`;
 
-const NAMES = [['Acesso', [['login', 'Login'], ['cadastro', 'Cadastro'], ['codigo', 'Código da clínica']]], ['Responsável', [['inicio', 'Início'], ['rotina', 'Rotina'], ['diario', 'Diário'], ['equipe', 'Equipe'], ['chat', 'Chat com profissional'], ['crise', 'Registrar crise'], ['registrado', 'Registrado'], ['atividade', 'Atividade'], ['objetivos', 'Objetivos']]], ['Paciente', [['kid', 'Modo Paciente'], ['prancha', 'Prancha de comunicação']]], ['Theo no centro', [['perfil', 'Perfil e código de vínculo'], ['pedido', 'Pedido de vínculo'], ['vinculos', 'Vínculos'], ['desvincular', 'Desvincular'], ['documentos', 'Documentos e laudos'], ['privacidade', 'Privacidade e dados'], ['exportar', 'Exportar dados']]], ['Profissional', [['phoje', 'Hoje'], ['ppacientes', 'Pacientes'], ['ppaciente', 'Paciente (Theo)'], ['pregistro', 'Lançar registro'], ['pativnova', 'Enviar atividade'], ['pvincular', 'Vincular por código'], ['pdesv', 'Desvincular paciente'], ['pconversas', 'Conversas'], ['pchat', 'Chat com o responsável'], ['pconta', 'Conta'], ['pnovo', 'Novo paciente (cadastro)'], ['pnovook', 'Convite enviado com ID']]], ['Paciente adulto', [['aconvite', 'Convite e ID único'], ['aconsent', 'Consentimento (LGPD)'], ['aautonomia', 'Tipo de conta e apoiador'], ['aprefs', 'Preferências'], ['ahoje', 'Hoje'], ['aregistro', 'Como você está'], ['adiario', 'Diário e energia'], ['aexerc', 'Exercícios da equipe'], ['aexercicio', 'Exercício com guia'], ['aplano', 'Plano de crise'], ['acartao', 'Cartão Sou autista'], ['aequipe', 'Equipe e apoiador'], ['aeu', 'Eu'], ['awhats', 'Assistente no WhatsApp']]], ['Direitos e caminhos', [['direitos', 'Conteúdos'], ['artigo', 'Conteúdo aberto']]]];
+const NAMES = [['Acesso', [['login', 'Login'], ['cadastro', 'Cadastro'], ['codigo', 'Código da clínica']]], ['Responsável', [['inicio', 'Início'], ['rotina', 'Rotina'], ['diario', 'Diário'], ['equipe', 'Equipe'], ['chat', 'Chat com profissional'], ['crise', 'Registrar crise'], ['registrado', 'Registrado'], ['atividade', 'Atividade'], ['objetivos', 'Objetivos']]], ['Paciente', [['kid', 'Modo Paciente'], ['prancha', 'Prancha de comunicação']]], ['Theo no centro', [['perfil', 'Perfil e código de vínculo'], ['pedido', 'Pedido de vínculo'], ['vinculos', 'Vínculos'], ['desvincular', 'Desvincular'], ['documentos', 'Documentos e laudos'], ['privacidade', 'Privacidade e dados'], ['exportar', 'Exportar dados']]], ['Profissional', [['phoje', 'Hoje'], ['ppacientes', 'Pacientes'], ['ppaciente', 'Paciente (Theo)'], ['pregistro', 'Lançar registro'], ['pativnova', 'Enviar atividade'], ['pvincular', 'Vincular por código'], ['pdesv', 'Desvincular paciente'], ['pconversas', 'Conversas'], ['pchat', 'Chat com o responsável'], ['pconta', 'Conta'], ['pnovo', 'Novo paciente (cadastro)'], ['pnovook', 'Convite enviado com ID']]], ['Paciente adulto', [['aconvite', 'Convite e ID único'], ['aconsent', 'Consentimento (LGPD)'], ['aautonomia', 'Tipo de conta e apoiador'], ['aprefs', 'Preferências'], ['ahoje', 'Hoje'], ['aregistro', 'Como você está'], ['adiario', 'Diário e energia'], ['aexerc', 'Exercícios da equipe'], ['aexercicio', 'Exercício com guia'], ['avagas', 'Vagas de emprego'], ['avaga', 'Detalhe da vaga'], ['aplano', 'Plano de crise'], ['acartao', 'Cartão Sou autista'], ['aequipe', 'Equipe e apoiador'], ['aeu', 'Eu'], ['awhats', 'Assistente no WhatsApp']]], ['Direitos e caminhos', [['direitos', 'Conteúdos'], ['artigo', 'Conteúdo aberto']]]];
 const app = document.getElementById('app');
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 function render(anim) {
@@ -1128,7 +1183,7 @@ function render(anim) {
 function setPerfil(id) { if (SHARED_SCREENS.includes(id)) return; if (A_SCREENS.includes(id)) S.perfil = 'adulto'; else if (PROF_SCREENS.includes(id)) S.perfil = 'prof'; else if (!['login', 'cadastro'].includes(id)) S.perfil = 'familia'; }
 const homeOf = () => S.perfil === 'prof' ? 'phoje' : S.perfil === 'adulto' ? 'ahoje' : 'inicio';
 const histFor0 = (id) => ['inicio', 'phoje', 'login'].includes(id) ? [] : PROF_SCREENS.includes(id) ? (['ppacientes', 'pconversas', 'pconta'].includes(id) ? [] : id === 'ppaciente' || id === 'pvincular' ? ['ppacientes'] : id === 'pchat' ? ['pconversas'] : ['ppacientes', 'ppaciente']) : ['inicio'];
-const histFor = (id) => A_SCREENS.includes(id) ? (['ahoje', 'adiario', 'aequipe', 'aeu', 'aconvite'].includes(id) ? [] : ({ aconsent: ['aconvite'], aautonomia: ['aconvite', 'aconsent'], aprefs: ['aconvite', 'aconsent', 'aautonomia'], acartao: ['ahoje', 'aplano'], aexercicio: ['ahoje', 'aexerc'] })[id] || ['ahoje']) : id === 'direitos' ? (S.perfil === 'adulto' ? [] : ['perfil']) : id === 'artigo' ? (S.perfil === 'adulto' ? ['direitos'] : ['perfil', 'direitos']) : ['pnovo', 'pnovook'].includes(id) ? ['ppacientes'] : histFor0(id);
+const histFor = (id) => A_SCREENS.includes(id) ? (['ahoje', 'adiario', 'aequipe', 'aeu', 'aconvite'].includes(id) ? [] : ({ aconsent: ['aconvite'], aautonomia: ['aconvite', 'aconsent'], aprefs: ['aconvite', 'aconsent', 'aautonomia'], acartao: ['ahoje', 'aplano'], aexercicio: ['ahoje', 'aexerc'], avaga: ['ahoje', 'avagas'] })[id] || ['ahoje']) : id === 'direitos' ? (S.perfil === 'adulto' ? [] : ['perfil']) : id === 'artigo' ? (S.perfil === 'adulto' ? ['direitos'] : ['perfil', 'direitos']) : ['pnovo', 'pnovook'].includes(id) ? ['ppacientes'] : histFor0(id);
 function go(id, root) { if (id === S.cur) return; setPerfil(id); if (root) S.hist = []; else S.hist.push(S.cur); S.cur = id; render(root || id === 'kid' ? 'fade' : 'fwd'); }
 function back() { S.cur = S.hist.pop() || homeOf(); render('back'); }
 let toastT; function toast(t) { const el = document.getElementById('toast'); el.innerHTML = ic('check', 18) + esc(t); el.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => el.hidden = true, 2600); }
