@@ -1,3 +1,722 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Elo · Protótipos</title>
-<style>body{margin:0;font-family:system-ui,sans-serif;background:#F6F8FB;color:#161C28;display:grid;place-items:center;min-height:100vh;padding:24px}main{max-width:520px;display:flex;flex-direction:column;gap:16px}h1{margin:0;color:#0E2A66}a{display:block;padding:18px 20px;border-radius:16px;background:#fff;border:1px solid #DDE2EA;color:#1847A8;font-weight:700;text-decoration:none}a:hover{border-color:#1F5BD6}p{margin:0;color:#5A6475}</style></head>
-<body><main><h1>Elo · Protótipos navegáveis</h1><p>Dados fictícios, só para demonstração.</p><a href="elo-app/">App da família (celular) →</a><a href="elo-web/">Versão web (clínica e profissionais) →</a></main></body></html>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elo · Equipe alinhada, família junto, paciente evoluindo</title>
+<meta name="description" content="O Elo conecta responsáveis e a equipe de fono, TO, psicologia e ABA em um prontuário compartilhado. Grátis para o responsável. Planos a partir de R$ 70 por terapeuta.">
+<meta property="og:title" content="Elo · O cuidado do paciente em rede">
+<meta property="og:description" content="Responsáveis e equipe terapêutica conectados em um só prontuário. Feito para pacientes autistas e neurodivergentes.">
+<meta property="og:image" content="https://fellipedsg.github.io/elo-prototipos/lp/og.jpg"><meta property="og:url" content="https://fellipedsg.github.io/elo-prototipos/"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0E2A66">
+<link rel="icon" href="lp/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0E2A66;--navy2:#13337A;--blue:#1F5BD6;--blue7:#1847A8;--blue5:#2F6FED;--blue1:#DCE8FF;--blue0:#EEF4FF;
+  --yel:#F7C531;--yel0:#FFF8DB;--grn:#2FA36B;--grn7:#1D7348;--grn0:#EAF8EF;--red:#E5484D;--red0:#FFF0EF;
+  --ink:#161C28;--ink2:#4A5468;--line:#DDE2EA;--bg:#F6F8FB;--white:#fff;
+  --ft:'Nunito',system-ui,sans-serif;--fb:'Atkinson Hyperlegible',system-ui,sans-serif;
+  --r:20px;--sh:0 24px 60px -20px rgba(14,42,102,.28),0 8px 20px -10px rgba(14,42,102,.18);
+  --w:1180px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;font-family:var(--fb);color:var(--ink);background:var(--white);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{display:block;max-width:100%}
+a{color:var(--blue7)}
+h1,h2,h3,h4{font-family:var(--ft);color:var(--navy);margin:0;line-height:1.12;letter-spacing:-.015em;text-wrap:balance}
+p{margin:0}
+:focus-visible{outline:3px solid var(--blue5);outline-offset:3px;border-radius:8px}
+.wrap{width:min(var(--w),100% - 40px);margin-inline:auto}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--ft);font-weight:800;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue7)}
+.eyebrow::before{content:"";width:22px;height:3px;border-radius:3px;background:var(--yel)}
+.sec{padding:110px 0}
+.sec-h{max-width:760px;margin-bottom:56px}
+.sec-h h2{font-size:clamp(32px,4.2vw,50px);margin-top:14px}
+.sec-h p{margin-top:18px;font-size:19px;color:var(--ink2)}
+.center{text-align:center;margin-inline:auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 26px;border-radius:16px;font-family:var(--ft);font-weight:800;font-size:17px;text-decoration:none;border:0;cursor:pointer;transition:transform .15s,box-shadow .2s,background .2s;white-space:nowrap}
+.btn:hover{transform:translateY(-2px)}
+.b1{background:var(--blue);color:#fff;box-shadow:0 12px 28px -10px rgba(31,91,214,.7)}
+.b1:hover{background:var(--blue7)}
+.b2{background:#fff;color:var(--navy);box-shadow:inset 0 0 0 2px var(--line)}
+.b2:hover{box-shadow:inset 0 0 0 2px var(--blue)}
+.b3{background:var(--yel);color:var(--navy)}
+.btn svg{width:20px;height:20px;flex:none}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s}
+.nav.sc{border-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:28px;height:76px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo img{height:34px;width:auto}
+.logo b{font-family:var(--ft);font-weight:900;font-size:28px;color:var(--navy);letter-spacing:-.02em}
+.links{display:flex;gap:26px;margin-left:auto}
+.links a{font-family:var(--ft);font-weight:700;font-size:16px;color:var(--ink2);text-decoration:none}
+.links a:hover{color:var(--blue)}
+.nav .btn{min-height:46px;padding:0 20px;font-size:16px}
+.menu-b{display:none;margin-left:auto;width:46px;height:46px;border-radius:12px;border:1px solid var(--line);background:#fff;cursor:pointer}
+.menu-b svg{width:22px;height:22px;margin:auto}
+
+/* hero */
+.hero{position:relative;padding:72px 0 120px;background:radial-gradient(900px 520px at 85% 10%,#E3ECFF 0%,transparent 60%),radial-gradient(700px 420px at 5% 100%,#FFF4CF 0%,transparent 60%),linear-gradient(#fff,#F6F8FB);overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(14,42,102,.10) 1.2px,transparent 1.2px);background-size:26px 26px;mask-image:linear-gradient(180deg,#000 0%,transparent 75%);pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.02fr 1fr;gap:48px;align-items:center}
+.tag{display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 8px;border-radius:999px;background:#fff;box-shadow:0 4px 14px -6px rgba(14,42,102,.25);font-family:var(--ft);font-weight:800;font-size:14px;color:var(--navy)}
+.tag i{font-style:normal;background:var(--yel);border-radius:999px;padding:3px 10px;font-size:13px}
+.hero h1{font-size:clamp(40px,5.2vw,64px);margin:24px 0 22px;font-weight:900}
+.hero h1 em{font-style:normal;color:var(--blue);position:relative}
+.hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.22em;background:var(--yel);opacity:.55;z-index:-1;border-radius:4px}
+.lead{font-size:20px;color:var(--ink2);max-width:560px}
+.ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.trust{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:30px;font-size:15px;color:var(--ink2)}
+.trust span{display:inline-flex;align-items:center;gap:8px}
+.trust svg{width:20px;height:20px;color:var(--grn)}
+.stage{position:relative;height:560px}
+.browser{position:absolute;right:-70px;top:30px;width:660px;background:#fff;border-radius:16px;box-shadow:var(--sh);overflow:hidden;border:1px solid #E6EAF1}
+.bar{display:flex;align-items:center;gap:7px;height:34px;padding:0 14px;background:#EEF1F6;border-bottom:1px solid #E1E6EE}
+.bar i{width:11px;height:11px;border-radius:50%;background:#FF5F57}.bar i:nth-child(2){background:#FEBC2E}.bar i:nth-child(3){background:#28C840}
+.bar span{margin:0 auto;font-size:12px;color:#7A8395;background:#fff;border-radius:7px;padding:2px 60px}
+.browser video{width:100%;aspect-ratio:16/10;object-fit:cover}
+.phone{position:relative;width:250px;padding:10px;border-radius:44px;background:#0F1522;box-shadow:var(--sh),inset 0 0 0 2px #2A3242}
+.phone video{width:100%;aspect-ratio:600/1298;border-radius:34px;object-fit:cover;background:#fff}
+.stage .phone{position:absolute;left:10px;bottom:-20px;width:230px}
+.float{position:absolute;display:flex;align-items:center;gap:12px;background:#fff;border-radius:16px;padding:12px 16px 12px 12px;box-shadow:0 18px 40px -16px rgba(14,42,102,.35);font-size:14px;line-height:1.35;animation:fl 6s ease-in-out infinite}
+.float b{display:block;font-family:var(--ft);color:var(--navy);font-size:15px}
+.float .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:none}
+.float .ic svg{width:22px;height:22px}
+.f1{left:150px;top:-14px;animation-delay:-2s}
+.f2{right:0;bottom:40px}
+@keyframes fl{50%{transform:translateY(-10px)}}
+
+/* specialties */
+.spec{padding:34px 0;border-block:1px solid var(--line);background:#fff}
+.spec .wrap{display:flex;align-items:center;gap:20px 40px;flex-wrap:wrap;justify-content:center}
+.spec p{font-family:var(--ft);font-weight:800;color:var(--ink2);font-size:15px}
+.chips{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.chip{padding:10px 18px;border-radius:999px;font-family:var(--ft);font-weight:800;font-size:16px}
+.c1{background:var(--red0);color:#B4232A}.c2{background:var(--yel0);color:#7A5A00}.c3{background:var(--grn0);color:var(--grn7)}.c4{background:var(--blue0);color:var(--blue7)}
+
+/* problem */
+.prob{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.prob::after{content:"";position:absolute;right:-180px;top:-180px;width:520px;height:520px;border-radius:50%;border:80px solid rgba(247,197,49,.08)}
+.prob h2,.prob .eyebrow{color:#fff}
+.prob .sec-h p{color:#C3D0EE}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.pcard{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--r);padding:30px}
+.pcard .n{font-family:var(--ft);font-weight:900;font-size:15px;color:var(--yel);letter-spacing:.06em}
+.pcard h3{color:#fff;font-size:23px;margin:12px 0 10px}
+.pcard p{color:#C3D0EE;font-size:16px}
+.research{margin-top:28px;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;background:#fff;color:var(--ink);border-radius:var(--r);padding:28px 34px}
+.research .big{font-family:var(--ft);font-weight:900;font-size:76px;line-height:1;color:var(--blue)}
+.research h3{font-size:22px}
+.research p{color:var(--ink2);margin-top:6px}
+.research small{display:block;margin-top:8px;font-size:13px;color:#7A8395}
+
+/* how */
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;position:relative}
+.step{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px;position:relative}
+.step .num{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-family:var(--ft);font-weight:900;font-size:22px;color:#fff;margin-bottom:20px}
+.step h3{font-size:24px;margin-bottom:10px}
+.step p{color:var(--ink2)}
+.step .who{display:inline-block;margin-top:16px;font-family:var(--ft);font-weight:800;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink2)}
+.hub{margin:28px auto 0;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-family:var(--ft);font-weight:800;color:var(--navy)}
+.hub .core{background:var(--navy);color:#fff;border-radius:16px;padding:14px 22px}
+.hub .side{background:var(--blue0);color:var(--blue7);border-radius:16px;padding:14px 22px}
+.hub svg{width:26px;height:26px;color:var(--yel)}
+
+/* demo */
+.demo{background:var(--bg)}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:46px}
+.tab{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:14px;border:1px solid var(--line);background:#fff;font-family:var(--ft);font-weight:800;font-size:16px;color:var(--ink2);cursor:pointer;transition:all .15s}
+.tab:hover{border-color:var(--blue);color:var(--blue)}
+.tab[aria-selected="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.tab small{font-size:12px;font-weight:800;opacity:.7}
+.panel{display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:center}
+.panel[hidden]{display:none}
+.panel .media{display:flex;justify-content:center}
+.panel .phone{width:290px}
+.panel .browser{position:relative;width:100%;top:0}
+.panel.web{grid-template-columns:1.35fr 1fr}
+.panel.web .media{order:-1}
+.who-b{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;font-family:var(--ft);font-weight:800;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+.panel h3{font-size:clamp(28px,3.2vw,40px);margin:16px 0 14px}
+.panel p.d{font-size:18px;color:var(--ink2)}
+.ticks{list-style:none;padding:0;margin:22px 0 28px;display:grid;gap:12px}
+.ticks li{display:flex;gap:12px;align-items:flex-start}
+.ticks svg{flex:none;width:24px;height:24px;color:var(--grn);margin-top:1px}
+
+/* audiences */
+.aud{display:grid;grid-template-columns:1.15fr 1fr;gap:24px}
+.acard{border-radius:28px;padding:44px;position:relative;overflow:hidden}
+.acard.cl{background:linear-gradient(160deg,#1F5BD6,#0E2A66);color:#fff}
+.acard.cl h3,.acard.cl .eyebrow{color:#fff}
+.acard.cl .eyebrow::before{background:var(--yel)}
+.acard.rs{background:var(--yel0)}
+.acard h3{font-size:clamp(26px,2.8vw,34px);margin:14px 0 22px}
+.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px 22px}
+.bi{display:flex;gap:12px}
+.bi .i{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.14)}
+.bi .i svg{width:22px;height:22px}
+.bi b{display:block;font-family:var(--ft);font-size:17px;line-height:1.3}
+.bi span{font-size:15px;opacity:.85;line-height:1.45;display:block;margin-top:3px}
+.acard.rs .bgrid{grid-template-columns:1fr}
+.acard.rs .bi .i{background:#fff;color:#7A5A00}
+.acard.rs .bi span{color:var(--ink2);opacity:1}
+.free{display:inline-flex;align-items:center;gap:8px;margin-top:26px;background:#fff;border-radius:14px;padding:12px 18px;font-family:var(--ft);font-weight:900;color:var(--navy);font-size:18px}
+
+/* compare */
+.cmp{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.cmp th,.cmp td{padding:18px 22px;text-align:center;border-bottom:1px solid var(--line);font-size:16px}
+.cmp tr:last-child td{border-bottom:0}
+.cmp th{font-family:var(--ft);font-weight:800;color:var(--ink2);background:#FAFBFD;font-size:15px}
+.cmp td:first-child,.cmp th:first-child{text-align:left;font-weight:700;color:var(--ink)}
+.cmp .elo{background:var(--blue0)}
+.cmp th.elo{background:var(--navy);color:#fff}
+.yes,.no,.mid{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%}
+.yes{background:var(--grn0);color:var(--grn7)}.no{background:#F1F3F7;color:#8A93A5}.mid{background:var(--yel0);color:#7A5A00;font-weight:900;font-family:var(--ft)}
+.yes svg,.no svg{width:18px;height:18px}
+.cmp-note{font-size:14px;color:#7A8395;margin-top:12px}
+
+/* pricing */
+.price-sec{background:var(--bg)}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
+.plan{background:#fff;border:1px solid var(--line);border-radius:24px;padding:34px;display:flex;flex-direction:column;gap:18px;position:relative}
+.plan.hl{border:2px solid var(--blue);box-shadow:var(--sh);transform:translateY(-10px)}
+.plan .rec{position:absolute;top:-15px;left:34px;background:var(--yel);color:var(--navy);font-family:var(--ft);font-weight:900;font-size:13px;padding:5px 12px;border-radius:999px;letter-spacing:.03em}
+.plan h3{font-size:24px}
+.plan .pr{font-family:var(--ft);font-weight:900;font-size:50px;color:var(--navy);line-height:1;white-space:nowrap}
+.plan .pr small{font-size:16px;font-weight:800;color:var(--ink2);margin-left:6px}
+.plan .cap{font-weight:700;background:var(--blue0);color:var(--blue7);border-radius:12px;padding:10px 14px;font-size:15px}
+.plan ul{list-style:none;padding:0;margin:0;display:grid;gap:10px;font-size:16px}
+.plan li{display:flex;gap:10px}
+.plan li svg{flex:none;width:22px;height:22px;color:var(--grn)}
+.plan .btn{margin-top:auto;width:100%}
+.calc{margin-top:34px;background:#fff;border:1px solid var(--line);border-radius:24px;padding:30px 34px;display:grid;grid-template-columns:auto auto 1fr;gap:22px 30px;align-items:center}
+.calc h3{grid-column:1/-1;font-size:22px}
+.num-in{display:flex;flex-direction:column;gap:8px;font-weight:700;font-size:15px}
+.stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:14px;overflow:hidden;height:52px}
+.stepper button{width:48px;height:100%;border:0;background:var(--bg);font-size:22px;font-weight:700;color:var(--navy);cursor:pointer}
+.stepper button:hover{background:var(--blue0)}
+.stepper input{width:76px;height:100%;border:0;text-align:center;font:inherit;font-size:19px;font-weight:700;color:var(--navy)}
+.calc-out{background:var(--navy);color:#fff;border-radius:18px;padding:18px 24px}
+.calc-out b{font-family:var(--ft);font-size:34px;font-weight:900;color:var(--yel);display:block;line-height:1.1}
+.calc-out span{font-size:15px;color:#C3D0EE}
+.price-note{text-align:center;margin-top:22px;color:var(--ink2);font-size:15px}
+
+/* lgpd */
+.lgpd .wrap{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.lgpd .media{display:flex;gap:22px;justify-content:center}
+.lgpd .phone{width:250px}
+.lgpd .phone:nth-child(2){margin-top:60px}
+.lgpd-list{display:grid;gap:18px;margin-top:30px}
+.li{display:flex;gap:14px}
+.li .i{flex:none;width:46px;height:46px;border-radius:14px;background:var(--grn0);color:var(--grn7);display:grid;place-items:center}
+.li .i svg{width:24px;height:24px}
+.li b{font-family:var(--ft);font-size:18px;color:var(--navy);display:block}
+.li span{color:var(--ink2);font-size:16px}
+
+/* ods */
+.ods{padding:0 0 110px}
+.ods-card{display:grid;grid-template-columns:auto 1fr auto;gap:36px;align-items:center;background:linear-gradient(120deg,#FFF8DB,#FFEFD0);border-radius:28px;padding:40px 48px}
+.ods-badge{width:118px;height:118px;border-radius:24px;background:#DD1367;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--ft);font-weight:900;line-height:1}
+.ods-badge b{font-size:50px}.ods-badge span{font-size:12px;letter-spacing:.08em;margin-top:6px}
+.ods-card h3{font-size:clamp(24px,2.6vw,32px)}
+.ods-card p{color:var(--ink2);margin-top:10px}
+
+/* faq */
+.faq .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px}
+.faq details{border-bottom:1px solid var(--line);padding:6px 0}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;align-items:center;padding:18px 0;font-family:var(--ft);font-weight:800;font-size:19px;color:var(--navy)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;width:34px;height:34px;border-radius:50%;background:var(--blue0);color:var(--blue);display:grid;place-items:center;font-size:22px;transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 50px 20px 0;color:var(--ink2)}
+
+/* final cta */
+.final{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.final::before{content:"";position:absolute;left:-200px;bottom:-260px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(47,111,237,.45),transparent 65%)}
+.final .wrap{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.final h2{color:#fff;font-size:clamp(34px,4.4vw,54px)}
+.final .eyebrow{color:var(--yel)}
+.final p.l{color:#C3D0EE;font-size:19px;margin-top:18px}
+.final ul{list-style:none;padding:0;margin:26px 0 0;display:grid;gap:10px;color:#E3EAFB}
+.final li{display:flex;gap:10px}.final li svg{width:22px;height:22px;color:var(--yel);flex:none}
+.form{background:#fff;color:var(--ink);border-radius:24px;padding:34px;display:grid;gap:16px;box-shadow:0 30px 70px -30px rgba(0,0,0,.5)}
+.form h3{font-size:24px}
+.f2c{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fld{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:14px}
+.fld input,.fld select{height:52px;border:1px solid #B9C1CF;border-radius:12px;padding:0 14px;font:inherit;font-size:16px;font-weight:400;color:var(--ink);background:#fff}
+.fld input:focus,.fld select:focus{outline:0;border:2px solid var(--blue);padding:0 13px}
+.form .btn{width:100%}
+.form small{color:#7A8395;font-size:13px;text-align:center}
+.ok{display:none;text-align:center;padding:30px 10px}
+.ok .i{width:72px;height:72px;border-radius:50%;background:var(--grn0);color:var(--grn7);display:grid;place-items:center;margin:0 auto 16px}
+.ok .i svg{width:36px;height:36px}
+.form.sent>*:not(.ok){display:none}.form.sent .ok{display:block}
+
+/* footer */
+footer{background:#0A1F4D;color:#AFBCD9;padding:60px 0 40px;font-size:15px}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+footer .logo b{color:#fff}
+footer h4{color:#fff;font-size:16px;margin-bottom:14px}
+footer a{color:#AFBCD9;text-decoration:none;display:block;margin:8px 0}
+footer a:hover{color:#fff}
+.legal{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.12);padding-top:24px;margin-top:10px;font-size:13px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}}
+
+/* mobile cta bar */
+.mbar{display:none}
+
+@media (max-width:1060px){
+  .links{display:none}.menu-b{display:grid}.nav .b1{display:none}
+  .nav.open .links{display:flex;position:absolute;top:76px;left:0;right:0;flex-direction:column;gap:0;background:#fff;border-bottom:1px solid var(--line);padding:8px 20px 20px}
+  .nav.open .links a{padding:14px 0;border-bottom:1px solid var(--line);font-size:18px}
+  .hero .wrap,.panel,.panel.web,.aud,.lgpd .wrap,.faq .wrap,.final .wrap{grid-template-columns:1fr}
+  .panel.web .media{order:0}
+  .stage{height:520px;max-width:640px;width:100%;margin:0 auto}.stage .browser{right:0;width:88%}
+  .pgrid,.flow,.plans{grid-template-columns:1fr}
+  .plan.hl{transform:none}
+  .calc{grid-template-columns:1fr 1fr}.calc-out{grid-column:1/-1}
+  .ods-card{grid-template-columns:1fr;text-align:left}
+  footer .wrap{grid-template-columns:1fr 1fr}footer .wrap>div:first-child{grid-column:1/-1}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .sec{padding:76px 0}
+  .hero{padding:40px 0 70px}
+  .lead{font-size:18px}
+  .ctas .btn{width:100%}
+  .stage{height:440px}
+  .stage .browser{width:92%;top:0}
+  .stage .phone{width:170px;padding:7px;border-radius:32px;bottom:0}
+  .stage .phone video{border-radius:26px}
+  .f1{left:auto;right:0;top:auto;bottom:150px}.f2{display:none}
+  .float{font-size:13px;padding:10px 12px 10px 10px}
+  .panel{gap:34px}.panel .phone{width:240px}
+  .research{grid-template-columns:1fr;padding:24px}
+  .bgrid{grid-template-columns:1fr}
+  .acard{padding:30px 24px}
+  .cmp th,.cmp td{padding:12px 8px;font-size:14px}
+  .lgpd .phone{width:150px;padding:7px;border-radius:30px}.lgpd .phone video{border-radius:24px}
+  .ods-card{padding:30px 24px}
+  .f2c{grid-template-columns:1fr}
+  .form{padding:24px}
+  .faq details p{padding-right:0}
+  footer .wrap{grid-template-columns:1fr}
+  .mbar{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:60;transform:translateY(120%);transition:transform .3s}
+  .mbar.on{transform:none}.mbar .btn{width:100%;box-shadow:0 14px 30px -10px rgba(14,42,102,.6)}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.2 4.2L19 7"/></symbol>
+  <symbol id="okc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" fill="currentColor" stroke="none" opacity=".14"/><path d="M7.5 12.3l3 3 6-6.3"/></symbol>
+  <symbol id="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></symbol>
+  <symbol id="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></symbol>
+  <symbol id="cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+  <symbol id="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="4.5" y="10.5" width="15" height="10" rx="3"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
+  <symbol id="heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/></symbol>
+  <symbol id="chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16M7 15l4-5 3 3 5-6"/></symbol>
+  <symbol id="bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/></symbol>
+  <symbol id="swap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13l-3-3M20 16H7l3 3"/></symbol>
+  <symbol id="chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M4.5 6.5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H10l-4.5 3.5v-3.5h0a2 2 0 0 1-1-1.7z"/></symbol>
+  <symbol id="pill" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="8.5" width="18" height="7" rx="3.5" transform="rotate(-35 12 12)"/><path d="M9.4 8.3l5.2 7.4" /></symbol>
+  <symbol id="doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3.5H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5z"/><path d="M14 3.5v5h5M9 13h6M9 16.5h4"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="6.5" y="2.5" width="11" height="19" rx="2.8"/><path d="M10.5 18.5h3"/></symbol>
+  <symbol id="star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"/></symbol>
+  <symbol id="key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="8" cy="14" r="4.5"/><path d="M11.3 10.8L19.5 2.6M16.5 5.6l2.4 2.4"/></symbol>
+  <symbol id="exp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5v11M7.5 10l4.5 4.5 4.5-4.5M5 18.5h14"/></symbol>
+  <symbol id="eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="unlink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9.5 14.5l-2 2a3.5 3.5 0 0 1-5-5l2-2M14.5 9.5l2-2a3.5 3.5 0 0 1 5 5l-2 2M4 4l16 16"/></symbol>
+  <symbol id="menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#topo" aria-label="Elo, início"><img src="lp/logo.png" alt=""><b>Elo</b></a>
+    <nav class="links" id="links" aria-label="Seções">
+      <a href="#como">Como funciona</a>
+      <a href="#demo">Veja o app</a>
+      <a href="#clinicas">Para clínicas</a>
+      <a href="#planos">Planos</a>
+      <a href="#duvidas">Dúvidas</a>
+    </nav>
+    <a class="btn b1" href="#contato">Agendar demonstração</a>
+    <button class="menu-b" id="menuB" aria-label="Abrir menu" aria-expanded="false" aria-controls="links"><svg><use href="#menu"/></svg></button>
+  </div>
+</header>
+
+<main id="topo">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="tag"><i>Novo</i> Para clínicas de fono, TO, psicologia e ABA</span>
+      <h1>Equipe alinhada, família junto, <em>paciente evoluindo.</em></h1>
+      <p class="lead">O Elo conecta o responsável e todos os terapeutas do paciente autista ou neurodivergente em um só prontuário. Menos tempo repetindo histórico, mais tempo cuidando.</p>
+      <div class="ctas">
+        <a class="btn b1" href="#contato"><svg><use href="#cal"/></svg>Agendar demonstração</a>
+        <a class="btn b2" href="#demo"><svg><use href="#play"/></svg>Ver o app funcionando</a>
+      </div>
+      <div class="trust">
+        <span><svg><use href="#okc"/></svg>Grátis para o responsável</span>
+        <span><svg><use href="#okc"/></svg>A partir de R$ 70 por terapeuta</span>
+        <span><svg><use href="#okc"/></svg>LGPD por padrão</span>
+      </div>
+    </div>
+    <div class="stage" aria-hidden="true">
+      <div class="browser"><div class="bar"><i></i><i></i><i></i><span>Elo · Clínica Raízes</span></div>
+        <video data-src="lp/06-painel-web.mp4" poster="lp/06-painel-web.jpg" muted loop playsinline></video></div>
+      <div class="phone"><video data-src="lp/01-registrar-crise.mp4" poster="lp/01-registrar-crise.jpg" muted loop playsinline></video></div>
+      <div class="float f1"><span class="ic" style="background:#FFF0EF;color:#B4232A"><svg><use href="#bell"/></svg></span><span><b>Crise registrada em casa</b>A equipe do Theo já foi avisada</span></div>
+      <div class="float f2"><span class="ic" style="background:#EAF8EF;color:#1D7348"><svg><use href="#chart"/></svg></span><span><b>Objetivo atingido</b>Pedir com 2 palavras · Fono</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="spec" aria-label="Especialidades atendidas">
+  <div class="wrap">
+    <p>Uma equipe, um prontuário:</p>
+    <div class="chips"><span class="chip c1">Fonoaudiologia</span><span class="chip c2">Terapia Ocupacional</span><span class="chip c3">Psicologia</span><span class="chip c4">ABA</span></div>
+  </div>
+</section>
+
+<section class="sec prob" id="problema">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="eyebrow">O problema</span>
+      <h2>Quando cada terapeuta trabalha sozinho, quem perde tempo é o paciente.</h2>
+      <p>O cuidado acontece em partes: em casa, no consultório de cada especialidade e na clínica. Ninguém vê o todo.</p>
+    </div>
+    <div class="pgrid">
+      <div class="pcard rv"><span class="n">01</span><h3>A família repete a história</h3><p>A cada novo profissional, o responsável conta tudo de novo e vira o mensageiro entre a equipe.</p></div>
+      <div class="pcard rv"><span class="n">02</span><h3>A casa não chega ao consultório</h3><p>Crises, rotina e o que funcionou ficam no celular da mãe ou no grupo de WhatsApp, longe de quem ajusta a terapia.</p></div>
+      <div class="pcard rv"><span class="n">03</span><h3>Orientações que se contradizem</h3><p>Sem tempo para registrar e alinhar condutas, cada terapeuta orienta de um jeito e a família fica no meio.</p></div>
+    </div>
+    <div class="research rv">
+      <div class="big">27</div>
+      <div><h3>pessoas ouvidas na nossa pesquisa: 15 responsáveis e 12 terapeutas.</h3>
+        <p>Os relatos mais comuns foram a dificuldade de comunicação entre profissionais e orientações contraditórias às famílias.</p>
+        <small>Os resultados refletem a amostra coletada e não devem ser generalizados.</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="como">
+  <div class="wrap">
+    <div class="sec-h center rv">
+      <span class="eyebrow">Como funciona</span>
+      <h2>Um caso. Uma equipe. Um só lugar.</h2>
+      <p>O paciente fica no centro. Cada pessoa usa o Elo do jeito que faz sentido para ela.</p>
+    </div>
+    <div class="flow">
+      <div class="step rv"><div class="num" style="background:var(--yel);color:var(--navy)">1</div><h3>O responsável registra</h3><p>Rotina, crises e o que ajudou, em poucos toques e com as próprias palavras. O paciente usa o Modo Paciente.</p><span class="who">App no celular · grátis</span></div>
+      <div class="step rv"><div class="num" style="background:var(--blue)">2</div><h3>A equipe alinha</h3><p>Cada terapeuta lança sessões e evoluções no mesmo prontuário e conversa com a equipe em um chat só dos profissionais.</p><span class="who">App do profissional</span></div>
+      <div class="step rv"><div class="num" style="background:var(--grn)">3</div><h3>A clínica acompanha</h3><p>Evolução por objetivo, crises por semana e sessões de cada especialidade em um painel. A passagem de caso não perde nada.</p><span class="who">Painel web da clínica</span></div>
+    </div>
+    <div class="hub rv"><span class="side">App do responsável</span><svg><use href="#swap"/></svg><span class="core">Prontuário compartilhado</span><svg><use href="#swap"/></svg><span class="side">Equipe e clínica</span></div>
+  </div>
+</section>
+
+<section class="sec demo" id="demo">
+  <div class="wrap">
+    <div class="sec-h center rv">
+      <span class="eyebrow">Veja o app funcionando</span>
+      <h2>Feito para usar com uma mão, no meio da rotina.</h2>
+      <p>Telas reais do protótipo, com dados fictícios. Escolha uma função.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Funções do Elo">
+      <button class="tab" role="tab" aria-selected="true" aria-controls="p1" id="t1">Registrar crise</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p2" id="t2" tabindex="-1">Modo Paciente</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p3" id="t3" tabindex="-1">Autorizar vínculo</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p4" id="t4" tabindex="-1">Laudos</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p5" id="t5" tabindex="-1">App do profissional</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p6" id="t6" tabindex="-1">Painel da clínica</button>
+    </div>
+
+    <div class="panel" role="tabpanel" id="p1" aria-labelledby="t1">
+      <div class="media"><div class="phone"><video data-src="lp/01-registrar-crise.mp4" poster="lp/01-registrar-crise.jpg" muted loop playsinline aria-label="Responsável registra uma crise no app"></video></div></div>
+      <div><span class="who-b" style="background:var(--yel0);color:#7A5A00">Responsável</span>
+        <h3>A crise registrada em casa chega antes da próxima sessão.</h3>
+        <p class="d">Como foi, o que aconteceu antes e o que ajudou. Em menos de um minuto, a equipe inteira sabe.</p>
+        <ul class="ticks"><li><svg><use href="#okc"/></svg>Opções prontas para tocar, sem digitar muito</li><li><svg><use href="#okc"/></svg>“O que ajudou?” em texto livre, com as palavras da família</li><li><svg><use href="#okc"/></svg>Entra no prontuário e no gráfico de crises da clínica</li></ul>
+        <a class="btn b2" href="elo-app/" target="_blank" rel="noopener">Testar no protótipo <svg><use href="#arr"/></svg></a></div>
+    </div>
+    <div class="panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden>
+      <div class="media"><div class="phone"><video data-src="lp/02-modo-paciente.mp4" poster="lp/02-modo-paciente.jpg" muted loop playsinline aria-label="Modo Paciente com rotina visual e prancha de comunicação"></video></div></div>
+      <div><span class="who-b" style="background:var(--yel0);color:#7A5A00">Paciente</span>
+        <h3>Rotina visual e uma prancha para o paciente se expressar.</h3>
+        <p class="d">O Modo Paciente mostra uma tarefa por vez, com figuras grandes, e uma prancha de comunicação que fala a frase montada.</p>
+        <ul class="ticks"><li><svg><use href="#okc"/></svg>Uma coisa de cada vez, sem distrações</li><li><svg><use href="#okc"/></svg>Prancha “Eu quero” com voz</li><li><svg><use href="#okc"/></svg>Bloqueado para o paciente não sair sem querer</li></ul>
+        <a class="btn b2" href="elo-app/" target="_blank" rel="noopener">Testar no protótipo <svg><use href="#arr"/></svg></a></div>
+    </div>
+    <div class="panel" role="tabpanel" id="p3" aria-labelledby="t3" hidden>
+      <div class="media"><div class="phone"><video data-src="lp/03-autorizar-vinculo.mp4" poster="lp/03-autorizar-vinculo.jpg" muted loop playsinline aria-label="Responsável autoriza o vínculo de uma profissional"></video></div></div>
+      <div><span class="who-b" style="background:var(--grn0);color:var(--grn7)">Responsável · LGPD</span>
+        <h3>Ninguém vê nada sem a autorização do responsável.</h3>
+        <p class="d">O profissional pede vínculo com o código do paciente. O responsável escolhe o que ele pode ver e fazer, e pode desfazer quando quiser.</p>
+        <ul class="ticks"><li><svg><use href="#okc"/></svg>Permissões por assunto: rotina, crises, documentos, chat</li><li><svg><use href="#okc"/></svg>Consentimento registrado, como pede a LGPD</li><li><svg><use href="#okc"/></svg>Desvincular em um toque</li></ul>
+        <a class="btn b2" href="elo-app/" target="_blank" rel="noopener">Testar no protótipo <svg><use href="#arr"/></svg></a></div>
+    </div>
+    <div class="panel" role="tabpanel" id="p4" aria-labelledby="t4" hidden>
+      <div class="media"><div class="phone"><video data-src="lp/04-laudo.mp4" poster="lp/04-laudo.jpg" muted loop playsinline aria-label="Envio de laudo antigo pela câmera"></video></div></div>
+      <div><span class="who-b" style="background:var(--yel0);color:#7A5A00">Responsável</span>
+        <h3>Laudos antigos no lugar certo, sem pasta de papel.</h3>
+        <p class="d">Foto ou arquivo, tipo e data. O responsável decide quais profissionais podem ver cada documento.</p>
+        <ul class="ticks"><li><svg><use href="#okc"/></svg>Pela câmera do celular ou por arquivo</li><li><svg><use href="#okc"/></svg>Laudos, relatórios, exames e receitas</li><li><svg><use href="#okc"/></svg>Toda a equipe consulta o mesmo histórico</li></ul>
+        <a class="btn b2" href="elo-app/" target="_blank" rel="noopener">Testar no protótipo <svg><use href="#arr"/></svg></a></div>
+    </div>
+    <div class="panel" role="tabpanel" id="p5" aria-labelledby="t5" hidden>
+      <div class="media"><div class="phone"><video data-src="lp/05-profissional.mp4" poster="lp/05-profissional.jpg" muted loop playsinline aria-label="Profissional lança registro de sessão no celular"></video></div></div>
+      <div><span class="who-b" style="background:var(--blue0);color:var(--blue7)">Profissional</span>
+        <h3>O registro da sessão leva segundos, no celular.</h3>
+        <p class="d">Pacientes do dia, histórico da equipe e o objetivo trabalhado. O terapeuta registra entre um atendimento e outro.</p>
+        <ul class="ticks"><li><svg><use href="#okc"/></svg>Sessão, evolução ou observação por objetivo</li><li><svg><use href="#okc"/></svg>Resumo em linguagem simples para o responsável</li><li><svg><use href="#okc"/></svg>Atividades para casa enviadas na hora</li></ul>
+        <a class="btn b2" href="elo-app/" target="_blank" rel="noopener">Testar no protótipo <svg><use href="#arr"/></svg></a></div>
+    </div>
+    <div class="panel web" role="tabpanel" id="p6" aria-labelledby="t6" hidden>
+      <div class="media"><div class="browser"><div class="bar"><i></i><i></i><i></i><span>Elo · Clínica Raízes</span></div><video data-src="lp/06-painel-web.mp4" poster="lp/06-painel-web.jpg" muted loop playsinline aria-label="Painel web da clínica com a evolução do paciente"></video></div></div>
+      <div><span class="who-b" style="background:var(--blue0);color:var(--blue7)">Clínica</span>
+        <h3>A evolução de cada paciente em um painel.</h3>
+        <p class="d">Progresso por objetivo, crises por semana e sessões de cada especialidade. Dados de um paciente só, nunca misturados.</p>
+        <ul class="ticks"><li><svg><use href="#okc"/></svg>Gráficos de evolução por objetivo</li><li><svg><use href="#okc"/></svg>Passagem de caso entre profissionais</li><li><svg><use href="#okc"/></svg>Exportação do prontuário</li></ul>
+        <a class="btn b2" href="elo-web/" target="_blank" rel="noopener">Testar o painel <svg><use href="#arr"/></svg></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="clinicas">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="eyebrow">Para quem é</span>
+      <h2>A clínica assina. O responsável usa grátis.</h2>
+      <p>Valor para quem gere a equipe e para quem cuida em casa.</p>
+    </div>
+    <div class="aud">
+      <div class="acard cl rv">
+        <span class="eyebrow">Para clínicas e terapeutas</span>
+        <h3>Menos retrabalho, mais resultado para mostrar.</h3>
+        <div class="bgrid">
+          <div class="bi"><span class="i"><svg><use href="#chart"/></svg></span><div><b>Evolução que se vê</b><span>Gráficos por objetivo para mostrar à família e à equipe.</span></div></div>
+          <div class="bi"><span class="i"><svg><use href="#bell"/></svg></span><div><b>Contexto antes da sessão</b><span>Crises e rotina de casa chegam antes do atendimento.</span></div></div>
+          <div class="bi"><span class="i"><svg><use href="#chat"/></svg></span><div><b>Chat só da equipe</b><span>Conversa por paciente, separada da família.</span></div></div>
+          <div class="bi"><span class="i"><svg><use href="#pill"/></svg></span><div><b>Medicação e encaminhamentos</b><span>Junto das evoluções, no mesmo prontuário.</span></div></div>
+          <div class="bi"><span class="i"><svg><use href="#swap"/></svg></span><div><b>Passagem de caso</b><span>Quem chega recebe todo o histórico.</span></div></div>
+          <div class="bi"><span class="i"><svg><use href="#exp"/></svg></span><div><b>Exportação</b><span>Prontuário completo quando precisar.</span></div></div>
+        </div>
+      </div>
+      <div class="acard rs rv">
+        <span class="eyebrow">Para responsáveis</span>
+        <h3>Contar uma vez e ser ouvido por toda a equipe.</h3>
+        <div class="bgrid">
+          <div class="bi"><span class="i"><svg><use href="#heart"/></svg></span><div><b>Registros em poucos toques</b><span>Rotina, crises e o que ajudou, do jeito da família.</span></div></div>
+          <div class="bi"><span class="i"><svg><use href="#star"/></svg></span><div><b>Modo Paciente</b><span>Rotina visual e prancha de comunicação com voz.</span></div></div>
+          <div class="bi"><span class="i"><svg><use href="#key"/></svg></span><div><b>Você decide quem vê</b><span>Cada profissional só acessa o que você autorizar.</span></div></div>
+        </div>
+        <span class="free"><svg width="22" height="22" style="color:var(--grn)"><use href="#okc"/></svg>Sempre grátis para o responsável</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="diferenciais" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="eyebrow">Por que o Elo</span>
+      <h2>Feito para a equipe do paciente neurodivergente, não só para a agenda.</h2>
+    </div>
+    <div class="rv" style="overflow-x:auto">
+      <table class="cmp">
+        <thead><tr><th scope="col">O que você precisa</th><th scope="col" class="elo">Elo</th><th scope="col">Grupo de WhatsApp e planilhas</th><th scope="col">Sistema de agenda e faturamento</th></tr></thead>
+        <tbody>
+          <tr><td>Profissionais de clínicas diferentes no mesmo caso</td><td class="elo"><span class="yes"><svg><use href="#ok"/></svg></span></td><td><span class="mid">~</span></td><td><span class="no"><svg><use href="#x"/></svg></span></td></tr>
+          <tr><td>Registros feitos pelo responsável, em casa</td><td class="elo"><span class="yes"><svg><use href="#ok"/></svg></span></td><td><span class="mid">~</span></td><td><span class="no"><svg><use href="#x"/></svg></span></td></tr>
+          <tr><td>Chat da equipe separado da família</td><td class="elo"><span class="yes"><svg><use href="#ok"/></svg></span></td><td><span class="no"><svg><use href="#x"/></svg></span></td><td><span class="no"><svg><use href="#x"/></svg></span></td></tr>
+          <tr><td>Evolução por objetivo em gráficos</td><td class="elo"><span class="yes"><svg><use href="#ok"/></svg></span></td><td><span class="no"><svg><use href="#x"/></svg></span></td><td><span class="mid">~</span></td></tr>
+          <tr><td>Consentimento do responsável (LGPD)</td><td class="elo"><span class="yes"><svg><use href="#ok"/></svg></span></td><td><span class="no"><svg><use href="#x"/></svg></span></td><td><span class="mid">~</span></td></tr>
+          <tr><td>Modo Paciente com prancha de comunicação</td><td class="elo"><span class="yes"><svg><use href="#ok"/></svg></span></td><td><span class="no"><svg><use href="#x"/></svg></span></td><td><span class="no"><svg><use href="#x"/></svg></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cmp-note">~ = em parte ou com improviso. O Elo não substitui protocolos ABA nem o faturamento de convênio: ele conecta a equipe.</p>
+  </div>
+</section>
+
+<section class="sec price-sec" id="planos">
+  <div class="wrap">
+    <div class="sec-h center rv">
+      <span class="eyebrow">Planos</span>
+      <h2>Preço por terapeuta. Simples assim.</h2>
+      <p>A clínica paga pelos terapeutas que usam o Elo. O responsável nunca paga.</p>
+    </div>
+    <div class="plans">
+      <div class="plan rv"><h3>Essencial</h3><div class="pr">R$ 70<small>/terapeuta/mês</small></div><div class="cap">Até 15 pacientes ativos por terapeuta</div>
+        <ul><li><svg><use href="#okc"/></svg>Prontuário, atividades e diário do responsável</li><li><svg><use href="#okc"/></svg>Dashboard por paciente</li><li><svg><use href="#okc"/></svg>Vínculo por código, com autorização do responsável</li></ul>
+        <a class="btn b2" href="#contato" data-plan="Essencial">Quero o Essencial</a></div>
+      <div class="plan hl rv"><span class="rec">MAIS ESCOLHIDO</span><h3>Profissional</h3><div class="pr">R$ 85<small>/terapeuta/mês</small></div><div class="cap">Até 30 pacientes ativos por terapeuta</div>
+        <ul><li><svg><use href="#okc"/></svg>Tudo do Essencial</li><li><svg><use href="#okc"/></svg>Passagem de caso</li><li><svg><use href="#okc"/></svg>Documentos e laudos compartilhados</li><li><svg><use href="#okc"/></svg>Exportar prontuário</li></ul>
+        <a class="btn b1" href="#contato" data-plan="Profissional">Quero o Profissional</a></div>
+      <div class="plan rv"><h3>Clínica</h3><div class="pr">R$ 100<small>/terapeuta/mês</small></div><div class="cap">Até 50 pacientes ativos por terapeuta</div>
+        <ul><li><svg><use href="#okc"/></svg>Tudo do Profissional</li><li><svg><use href="#okc"/></svg>Gestão de profissionais e acompanhamento geral</li><li><svg><use href="#okc"/></svg>Chat da equipe e app do profissional</li><li><svg><use href="#okc"/></svg>Exportação em lote e registro de acessos</li></ul>
+        <a class="btn b2" href="#contato" data-plan="Clínica">Quero o Clínica</a></div>
+    </div>
+    <div class="calc rv" aria-live="polite">
+      <h3>Quanto a sua clínica pagaria?</h3>
+      <div class="num-in">Terapeutas<div class="stepper"><button type="button" data-st="t" data-d="-1" aria-label="Menos um terapeuta">−</button><input id="cT" inputmode="numeric" value="6" aria-label="Número de terapeutas"><button type="button" data-st="t" data-d="1" aria-label="Mais um terapeuta">+</button></div></div>
+      <div class="num-in">Pacientes ativos<div class="stepper"><button type="button" data-st="p" data-d="-10" aria-label="Menos dez pacientes">−</button><input id="cP" inputmode="numeric" value="120" aria-label="Número de pacientes ativos"><button type="button" data-st="p" data-d="10" aria-label="Mais dez pacientes">+</button></div></div>
+      <div class="calc-out"><b id="cOut">R$ 510/mês</b><span id="cTxt">Plano Profissional · R$ 85 × 6 terapeutas</span></div>
+    </div>
+    <p class="price-note">Pagamento por Pix ou cartão. Precisa de mais pacientes por terapeuta? <a href="#contato">Fale com a gente</a> para um plano sob medida.</p>
+  </div>
+</section>
+
+<section class="sec lgpd" id="lgpd">
+  <div class="wrap">
+    <div class="rv">
+      <span class="eyebrow">Privacidade e LGPD</span>
+      <h2 style="font-size:clamp(32px,4.2vw,50px);margin-top:14px">Os dados são do paciente. Quem decide é o responsável.</h2>
+      <div class="lgpd-list">
+        <div class="li"><span class="i"><svg><use href="#key"/></svg></span><div><b>Vínculo por código</b><span>O profissional só entra com o código do paciente e a autorização do responsável.</span></div></div>
+        <div class="li"><span class="i"><svg><use href="#eye"/></svg></span><div><b>Permissão por assunto</b><span>Rotina, crises, documentos e chat: cada item liberado separadamente.</span></div></div>
+        <div class="li"><span class="i"><svg><use href="#unlink"/></svg></span><div><b>Desvincular quando quiser</b><span>O acesso termina na hora, sem burocracia.</span></div></div>
+        <div class="li"><span class="i"><svg><use href="#lock"/></svg></span><div><b>Registro de acessos e exportação</b><span>Transparência sobre quem viu o quê e direito de levar os dados.</span></div></div>
+      </div>
+    </div>
+    <div class="media rv" aria-hidden="true">
+      <div class="phone"><video data-src="lp/03-autorizar-vinculo.mp4" poster="lp/03-autorizar-vinculo.jpg" muted loop playsinline></video></div>
+      <div class="phone"><video data-src="lp/04-laudo.mp4" poster="lp/04-laudo.jpg" muted loop playsinline></video></div>
+    </div>
+  </div>
+</section>
+
+<section class="ods">
+  <div class="wrap">
+    <div class="ods-card rv">
+      <div class="ods-badge" aria-label="ODS 10"><span>ODS</span><b>10</b><span>DESIGUALDADES</span></div>
+      <div><h3>Cuidado integrado não pode ser privilégio de quem paga caro.</h3>
+        <p>O Elo nasceu alinhado à ODS 10 da ONU, redução das desigualdades. Por isso o responsável nunca paga: a rede de cuidado chega a qualquer família atendida por uma clínica parceira.</p></div>
+      <a class="btn b1" href="#contato">Quero fazer parte</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec faq" id="duvidas" style="padding-top:0">
+  <div class="wrap">
+    <div class="rv">
+      <span class="eyebrow">Dúvidas</span>
+      <h2 style="font-size:clamp(32px,4.2vw,46px);margin-top:14px">Perguntas que as clínicas fazem.</h2>
+      <p style="margin-top:16px;color:var(--ink2)">Não achou a sua? <a href="#contato">Fale com a gente</a>.</p>
+    </div>
+    <div class="rv">
+      <details open><summary>O responsável paga alguma coisa?</summary><p>Não. O app do responsável é sempre grátis. Quem assina é a clínica, por terapeuta.</p></details>
+      <details><summary>Preciso instalar alguma coisa?</summary><p>Responsáveis e terapeutas usam o app no celular. A gestão da clínica é feita no navegador, sem instalar nada.</p></details>
+      <details><summary>Terapeutas de clínicas diferentes podem atender o mesmo paciente?</summary><p>Sim. Cada profissional pede vínculo com o código do paciente e o responsável autoriza. Todos passam a ver o mesmo caso, cada um com as permissões liberadas.</p></details>
+      <details><summary>Como o Elo trata a LGPD?</summary><p>Nenhum profissional acessa dados sem autorização do responsável, que escolhe o que cada um pode ver e pode desvincular a qualquer momento. Os acessos ficam registrados e os dados podem ser exportados.</p></details>
+      <details><summary>O Elo substitui meu sistema de agenda ou o protocolo ABA?</summary><p>Não. O Elo conecta a equipe e a família em torno do paciente. Ele convive com a agenda, o faturamento e os protocolos que a clínica já usa.</p></details>
+      <details><summary>Posso ver antes de assinar?</summary><p>Sim. Teste o protótipo agora, com dados fictícios, ou agende uma demonstração de 20 minutos com a sua equipe.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="sec final" id="contato">
+  <div class="wrap">
+    <div class="rv">
+      <span class="eyebrow">Demonstração gratuita</span>
+      <h2>Veja o Elo com os casos da sua clínica.</h2>
+      <p class="l">Em 20 minutos mostramos o app do responsável, o app do profissional e o painel, e montamos o plano certo para a sua equipe.</p>
+      <ul><li><svg><use href="#okc"/></svg>Sem compromisso</li><li><svg><use href="#okc"/></svg>Para gestores e terapeutas</li><li><svg><use href="#okc"/></svg>Por vídeo, no horário da clínica</li></ul>
+    </div>
+    <form class="form rv" id="form" novalidate>
+      <h3>Agendar demonstração</h3>
+      <div class="f2c">
+        <label class="fld">Seu nome<input name="nome" autocomplete="name" required></label>
+        <label class="fld">Clínica<input name="clinica" autocomplete="organization" required></label>
+      </div>
+      <div class="f2c">
+        <label class="fld">WhatsApp<input name="whats" type="tel" inputmode="tel" autocomplete="tel" placeholder="(79) 9 0000-0000" required></label>
+        <label class="fld">Terapeutas na equipe<select name="equipe"><option>1 a 5</option><option selected>6 a 15</option><option>16 a 40</option><option>Mais de 40</option></select></label>
+      </div>
+      <label class="fld">Plano de interesse<select name="plano" id="fPlano"><option>Ainda não sei</option><option>Essencial</option><option>Profissional</option><option>Clínica</option></select></label>
+      <button class="btn b1" type="submit"><svg><use href="#cal"/></svg>Quero minha demonstração</button>
+      <small>Usamos seus dados só para falar sobre a demonstração.</small>
+      <div class="ok" role="status"><div class="i"><svg><use href="#ok"/></svg></div><h3>Pedido recebido!</h3><p style="color:var(--ink2);margin-top:8px">Vamos falar com você pelo WhatsApp para marcar o melhor horário.</p></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><a class="logo" href="#topo"><img src="lp/logo.png" alt=""><b>Elo</b></a><p style="margin-top:14px;max-width:360px">Um elo entre o responsável e a equipe terapêutica de pacientes autistas e neurodivergentes.</p></div>
+    <div><h4>Produto</h4><a href="#como">Como funciona</a><a href="#planos">Planos</a><a href="#lgpd">Privacidade e LGPD</a><a href="#duvidas">Dúvidas</a></div>
+    <div><h4>Protótipo</h4><a href="elo-app/" target="_blank" rel="noopener">App do responsável e do profissional</a><a href="elo-web/" target="_blank" rel="noopener">Painel web da clínica</a><a href="#contato">Agendar demonstração</a></div>
+    <div class="legal"><span>© 2026 Elo · Squad 14 · UNIT, Aracaju/SE</span><span>Protótipo: todos os nomes e dados das telas são fictícios.</span></div>
+  </div>
+</footer>
+
+<div class="mbar" id="mbar"><a class="btn b1" href="#contato"><svg><use href="#cal"/></svg>Agendar demonstração</a></div>
+
+<script>
+// Para receber os pedidos, preencha UM dos dois:
+const WHATSAPP = '';        // ex.: '5579999999999' (abre o WhatsApp com a mensagem pronta)
+const FORM_ENDPOINT = '';   // ex.: URL do Formspree/Google Apps Script que recebe POST
+
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// nav
+const nav = document.getElementById('nav'), mb = document.getElementById('menuB');
+addEventListener('scroll', () => { nav.classList.toggle('sc', scrollY > 10); document.getElementById('mbar').classList.toggle('on', scrollY > 600 && !isNear('#contato')); }, { passive: true });
+function isNear(sel){ const r = document.querySelector(sel).getBoundingClientRect(); return r.top < innerHeight && r.bottom > 0; }
+mb.onclick = () => { const o = nav.classList.toggle('open'); mb.setAttribute('aria-expanded', o); };
+document.querySelectorAll('.links a').forEach(a => a.onclick = () => { nav.classList.remove('open'); mb.setAttribute('aria-expanded', false); });
+
+// lazy videos: play only when visible
+const vio = new IntersectionObserver(es => es.forEach(e => { const v = e.target;
+  if (e.isIntersecting) { if (!v.src) v.src = v.dataset.src; if (!reduce) v.play().catch(() => {}); } else v.pause(); }), { rootMargin: '120px' });
+document.querySelectorAll('video[data-src]').forEach(v => vio.observe(v));
+
+// reveal
+const rio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); rio.unobserve(e.target); } }), { threshold: .12 });
+document.querySelectorAll('.rv').forEach((el, i) => { el.style.transitionDelay = (i % 3) * 80 + 'ms'; rio.observe(el); });
+
+// tabs
+const tabs = [...document.querySelectorAll('[role=tab]')];
+function sel(t){ tabs.forEach(x => { const on = x === t; x.setAttribute('aria-selected', on); x.tabIndex = on ? 0 : -1;
+  const p = document.getElementById(x.getAttribute('aria-controls')); p.hidden = !on; const v = p.querySelector('video');
+  if (on) { if (!v.src) v.src = v.dataset.src; v.currentTime = 0; if (!reduce) v.play().catch(() => {}); } else v.pause(); }); }
+tabs.forEach((t, i) => { t.onclick = () => sel(t); t.onkeydown = e => { const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (d) { const n = tabs[(i + d + tabs.length) % tabs.length]; n.focus(); sel(n); } }; });
+
+// calculator
+const PL = [['Essencial', 70, 15], ['Profissional', 85, 30], ['Clínica', 100, 50]];
+const cT = document.getElementById('cT'), cP = document.getElementById('cP');
+const brl = n => 'R$ ' + n.toLocaleString('pt-BR');
+function calc(){ const t = Math.max(1, parseInt(cT.value) || 1), p = Math.max(0, parseInt(cP.value) || 0);
+  const pl = PL.find(x => x[2] * t >= p);
+  document.getElementById('cOut').textContent = pl ? brl(pl[1] * t) + '/mês' : 'Plano sob medida';
+  document.getElementById('cTxt').textContent = pl ? `Plano ${pl[0]} · ${brl(pl[1])} × ${t} terapeuta${t > 1 ? 's' : ''} · até ${pl[2] * t} pacientes` : `Mais de 50 pacientes por terapeuta: fale com a gente.`; }
+document.querySelectorAll('[data-st]').forEach(b => b.onclick = () => { const i = b.dataset.st === 't' ? cT : cP; i.value = Math.max(b.dataset.st === 't' ? 1 : 0, (parseInt(i.value) || 0) + +b.dataset.d); calc(); });
+[cT, cP].forEach(i => i.oninput = () => { i.value = i.value.replace(/\D/g, '').slice(0, 4); calc(); });
+calc();
+document.querySelectorAll('[data-plan]').forEach(a => a.addEventListener('click', () => document.getElementById('fPlano').value = a.dataset.plan));
+
+// form
+const f = document.getElementById('form');
+f.onsubmit = async e => { e.preventDefault();
+  const bad = [...f.querySelectorAll('[required]')].filter(i => !i.value.trim());
+  f.querySelectorAll('input').forEach(i => i.style.borderColor = bad.includes(i) ? '#E5484D' : '');
+  if (bad.length) { bad[0].focus(); return; }
+  const d = Object.fromEntries(new FormData(f));
+  if (FORM_ENDPOINT) { try { await fetch(FORM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) }); } catch (_) {} }
+  else if (WHATSAPP) { const msg = `Olá! Quero uma demonstração do Elo.\nNome: ${d.nome}\nClínica: ${d.clinica}\nWhatsApp: ${d.whats}\nTerapeutas: ${d.equipe}\nPlano: ${d.plano}`; open('https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg), '_blank'); }
+  f.classList.add('sent'); f.querySelector('.ok').focus?.(); };
+</script>
+</body>
+</html>

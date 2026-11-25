@@ -1,8 +1,11 @@
-# Elo · Protótipos navegáveis
+# Elo
 
-Protótipos do Elo, plataforma que une a rotina de casa ao trabalho da equipe de terapia de crianças autistas e neurodivergentes.
+Site e protótipos do Elo, plataforma que conecta o responsável e a equipe terapêutica de pacientes autistas e neurodivergentes.
 
-- `elo-app/`: app da família (celular)
-- `elo-web/`: versão web para clínicas e profissionais
+- `index.html` + `lp/`: landing page (fellipedsg.github.io/elo-prototipos)
+- `elo-app/`: app do responsável e do profissional (celular)
+- `elo-web/`: painel web da clínica
 
-Todos os dados são fictícios.
+Todos os dados das telas são fictícios.
+
+Para receber os pedidos de demonstração, preencha `WHATSAPP` ou `FORM_ENDPOINT` no fim do `index.html`.
